@@ -9,4 +9,4 @@ minSDK = 21 for now
 
 Short demo video can be found at http://youtu.be/kd-EHyRRL9w
 
-![Alt text](http://i.imgur.com/4GTHhQ6.png?raw=true "Screenshots")
+![Alt text](http://i.imgur.com/QH44Z2D.jpg?raw=true "Screenshots")

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="fab_diameter">50dp</dimen>
+    <dimen name="fab_margins">15dp</dimen>
+    <dimen name="fab_2nd_margin">75dp</dimen>
+    <dimen name="fab_padding">6dp</dimen>
+</resources>

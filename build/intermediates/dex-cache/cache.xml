@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pre-dex-items>
+
+    <item
+        dex="/GoogleDrive/Code/Android/InstragramClient/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-9d1caee979115589223ddd61aabc2fbcd8fc97a2.jar"
+        jar="/GoogleDrive/Code/Android/InstragramClient/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/libs/internal_impl-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="01ec05bfbafcc07646ba813000bf2ef11742dd03"/>
+    <item
+        dex="/GoogleDrive/Code/Android/InstragramClient/app/build/intermediates/pre-dexed/debug/android-support-v7-recyclerview-908b6435322e6036af174f0876bcf28762062c88.jar"
+        jar="/GoogleDrive/Code/Android/InstragramClient/app/libs/android-support-v7-recyclerview.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="95c892d244f49414bbdf92c2235a32ea06bc68aa"/>
+    <item
+        dex="/GoogleDrive/Code/Android/InstragramClient/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-e8ccf744a97c6fc2dccc9745f3428b6f9795ee39.jar"
+        jar="/GoogleDrive/Code/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/21.0.3/support-annotations-21.0.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35"/>
+    <item
+        dex="/GoogleDrive/Code/Android/InstragramClient/app/build/intermediates/pre-dexed/debug/android-support-v7-cardview-ac7d911cc6cefd501cd643427031bf9c6e8e9184.jar"
+        jar="/GoogleDrive/Code/Android/InstragramClient/app/libs/android-support-v7-cardview.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="ec4908880324a1b3fdf09c7429e60f73bac0a95a"/>
+    <item
+        dex="/GoogleDrive/Code/Android/InstragramClient/app/build/intermediates/pre-dexed/debug/classes-474c1aba55f5076507cfee8c4246906ae5d75599.jar"
+        jar="/GoogleDrive/Code/Android/InstragramClient/app/build/intermediates/exploded-aar/com.android.support/support-v4/21.0.3/classes.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="2c91c949a45a21cdecf26e03951e46c7beec9ad8"/>
+    <item
+        dex="/GoogleDrive/Code/Android/InstragramClient/app/build/intermediates/pre-dexed/debug/joda-time-2.3-add9b7b0e06301d36cf4e79b832239d89d3879bc.jar"
+        jar="/Users/theo/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.3/56498efd17752898cfcc3868c1b6211a07b12b8f/joda-time-2.3.jar"
+        jumboMode="false"
+        revision="21.1.2"
+        sha1="56498efd17752898cfcc3868c1b6211a07b12b8f"/>
+
+</pre-dex-items>

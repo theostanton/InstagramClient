@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#ffffff">
+
+    <com.theostanton.InstragramClient.views.UserImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="5dp"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/user_image"
+            android:layout_gravity="center_vertical"
+            android:layout_alignParentStart="false"
+            android:layout_alignParentTop="false"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="false"
+            android:elevation="5dp"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/fullname_title"
+            android:transitionName="fullname_title"
+            android:layout_marginLeft="5dp"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/user_image"
+            android:text="Title Header" android:layout_marginTop="5dp" android:gravity="bottom"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginLeft="5dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Small Text"
+            android:id="@+id/username_title"
+            android:layout_alignParentBottom="true"
+            android:layout_toRightOf="@+id/user_image"
+            android:layout_marginBottom="5dp"
+            android:gravity="top"/>
+
+    <!--<ImageButton-->
+    <!--android:layout_width="25dp"-->
+    <!--android:layout_height="50dp"-->
+    <!--android:id="@+id/overflow_header_button"-->
+    <!--android:src="@drawable/ic_action_overflow"-->
+    <!--android:layout_gravity="right"-->
+    <!--android:background="#00000000" android:layout_alignParentTop="true" android:layout_alignParentRight="true"-->
+    <!--android:layout_alignParentBottom="true" android:scaleType="center"/>-->
+
+</RelativeLayout>

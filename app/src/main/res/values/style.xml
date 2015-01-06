@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--<style name="HeaderText" parent="@android:style/TextAppearance">-->
+        <!--<item name="anroid:text"        -->
+    <!--</style>-->
+
+    <style name="Apptheme" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowSharedElementEnterTransition">
+            @transition/change_image_transform
+        </item>
+        <item name="android:windowSharedElementExitTransition">
+            @transition/change_image_transform
+        </item>
+    </style>
+
+    <style name="HeaderFooterTextViews" parent="@android:style/TextAppearance.Small">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">@dimen/footer_text_height</item>
+        <item name="android:gravity">top|center_horizontal</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:alpha">0</item>
+    </style>
+
+    <style name="HeaderFooterNumberViews" parent="@android:style/TextAppearance.Medium">
+        <item name="android:text">10</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_height">@dimen/footer_number_height</item>
+        <item name="android:gravity">bottom|center_horizontal</item>
+        <item name="android:alpha">0</item>
+    </style>
+
+    <integer name="slide_duration">@android:integer/config_mediumAnimTime</integer>
+    <integer name="slide_interpolator">@android:anim/accelerate_decelerate_interpolator</integer>
+
+    <!--ffc107-->
+    <color name="main_colour">#03A9F4</color>
+    <color name="fab_colour">#01579B</color>
+
+</resources>

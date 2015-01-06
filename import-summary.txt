@@ -1,0 +1,207 @@
+ECLIPSE ANDROID PROJECT IMPORT SUMMARY
+======================================
+
+Ignored Files:
+--------------
+The following files were *not* copied into the new Gradle project; you
+should evaluate whether these are still needed in your project and if
+so manually move them:
+
+* .DS_Store
+* .idea/
+* .idea/.name
+* .idea/compiler.xml
+* .idea/copyright/
+* .idea/copyright/profiles_settings.xml
+* .idea/encodings.xml
+* .idea/inspectionProfiles/
+* .idea/inspectionProfiles/Project_Default.xml
+* .idea/inspectionProfiles/profiles_settings.xml
+* .idea/libraries/
+* .idea/libraries/android_support_v4.xml
+* .idea/libraries/android_support_v7_cardview.xml
+* .idea/libraries/joda_time_2_3.xml
+* .idea/misc.xml
+* .idea/modules.xml
+* .idea/scopes/
+* .idea/scopes/scope_settings.xml
+* .idea/uiDesigner.xml
+* .idea/vcs.xml
+* .idea/workspace.xml
+* InstragramClient.iml
+* ant.properties
+* build.xml
+* jsons/
+* jsons/likes.json
+* jsons/myfeed.json
+* jsons/popular.json
+* jsons/post.json
+* jsons/user.json
+* old/
+* old/HeaderFragment.java
+* old/PostHeaderFragment.java
+* old/UserHeaderFragment.java
+* out/
+* out/production/
+* out/production/InstragramClient/
+* out/production/InstragramClient/InstragramClient.apk
+* out/production/InstragramClient/InstragramClient.unaligned.apk
+* out/production/InstragramClient/com/
+* out/production/InstragramClient/com/theostanton/
+* out/production/InstragramClient/com/theostanton/InstragramClient/
+* out/production/InstragramClient/com/theostanton/InstragramClient/BuildConfig.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/DownloadService.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/OnScrollListener.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/R$anim.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/R$animator.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/R$attr.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/R$color.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/R$dimen.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/R$drawable.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/R$id.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/R$integer.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/R$layout.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/R$string.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/R$style.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/R$styleable.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/R$transition.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/R$xml.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/R.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/Theo.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/activities/
+* out/production/InstragramClient/com/theostanton/InstragramClient/activities/MainActivity$1.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/activities/MainActivity.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/activities/PostActivity.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/adapters/
+* out/production/InstragramClient/com/theostanton/InstragramClient/adapters/CommentAdapter.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/adapters/PostsAdapter.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/adapters/UsersAdapter.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/animations/
+* out/production/InstragramClient/com/theostanton/InstragramClient/animations/ViewDimensionAnimation.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/animations/ViewSquareDimensionAnimation.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/bitmap/
+* out/production/InstragramClient/com/theostanton/InstragramClient/bitmap/BitmapCache.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/bitmap/BitmapHandler$1.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/bitmap/BitmapHandler.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/bitmap/BitmapHelper.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/bitmap/LoadBitmapToImageview.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/data/
+* out/production/InstragramClient/com/theostanton/InstragramClient/data/Comment.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/data/Post.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/data/User.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/fragments/
+* out/production/InstragramClient/com/theostanton/InstragramClient/fragments/BaseFragment$OnFragmentScrollListener.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/fragments/BaseFragment.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/fragments/FabFragment$1.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/fragments/FabFragment.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/fragments/PostsFragment$1$1.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/fragments/PostsFragment$1.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/fragments/PostsFragment.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/fragments/SettingsFragment$1.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/fragments/SettingsFragment$2$1.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/fragments/SettingsFragment$2.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/fragments/SettingsFragment.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/fragments/UserFragment$1.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/fragments/UserFragment$2.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/fragments/UserFragment$3.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/fragments/UserFragment$4.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/fragments/UserFragment.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/fragments/UsersFragment$1$1.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/fragments/UsersFragment$1.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/fragments/UsersFragment.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/fragments/header/
+* out/production/InstragramClient/com/theostanton/InstragramClient/fragments/header/HeaderFragment$1$1.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/fragments/header/HeaderFragment$1$2.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/fragments/header/HeaderFragment$1$3.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/fragments/header/HeaderFragment$1$4.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/fragments/header/HeaderFragment$1$5.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/fragments/header/HeaderFragment$1$6.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/fragments/header/HeaderFragment$1.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/fragments/header/HeaderFragment$2.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/fragments/header/HeaderFragment$3.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/fragments/header/HeaderFragment$4.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/fragments/header/HeaderFragment$5.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/fragments/header/HeaderFragment$6.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/fragments/header/HeaderFragment$7$1.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/fragments/header/HeaderFragment$7.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/fragments/header/HeaderFragment$8.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/fragments/header/HeaderFragment$OnFooterSelectedListener.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/fragments/header/HeaderFragment$ViewHolder.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/fragments/header/HeaderFragment.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/fragments/post/
+* out/production/InstragramClient/com/theostanton/InstragramClient/fragments/post/LowerPostFragment.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/fragments/post/PostFragment.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/fragments/post/UpperPostFragment$1.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/fragments/post/UpperPostFragment$2.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/fragments/post/UpperPostFragment$GestureListener.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/fragments/post/UpperPostFragment.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/helpers/
+* out/production/InstragramClient/com/theostanton/InstragramClient/helpers/AnimationHelper.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/helpers/HTTPHandler.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/helpers/TimeHelper.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/helpers/ViewHelper$1.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/helpers/ViewHelper$2.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/helpers/ViewHelper.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/instagram/
+* out/production/InstragramClient/com/theostanton/InstragramClient/instagram/InstaJSON.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/instagram/InstaURL.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/instagram/Instagram.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/listeners/
+* out/production/InstragramClient/com/theostanton/InstragramClient/listeners/OnPostSelectedListener.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/listeners/OnUserSelectedListener.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/views/
+* out/production/InstragramClient/com/theostanton/InstragramClient/views/FabNew.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/views/FooterPointer.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/views/FrameWithFractionLayout.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/views/GridImageView.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/views/GridViewWithHeader$1.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/views/GridViewWithHeader$mListAdapter$InternalViewHolder.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/views/GridViewWithHeader$mListAdapter.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/views/GridViewWithHeader.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/views/HeaderLayout.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/views/SquareImageView.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/views/TextViewGetHeight.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/views/UserImageView$1.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/views/UserImageView$LoadBitmap.class
+* out/production/InstragramClient/com/theostanton/InstragramClient/views/UserImageView.class
+* proguard-project.txt
+
+Replaced Jars with Dependencies:
+--------------------------------
+The importer recognized the following .jar files as third party
+libraries and replaced them with Gradle dependencies instead. This has
+the advantage that more explicit version information is known, and the
+libraries can be updated automatically. However, it is possible that
+the .jar file in your project was of an older version than the
+dependency we picked, which could render the project not compileable.
+You can disable the jar replacement in the import wizard and try again:
+
+android-support-v4.jar => com.android.support:support-v4:+
+joda-time-2.3.jar => joda-time:joda-time:2.3
+
+Moved Files:
+------------
+Android Gradle projects use a different directory structure than ADT
+Eclipse projects. Here's how the projects were restructured:
+
+* AndroidManifest.xml => app/src/main/AndroidManifest.xml
+* assets/ => app/src/main/assets/
+* libs/android-support-v7-cardview.jar => app/libs/android-support-v7-cardview.jar
+* libs/android-support-v7-recyclerview.jar => app/libs/android-support-v7-recyclerview.jar
+* res/ => app/src/main/res/
+* src/ => app/src/main/java/
+
+Next Steps:
+-----------
+You can now build the project. The Gradle project needs network
+connectivity to download dependencies.
+
+Bugs:
+-----
+If for some reason your project does not build, and you determine that
+it is due to a bug or limitation of the Eclipse to Gradle importer,
+please file a bug at http://b.android.com with category
+Component-Tools.
+
+(This import summary is for your information only, and can be deleted
+after import once you are satisfied with the results.)

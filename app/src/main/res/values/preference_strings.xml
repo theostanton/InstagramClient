@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="clear_cache_key">clear_cache_key</string>
+    <string name="crop_borders_key">crop_borders_key</string>
+    <string name="cache_to_disk">cach_to_memory</string>
+    <string name="cache_to_memory">cache_to_memory</string>
+    <string name="cache_json_to_memory">cache_json_to_memory</string>
+</resources>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Space android:layout_width="match_parent"
+               android:layout_height="50dp"
+               android:id="@+id/header_spacer_user_fragment"/>
+
+        <GridView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/gridview_user_fragment"
+                android:numColumns="3"
+                android:verticalSpacing="@dimen/grid_spacing"
+                android:horizontalSpacing="@dimen/grid_spacing"
+                android:layout_below="@+id/header_spacer_user_fragment"/>
+
+</RelativeLayout>

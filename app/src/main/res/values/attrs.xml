@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-    <declare-styleable name="FabNew">
+    <declare-styleable name="Fab">
         <attr name="fab_base_colour" format="color" />
         <attr name="fab_pressed_colour" format="color" />
     </declare-styleable>

@@ -19,6 +19,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Space;
 import android.widget.TextView;
+
 import com.theostanton.InstagramClient.data.Post;
 import com.theostanton.InstagramClient.data.User;
 import com.theostanton.InstagramClient.fragments.BaseFragment;
@@ -48,55 +49,6 @@ public class HeaderFragment extends BaseFragment implements View.OnClickListener
     public static final String POST_ID_EXTRA = "post_id_extra";
     public static final String TITLE_EXTRA = "title_extra";
     public static final String ALPHA_EXTRA = "alpha_extra";
-    // OUTGOING
-    public static final String HEIGHT_CHANGE_INTENT = "height_change_intent";
-    public static final String HEIGHT_EXTRA = "height_extra";
-    private static final String TAG = "HeaderFragment";
-    private static final int NUM_FOOTERS = 4;
-    private static int TOP_MARGIN_EXPANDED = 10;
-    private Handler handler;
-    private View view;
-    private ValueAnimator expansionAnimation = new ValueAnimator();
-    // these are all reassigned dp equivs in createVIew
-    private int expandedHeight = 450;
-    private int contractedHeight = 150;
-    private int heightDiff = expandedHeight - contractedHeight;
-    private int userimageMaxSize = 450;
-    private float currExpandFraction = 0.0f;
-    private View footerPointerView;
-    private int footerPos = 0;
-    private int footerWidth = 0;
-    private float footerCurrTranslation = 0.0f;
-    private ValueAnimator footerPointerAnimation = new ValueAnimator();
-
-
-    private Post post;
-    private User user;
-
-    private boolean expanded = false;
-
-    private ViewHolder v;
-
-    private TextView postsTextView;
-    private TextView likesTextView;
-    private TextView followsTextView;
-    private TextView followedbyTextView;
-
-    private boolean numbersPopulated = false;
-    private TextView postsNumberView;
-    private TextView likesNumberView;
-    private TextView followsNumberView;
-    private TextView followedbyNumberView;
-
-    private TextView bioTextView;
-    private TextView websiteTextView;
-
-    private Space topMargin;
-    private Space midVerticalMargin;
-
-    private ArrayList<View> viewsVisibleOnExpansion;
-
-    private OnFooterSelectedListener onFooterSelected;
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -178,6 +130,45 @@ public class HeaderFragment extends BaseFragment implements View.OnClickListener
             }
         }
     };
+    // OUTGOING
+    public static final String HEIGHT_CHANGE_INTENT = "height_change_intent";
+    public static final String HEIGHT_EXTRA = "height_extra";
+    private static final String TAG = "HeaderFragment";
+    private static final int NUM_FOOTERS = 4;
+    private static int TOP_MARGIN_EXPANDED = 10;
+    private Handler handler;
+    private View view;
+    private ValueAnimator expansionAnimation = new ValueAnimator();
+    // these are all reassigned dp equivs in createVIew
+    private int expandedHeight = 450;
+    private int contractedHeight = 150;
+    private int heightDiff = expandedHeight - contractedHeight;
+    private int userimageMaxSize = 450;
+    private float currExpandFraction = 0.0f;
+    private View footerPointerView;
+    private int footerPos = 0;
+    private int footerWidth = 0;
+    private float footerCurrTranslation = 0.0f;
+    private ValueAnimator footerPointerAnimation = new ValueAnimator();
+    private Post post;
+    private User user;
+    private boolean expanded = false;
+    private ViewHolder v;
+    private TextView postsTextView;
+    private TextView likesTextView;
+    private TextView followsTextView;
+    private TextView followedbyTextView;
+    private boolean numbersPopulated = false;
+    private TextView postsNumberView;
+    private TextView likesNumberView;
+    private TextView followsNumberView;
+    private TextView followedbyNumberView;
+    private TextView bioTextView;
+    private TextView websiteTextView;
+    private Space topMargin;
+    private Space midVerticalMargin;
+    private ArrayList<View> viewsVisibleOnExpansion;
+    private OnFooterSelectedListener onFooterSelected;
 
     public int getExpansion() {
         return view.getLayoutParams().height;
@@ -334,6 +325,8 @@ public class HeaderFragment extends BaseFragment implements View.OnClickListener
         for(View view:viewsVisibleOnExpansion){
             view.setOnClickListener(this);
         }
+
+        setFromTitle("Instagram");
 
         return view;
 
@@ -508,7 +501,7 @@ public class HeaderFragment extends BaseFragment implements View.OnClickListener
     }
 
     public void setAlpha(float alpha){
-        getView().setAlpha(alpha);
+        view.setAlpha(alpha);
     }
 
     // Root effects

@@ -4,7 +4,9 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/InstagramClient.iml" filepath="$PROJECT_DIR$/InstagramClient.iml" />
       <module fileurl="file://$PROJECT_DIR$/InstragramClient.iml" filepath="$PROJECT_DIR$/InstragramClient.iml" />
+      <module fileurl="file://$PROJECT_DIR$/InstragramClient.iml" filepath="$PROJECT_DIR$/InstragramClient.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
 </project>
+

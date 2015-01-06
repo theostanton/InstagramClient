@@ -77,7 +77,7 @@ containing a value of this type.
         public static final int comments_listview_post_fragment=0x7f0c0007;
         public static final int detail_text_header=0x7f0c0015;
         public static final int drawer_layout=0x7f0c0008;
-        public static final int fabs_container=0x7f0c000c;
+        public static final int fabs_container=0x7f0c000b;
         public static final int fabs_layout=0x7f0c0004;
         public static final int favourite_button=0x7f0c0006;
         public static final int footer_pointer=0x7f0c0018;
@@ -96,7 +96,7 @@ containing a value of this type.
         public static final int header_posts_text=0x7f0c001f;
         public static final int header_spacer_user_fragment=0x7f0c002c;
         public static final int imageview_postactivity=0x7f0c0023;
-        public static final int left_drawer=0x7f0c000b;
+        public static final int left_drawer=0x7f0c000c;
         public static final int likes_textview_post_fragment=0x7f0c0003;
         public static final int lower_post_container=0x7f0c0026;
         public static final int main_container=0x7f0c0009;
@@ -164,24 +164,24 @@ containing a value of this type.
         public static final int preferences=0x7f060000;
     }
     public static final class styleable {
-        /** Attributes that can be used with a FabNew.
+        /** Attributes that can be used with a Fab.
            <p>Includes the following attributes:</p>
            <table>
            <colgroup align="left" />
            <colgroup align="left" />
            <tr><th>Attribute</th><th>Description</th></tr>
-           <tr><td><code>{@link #FabNew_fab_base_colour com.theostanton.InstragramClient:fab_base_colour}</code></td><td></td></tr>
-           <tr><td><code>{@link #FabNew_fab_pressed_colour com.theostanton.InstragramClient:fab_pressed_colour}</code></td><td></td></tr>
+           <tr><td><code>{@link #Fab_fab_base_colour com.theostanton.InstragramClient:fab_base_colour}</code></td><td></td></tr>
+           <tr><td><code>{@link #Fab_fab_pressed_colour com.theostanton.InstragramClient:fab_pressed_colour}</code></td><td></td></tr>
            </table>
-           @see #FabNew_fab_base_colour
-           @see #FabNew_fab_pressed_colour
+           @see #Fab_fab_base_colour
+           @see #Fab_fab_pressed_colour
          */
-        public static final int[] FabNew = {
+        public static final int[] Fab = {
             0x7f010000, 0x7f010001
         };
         /**
           <p>This symbol is the offset where the {@link com.theostanton.InstragramClient.R.attr#fab_base_colour}
-          attribute's value can be found in the {@link #FabNew} array.
+          attribute's value can be found in the {@link #Fab} array.
 
 
           <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
@@ -193,10 +193,10 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.theostanton.InstragramClient:fab_base_colour
         */
-        public static final int FabNew_fab_base_colour = 0;
+        public static final int Fab_fab_base_colour = 0;
         /**
           <p>This symbol is the offset where the {@link com.theostanton.InstragramClient.R.attr#fab_pressed_colour}
-          attribute's value can be found in the {@link #FabNew} array.
+          attribute's value can be found in the {@link #Fab} array.
 
 
           <p>Must be a color value, in the form of "<code>#<i>rgb</i></code>", "<code>#<i>argb</i></code>",
@@ -208,6 +208,6 @@ theme attribute (in the form
 containing a value of this type.
           @attr name com.theostanton.InstragramClient:fab_pressed_colour
         */
-        public static final int FabNew_fab_pressed_colour = 1;
+        public static final int Fab_fab_pressed_colour = 1;
     };
 }

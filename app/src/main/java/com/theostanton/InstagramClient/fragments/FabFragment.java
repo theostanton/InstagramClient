@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
+
 import com.theostanton.InstagramClient.views.FrameWithFractionLayout;
 import com.theostanton.InstragramClient.R;
 
@@ -69,7 +70,7 @@ public class FabFragment extends BaseFragment {
                 setTranslation(val);
             }
         });
-        float duration = 1000.0f; // * Math.abs( newTranslation - currTranslation );
+        float duration = 300.0f; // * Math.abs( newTranslation - currTranslation );
 
         animator.setInterpolator(new AccelerateDecelerateInterpolator());
         animator.setDuration((long)duration);

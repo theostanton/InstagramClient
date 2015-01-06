@@ -10,13 +10,14 @@ import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.ImageButton;
+
 import com.theostanton.InstagramClient.helpers.ViewHelper;
 import com.theostanton.InstragramClient.R;
 
 /**
  * Created by theo on 02/01/15.
  */
-public class FabNew extends ImageButton {
+public class Fab extends ImageButton {
 
     private static final String TAG = "FabNew";
     private static final float IMAGE_PORTION = 0.8f;
@@ -24,22 +25,22 @@ public class FabNew extends ImageButton {
     private float radius;
     private int baseColour = Color.MAGENTA;
 
-    public FabNew(Context context) {
+    public Fab(Context context) {
         super(context);
         init(context,null);
     }
 
-    public FabNew(Context context, AttributeSet attrs) {
+    public Fab(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context,attrs);
     }
 
-    public FabNew(Context context, AttributeSet attrs, int defStyleAttr) {
+    public Fab(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context,attrs);
     }
 
-    public FabNew(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public Fab(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(context,attrs);
     }
@@ -51,10 +52,10 @@ public class FabNew extends ImageButton {
 
         radius = getWidth() / 2.0f;
 
-        TypedArray attr = context.obtainStyledAttributes(attributeSet,R.styleable.FabNew);
+        TypedArray attr = context.obtainStyledAttributes(attributeSet, R.styleable.Fab);
         if(attr!=null) {
             try {
-                baseColour = attr.getColor(R.styleable.FabNew_fab_base_colour, Color.GREEN);
+                baseColour = attr.getColor(R.styleable.Fab_fab_base_colour, Color.GREEN);
                 Log.d(TAG, "baseColour = " + baseColour);
             } finally {
                 attr.recycle();

@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.Space;
+
 import com.theostanton.InstagramClient.activities.MainActivity;
 import com.theostanton.InstagramClient.fragments.BaseFragment;
 import com.theostanton.InstagramClient.fragments.header.HeaderFragment;
@@ -111,7 +112,6 @@ public class PostFragment extends BaseFragment implements LowerPostFragment.OnFr
         upperPostFragment.setArguments(args);
         upperPostFragment.setGestureListener(this);
 
-
         lowerPostFragment = new LowerPostFragment();
         lowerPostFragment.setArguments(args);
         lowerPostFragment.setOnScrollListener(this);
@@ -123,10 +123,7 @@ public class PostFragment extends BaseFragment implements LowerPostFragment.OnFr
             transaction.setCustomAnimations(R.animator.slide_in_from_right, R.animator.slide_out_left);
         }
 
-
         transaction.replace(R.id.upper_post_container, upperPostFragment);
-
-
 
 //        long duration = 500L;
 //        TransitionSet exitSet = new TransitionSet();

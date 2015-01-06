@@ -4,7 +4,11 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.*;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
@@ -13,9 +17,15 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
 import com.theostanton.InstagramClient.bitmap.BitmapHandler;
 import com.theostanton.InstagramClient.data.Post;
-import com.theostanton.InstagramClient.fragments.*;
+import com.theostanton.InstagramClient.fragments.BaseFragment;
+import com.theostanton.InstagramClient.fragments.FabFragment;
+import com.theostanton.InstagramClient.fragments.PostsFragment;
+import com.theostanton.InstagramClient.fragments.SettingsFragment;
+import com.theostanton.InstagramClient.fragments.UserFragment;
+import com.theostanton.InstagramClient.fragments.UsersFragment;
 import com.theostanton.InstagramClient.fragments.header.HeaderFragment;
 import com.theostanton.InstagramClient.fragments.post.PostFragment;
 import com.theostanton.InstagramClient.helpers.ViewHelper;
@@ -27,6 +37,21 @@ import com.theostanton.InstragramClient.R;
 public class MainActivity extends Activity implements HeaderFragment.OnFooterSelectedListener, OnPostSelectedListener, OnUserSelectedListener, AdapterView.OnItemClickListener, View.OnClickListener, BaseFragment.OnFragmentScrollListener{
 
     public static final String BACK_INTENT = "Back intent";
+    private BroadcastReceiver receiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action.equals(BACK_INTENT)) {
+                onBackPressed();
+                return;
+            }
+            if (action.equals(HeaderFragment.HEIGHT_CHANGE_INTENT)) {
+                int headerHeight = intent.getIntExtra(HeaderFragment.HEIGHT_EXTRA, getResources().getDimensionPixelSize(R.dimen.header_contracted));
+                drawerList.setTranslationY(headerHeight);
+                return;
+            }
+        }
+    };
     public static final String SET_HEADER_USER_INTENT = "set user header intent";
     public static final String USER_ID_EXTRA = "User ID extra";
     public static final String POST_ID_ARG = "Post ID argument";
@@ -41,23 +66,6 @@ public class MainActivity extends Activity implements HeaderFragment.OnFooterSel
     private ListView drawerList;
     private HeaderFragment headerFragment;
     private FabFragment fabFragment;
-
-
-    private BroadcastReceiver receiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            if(action.equals(BACK_INTENT)){
-                onBackPressed();
-                return;
-            }
-            if(action.equals(HeaderFragment.HEIGHT_CHANGE_INTENT)){
-                int headerHeight = intent.getIntExtra(HeaderFragment.HEIGHT_EXTRA,getResources().getDimensionPixelSize(R.dimen.header_contracted));
-                drawerList.setTranslationY(headerHeight);
-                return;
-            }
-        }
-    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -79,6 +87,7 @@ public class MainActivity extends Activity implements HeaderFragment.OnFooterSel
         setContentView(R.layout.main);
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+
 
         drawerList = (ListView) findViewById(R.id.left_drawer);
         drawerList.setOnItemClickListener(this);
@@ -230,7 +239,6 @@ public class MainActivity extends Activity implements HeaderFragment.OnFooterSel
     }
 
     private void onUserSelected(int userId, int footerSelected){
-        fabFragment.hide();
         setHeaderFromUser(userId);
         UserFragment fragment = new UserFragment();
         Bundle args = new Bundle();

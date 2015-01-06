@@ -7,7 +7,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.*;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
+import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.TextView;
+
 import com.theostanton.InstagramClient.activities.MainActivity;
 import com.theostanton.InstagramClient.adapters.CommentAdapter;
 import com.theostanton.InstagramClient.data.Comment;
@@ -64,11 +69,14 @@ public class LowerPostFragment extends BaseFragment implements AdapterView.OnIte
 
         if (scrollHeader < 0 && view.getChildAt(0) != null) {
 //            ListView listView = (ListView) getView().findViewById(R.id.comments_listview_post_fragment);
+
+            // Decides whether to scroll both fragments or just lowerFragment
             int listHeight = ViewHelper.getTotalHeightofListView((ListView) view);
             int viewHeight = getView().getHeight();
             Log.d(TAG, "listHeight = " + listHeight + " viewheight = " + viewHeight + " diff = " + (listHeight - viewHeight));
             if (listHeight - viewHeight < contractedHeaderHeight) scrollHeader = 0;
             else scrollHeader = 1;
+
         } else if (scrollHeader == 1) {
 
             if (view.getChildAt(0) != null && (firstVisibleItem == 0 || firstVisibleItem == 1)) {

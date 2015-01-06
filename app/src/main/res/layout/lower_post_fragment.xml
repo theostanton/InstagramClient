@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.theostanton.InstragramClient.views.FrameWithFractionLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:fab="http://schemas.android.com/apk/res-auto"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<com.theostanton.InstagramClient.views.FrameWithFractionLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <ListView
             android:layout_width="match_parent"
@@ -12,7 +12,7 @@
             android:divider="#00000000"/>
 
 
-    <!--<com.theostanton.InstragramClient.views.FabNew-->
+    <!--<FabNew-->
             <!--android:layout_width="@dimen/fab_diameter"-->
             <!--android:layout_height="@dimen/fab_diameter"-->
             <!--android:src="@drawable/ic_action_edit"-->
@@ -28,7 +28,7 @@
             <!--android:id="@+id/add_comment_button"-->
             <!--android:background="#222222"/>-->
 
-    <!--<com.theostanton.InstragramClient.views.FabNew-->
+    <!--<FabNew-->
             <!--android:layout_width="@dimen/fab_diameter"-->
             <!--android:layout_height="@dimen/fab_diameter"-->
             <!--android:src="@drawable/ic_action_favorite"-->
@@ -52,6 +52,4 @@
                <!--android:layout_marginBottom="20dp"/>-->
 
 
-
-
-</com.theostanton.InstragramClient.views.FrameWithFractionLayout>
+</com.theostanton.InstagramClient.views.FrameWithFractionLayout>

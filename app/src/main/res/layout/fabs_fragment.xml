@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<com.theostanton.InstragramClient.views.FrameWithFractionLayout
+<com.theostanton.InstagramClient.views.FrameWithFractionLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:fab="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical"
@@ -8,7 +8,7 @@
         android:layout_height="match_parent"
         android:id="@+id/fabs_layout">
 
-    <com.theostanton.InstragramClient.views.FabNew
+        <com.theostanton.InstagramClient.views.FabNew
             android:layout_width="@dimen/fab_diameter"
             android:layout_height="@dimen/fab_diameter"
             android:src="@drawable/ic_action_edit"
@@ -24,7 +24,7 @@
             android:id="@+id/add_comment_button"
             android:background="#222222"/>
 
-    <com.theostanton.InstragramClient.views.FabNew
+        <com.theostanton.InstagramClient.views.FabNew
             android:layout_width="@dimen/fab_diameter"
             android:layout_height="@dimen/fab_diameter"
             android:src="@drawable/ic_action_favorite"
@@ -40,4 +40,4 @@
             android:background="#222222"
             android:id="@+id/favourite_button"/>
 
-</com.theostanton.InstragramClient.views.FrameWithFractionLayout>
+</com.theostanton.InstagramClient.views.FrameWithFractionLayout>

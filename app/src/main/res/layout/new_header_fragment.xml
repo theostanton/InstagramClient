@@ -41,7 +41,7 @@
 
     <view android:layout_width="40dp"
           android:layout_height="40dp"
-          class="com.theostanton.InstragramClient.views.UserImageView"
+          class="com.theostanton.InstagramClient.views.UserImageView"
           android:id="@+id/user_image_header"
           android:elevation="12dp"
           android:translationZ="8dp"
@@ -120,7 +120,7 @@
             android:alpha="0" />
 
 
-    <com.theostanton.InstragramClient.views.FooterPointer
+    <com.theostanton.InstagramClient.views.FooterPointer
                android:layout_width="0dp"
                android:layout_height="@dimen/footer_height"
                android:id="@+id/footer_pointer"

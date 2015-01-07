@@ -1,4 +1,4 @@
-InstagramClient
+Instagram Client
 ===============
 
 Demo Instagram Client with Material Design using the Instagram API
@@ -11,4 +11,4 @@ Latest demo on Nexus 5 http://youtu.be/Irfs0gD09lI
 
 Slightly older demo on Nexus 7 http://youtu.be/kd-EHyRRL9w
 
-![Alt text](http://i.imgur.com/QH44Z2D.jpg?raw=true "Screenshots")
+![Alt text](http://i.imgur.com/4SJFVVP.jpg?raw=true "Screenshots")

@@ -11,4 +11,4 @@ Latest demo on Nexus 5 http://youtu.be/Irfs0gD09lI
 
 Slightly older demo on Nexus 7 http://youtu.be/kd-EHyRRL9w
 
-![Alt text](http://i.imgur.com/K33i3la.png?raw=true "Screenshots")
+![Alt text](http://i.imgur.com/IU4yV2F.jpg?raw=true "Screenshots")

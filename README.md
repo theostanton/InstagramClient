@@ -7,8 +7,8 @@ By default logs into a basic account 'notnatsoeht', access token can be set manu
 
 minSDK = 21 for now
 
-Latest demo on Nexus 5 http://youtu.be/Irfs0gD09lI
+Latest demo on Nexus 5 http://youtu.be/h8NnH6LbL0w
 
-Slightly older demo on Nexus 7 http://youtu.be/kd-EHyRRL9w
+Older demo on Nexus 7 http://youtu.be/kd-EHyRRL9w
 
 ![Alt text](http://i.imgur.com/IU4yV2F.jpg?raw=true "Screenshots")

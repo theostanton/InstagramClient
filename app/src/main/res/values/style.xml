@@ -2,7 +2,7 @@
 <resources>
 
     <!--<style name="HeaderText" parent="@android:style/TextAppearance">-->
-        <!--<item name="anroid:text"        -->
+    <!--<item name="anroid:text"        -->
     <!--</style>-->
 
     <style name="Apptheme" parent="android:Theme.Material.Light.NoActionBar">
@@ -35,8 +35,10 @@
     <integer name="slide_duration">@android:integer/config_mediumAnimTime</integer>
     <integer name="slide_interpolator">@android:anim/accelerate_decelerate_interpolator</integer>
 
+    <!--2196F3-->
     <!--ffc107-->
-    <color name="main_colour">#03A9F4</color>
-    <color name="fab_colour">#01579B</color>
+    <!--ff5722-->
+    <color name="main_colour">#3f51b5</color>
+    <color name="fab_colour">#D32F2F</color>
 
 </resources>

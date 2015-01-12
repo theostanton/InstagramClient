@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +19,7 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.Space;
 import android.widget.TextView;
 
+import com.theostanton.InstagramClient.activities.MainActivity;
 import com.theostanton.InstagramClient.data.Post;
 import com.theostanton.InstagramClient.data.User;
 import com.theostanton.InstagramClient.fragments.BaseFragment;
@@ -38,6 +38,8 @@ public class HeaderFragment extends BaseFragment implements View.OnClickListener
 
     //INCOMING
     public static final String TITLE_INTENT = "title_intent";
+    public static final String SET_VISIBLE_INTENT = "set_visibile_intent";
+    public static final String TRANSLATEY_INTENT = "translatey_intent";
     public static final String USERS_FRAG_INTENT = "users_frag_intent";
     public static final String USER_FRAG_INTENT = "user_frag_intent";
     public static final String POST_FRAG_INTENT = "post_frag_intent";
@@ -45,10 +47,17 @@ public class HeaderFragment extends BaseFragment implements View.OnClickListener
     public static final String ALPHA_INTENT = "alpha_intent";
     public static final String EXPAND_INTENT = "expand_intent";
     public static final String COLLAPSE_INTENT = "collapse_intent";
+    public static final String TRANSLATEY_EXTRA = "trasnlatey_extra";
     public static final String USER_ID_EXTRA = "user_id_extra";
+    public static final String VISIBILTY_EXTRA = "visibility_extra";
+    public static final String FOOTER_SELECTED_EXTRA = "footer_selected_extra";
     public static final String POST_ID_EXTRA = "post_id_extra";
     public static final String TITLE_EXTRA = "title_extra";
     public static final String ALPHA_EXTRA = "alpha_extra";
+    // OUTGOING
+    public static final String HEIGHT_CHANGE_INTENT = "height_change_intent";
+    public static final String HEIGHT_EXTRA = "height_extra";
+    private static final String TAG = "HeaderFragment";
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -60,6 +69,28 @@ public class HeaderFragment extends BaseFragment implements View.OnClickListener
                     @Override
                     public void run() {
                         setFromTitle(title);
+                    }
+                });
+            }
+            if (action.equals(SET_VISIBLE_INTENT)) {
+                final boolean visible = intent.getBooleanExtra(VISIBILTY_EXTRA, true);
+//                getActivity().runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        Log.d(TAG,"set_visible visible=" + visible);
+//                        if(visible) show();
+//                        else hide();
+//                    }
+//                });
+            }
+
+            if (action.equals(TRANSLATEY_INTENT)) {
+                final float transateY = intent.getIntExtra(TRANSLATEY_EXTRA, 0);
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+//                        Log.d(TAG,"translateY " + transateY);
+                        view.setTranslationY(transateY);
                     }
                 });
             }
@@ -86,6 +117,16 @@ public class HeaderFragment extends BaseFragment implements View.OnClickListener
 
             if (action.equals(USER_FRAG_INTENT)) {
                 final int userId = intent.getIntExtra(USER_ID_EXTRA, -1);
+                final int footerId = intent.getIntExtra(FOOTER_SELECTED_EXTRA, 0);
+                Log.d(TAG, "USER_FRAG_INTENT userId=" + userId + " footerId=" + footerId);
+//
+
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        animateFooterPointer(footerId);
+                    }
+                });
                 setFromUser(userId);
                 return;
             }
@@ -130,15 +171,16 @@ public class HeaderFragment extends BaseFragment implements View.OnClickListener
             }
         }
     };
-    // OUTGOING
-    public static final String HEIGHT_CHANGE_INTENT = "height_change_intent";
-    public static final String HEIGHT_EXTRA = "height_extra";
-    private static final String TAG = "HeaderFragment";
     private static final int NUM_FOOTERS = 4;
     private static int TOP_MARGIN_EXPANDED = 10;
     private Handler handler;
     private View view;
     private ValueAnimator expansionAnimation = new ValueAnimator();
+
+
+    private ValueAnimator translationAnimation = new ValueAnimator();
+    private boolean hidden = false;
+
     // these are all reassigned dp equivs in createVIew
     private int expandedHeight = 450;
     private int contractedHeight = 150;
@@ -187,10 +229,23 @@ public class HeaderFragment extends BaseFragment implements View.OnClickListener
 
     @Override
     public void onClick(View v) {
-        Log.d(TAG,"onClick");
         int id = v.getId();
 
-        if(!expanded) toggleExpansion();
+        Log.d(TAG, "onClick " + getResources().getResourceEntryName(id));
+
+        if (id == R.id.back_button) {
+            Intent intent = new Intent(MainActivity.BACK_INTENT);
+            getActivity().sendBroadcast(intent);
+            Log.d(TAG, "Back Button Pressed");
+            return;
+        } else {
+            Log.d(TAG, "not back button pressed");
+        }
+
+        if (!expanded) {
+            toggleExpansion();
+            return;
+        }
 
         switch (id){
             case R.id.header_follows_number :
@@ -233,6 +288,8 @@ public class HeaderFragment extends BaseFragment implements View.OnClickListener
         handler = new Handler(looper);
 
         IntentFilter filter = new IntentFilter();
+        filter.addAction(TRANSLATEY_INTENT);
+        filter.addAction(SET_VISIBLE_INTENT);
         filter.addAction(USER_FRAG_INTENT);
         filter.addAction(POST_FRAG_INTENT);
         filter.addAction(POSTS_FRAG_INTENT);
@@ -264,11 +321,11 @@ public class HeaderFragment extends BaseFragment implements View.OnClickListener
         heightDiff = expandedHeight - contractedHeight;
     }
 
-    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.new_header_fragment, container, false);
+        view = inflater.inflate(R.layout.header_fragment, container, false);
 
+        view.findViewById(R.id.back_button).setOnClickListener(this);
         view.setOnClickListener(this);
 
         post = null;
@@ -277,8 +334,10 @@ public class HeaderFragment extends BaseFragment implements View.OnClickListener
         topMargin =  (Space) view.findViewById(R.id.top_margin_header);
         midVerticalMargin =  (Space) view.findViewById(R.id.vertical_mid_margin_header);
         Space bottomMargin =  (Space) view.findViewById(R.id.bottom_margin_header);
+        Space rightMargin = (Space) view.findViewById(R.id.right_margin_header);
         bottomMargin.getLayoutParams().height = TOP_MARGIN_EXPANDED;
         midVerticalMargin.getLayoutParams().width = TOP_MARGIN_EXPANDED;
+        rightMargin.getLayoutParams().width = TOP_MARGIN_EXPANDED;
 
         v = new ViewHolder();
         v.mainTextView = (TextView) view.findViewById(R.id.title_text_header);
@@ -337,6 +396,7 @@ public class HeaderFragment extends BaseFragment implements View.OnClickListener
     }
 
     public void setFromTitle(String title, String subTitle){
+        user = null;
         setTitles(title,subTitle);
         v.detailTextView.setText("");
         v.userImageView.useResource();
@@ -346,7 +406,6 @@ public class HeaderFragment extends BaseFragment implements View.OnClickListener
     public void setFromTitle(String title){
         setFromTitle(title, null);
     }
-
 
     // SetFrom methods reassess whole layout if necessary
 
@@ -380,6 +439,7 @@ public class HeaderFragment extends BaseFragment implements View.OnClickListener
         Log.d(TAG, "setFromPost()");
 
         contract();
+        show();
 
         if(user!=null && newPost.getUser().id==user.id){
             Log.d(TAG,"setFromPost userIds match");
@@ -398,6 +458,7 @@ public class HeaderFragment extends BaseFragment implements View.OnClickListener
     }
 
     private void setTitles(String main, String sub){
+        show();
         if(sub==null || sub.length()==0){
             v.mainTextView.setText("");
             v.subTextView.setText("");
@@ -417,7 +478,8 @@ public class HeaderFragment extends BaseFragment implements View.OnClickListener
     }
 
     public void setFromUser(int userId){
-        if(user.id==userId){
+
+        if (user != null && user.id == userId) {
             Log.d(TAG, "setFromUser ids match, return");
             if(post!=null){
                 getActivity().runOnUiThread(new Runnable() {
@@ -453,6 +515,7 @@ public class HeaderFragment extends BaseFragment implements View.OnClickListener
     public void setMinimumFromUser(int userId){
 
         contract();
+        show();
 
         if(user.id==userId) {
             Log.d(TAG, "setFromUser ids match, conracted and returned");
@@ -482,7 +545,9 @@ public class HeaderFragment extends BaseFragment implements View.OnClickListener
 
     public void setFromUser(User newUser){
 
-        animateFooterPointer(0);
+//        animateFooterPointer(0);
+
+        show();
 
         Log.d(TAG,"setFromUser()");
 
@@ -506,31 +571,76 @@ public class HeaderFragment extends BaseFragment implements View.OnClickListener
 
     // Root effects
 
+    public void show() {
+        if (translationAnimation.isRunning() && !hidden) return;
+        animateToTranslation(0.0f);
+    }
+
+    public void hide() {
+        if (translationAnimation.isRunning() && hidden) return;
+        animateToTranslation(-getResources().getDimensionPixelSize(R.dimen.header_contracted));
+    }
+
+    private void animateToTranslation(final float translationY) {
+        float currTranslation = view.getTranslationY();
+        if (currTranslation == translationY) return;
+
+        if (translationAnimation.isRunning()) {
+            translationAnimation.cancel();
+        }
+
+        Log.d(TAG, "animate from " + currTranslation + " to " + translationY);
+        expansionAnimation = ValueAnimator.ofFloat(currTranslation, translationY);
+        expansionAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator valueAnimator) {
+                float val = (Float) valueAnimator.getAnimatedValue();
+                Log.d(TAG, "val= " + val);
+                view.setTranslationY(val);
+
+
+//                float fraction = valueAnimator.getAnimatedFraction();
+                if (val == translationY) {
+                    Log.d(TAG, "complete");
+                    if (val == 0.0f) hidden = true;
+                    else hidden = false;
+                }
+            }
+        });
+        float duration = 300.0f; // * Math.abs( currTranslation - currExpandFraction );
+
+
+        expansionAnimation.setInterpolator(new DecelerateInterpolator());
+        expansionAnimation.setDuration((long) duration);
+        expansionAnimation.start();
+    }
+
     public void toggleExpansion(){
         if(expanded) contract();
         else expand();
     }
 
     public void expand(){
+        show();
         setAlpha(1.0f);
         if(user==null) return;
         if(expanded) return;
 
         if(!numbersPopulated) {
             populateNumbers();
-            // populateNumbers() starts thread and calls expand on completion, so return here
-            return;
+            // starts thread and calls expand() again on completion
+        } else {
+            calculateExpandedHeight();
+            animateToFraction(1.0f);
+            expanded = true;
         }
 
-        calculateExpandedHeight();
 
-
-        animateToFraction(1.0f);
-        expanded = true;
 
     }
 
     public void contract(){
+        show();
         setAlpha(1.0f);
 //        clearFooters();
         if(!expanded) return;
@@ -588,7 +698,7 @@ public class HeaderFragment extends BaseFragment implements View.OnClickListener
 
     private void animateToFraction(float newFraction){
         if(expansionAnimation.isRunning()) expansionAnimation.cancel();
-        Log.d(TAG,"animate from " + currExpandFraction + " to " + newFraction);
+        Log.d(TAG, "animate from " + currExpandFraction + " to " + newFraction);
         expansionAnimation = ValueAnimator.ofFloat(currExpandFraction, newFraction);
         expansionAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
@@ -741,6 +851,8 @@ public class HeaderFragment extends BaseFragment implements View.OnClickListener
     }
 
     private void animateFooterPointer(int newFooterPos){
+        Log.d(TAG, "animeatefooter to " + newFooterPos);
+
         if(footerPointerAnimation.isRunning()) footerPointerAnimation.cancel();
 
         float newTranslation = (float) newFooterPos * footerWidth;
@@ -753,7 +865,7 @@ public class HeaderFragment extends BaseFragment implements View.OnClickListener
                 footerPointerView.setTranslationX(footerCurrTranslation);
             }
         });
-//        float duration = 1000.0f * Math.abs( newFraction - currExpandFraction );
+//        float duration = 1000.0f * Math.abs( footerCurrTranslation - newTranslation );
 
 
         footerPointerAnimation.setInterpolator(new AccelerateDecelerateInterpolator());

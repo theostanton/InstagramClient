@@ -115,7 +115,6 @@ public class MainActivity extends Activity implements HeaderFragment.OnFooterSel
         boolean cacheJsonMemory = prefs.getBoolean(getResources().getString(R.string.cache_json_to_memory),true);
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -140,9 +139,10 @@ public class MainActivity extends Activity implements HeaderFragment.OnFooterSel
     }
 
 
-    private void setHeaderFromUser(int userId){
+    private void setHeaderFromUser(int userId, int footerSelected) {
         Intent intent = new Intent(HeaderFragment.USER_FRAG_INTENT);
         intent.putExtra(HeaderFragment.USER_ID_EXTRA,userId);
+        intent.putExtra(HeaderFragment.FOOTER_SELECTED_EXTRA, footerSelected);
         sendBroadcast(intent);
     }
 
@@ -239,7 +239,7 @@ public class MainActivity extends Activity implements HeaderFragment.OnFooterSel
     }
 
     private void onUserSelected(int userId, int footerSelected){
-        setHeaderFromUser(userId);
+        setHeaderFromUser(userId, footerSelected);
         UserFragment fragment = new UserFragment();
         Bundle args = new Bundle();
         args.putInt(UserFragment.USER_ID_ARG, userId);
@@ -251,13 +251,14 @@ public class MainActivity extends Activity implements HeaderFragment.OnFooterSel
 
     @Override
     public void onUserSelected(int userId) {
+        Log.e(TAG, "ignore this onUserSelected");
         onUserSelected(userId, UserFragment.POSTS);
     }
 
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-
+        Log.d(TAG, "onBackPressed()");
     }
 
     @Override

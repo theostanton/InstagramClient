@@ -1,12 +1,14 @@
 package com.theostanton.InstagramClient.fragments.post;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.*;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
+
 import com.theostanton.InstagramClient.activities.MainActivity;
 import com.theostanton.InstagramClient.bitmap.BitmapHandler;
 import com.theostanton.InstagramClient.bitmap.BitmapHelper;
@@ -27,74 +29,6 @@ public class UpperPostFragment extends BaseFragment {
 //    private int baseHeight = 500;
     private int maxHeight;
     private int yOffset = 0;
-    private GestureListener gestureListener;
-    final GestureDetector gesture = new GestureDetector(getActivity(),
-            new GestureDetector.SimpleOnGestureListener() {
-
-                @Override
-                public boolean onSingleTapConfirmed(MotionEvent e) {
-//                    if(e.getX()>getView().getWidth()/2) gestureListener.swipeLeft();
-//                    else gestureListener.swipeRight();
-                    return super.onSingleTapConfirmed(e);
-                }
-
-                @Override
-                public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-//                    Log.d(TAG,"onScroll distanceX " + distanceX + " distanceY " + distanceY);
-//                    float newHeight = (float)getView().getLayoutParams().height + distanceY;
-//
-//                    if(newHeight>maxHeight) newHeight = maxHeight;
-//                    else if(newHeight < 0) newHeight = 0;
-//
-//                    Log.d(TAG,"set newheight " + newHeight);
-//                    getView().getLayoutParams().height = (int)newHeight;
-//                    getView().requestLayout();
-
-//                    gestureListener.onScroll(distanceY);
-//                    float currY = getView().getTranslationY();
-//                    getView().setTranslationY( currY - distanceY );
-                    return super.onScroll(e1, e2, distanceX, distanceY);
-                }
-
-                @Override
-                public boolean onDown(MotionEvent e) {
-//                    Log.d(TAG,"onDown");
-                    return true;
-                }
-
-                @Override
-                public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
-                                       float velocityY) {
-                    final int SWIPE_MIN_DISTANCE = 120;
-                    final int SWIPE_MAX_OFF_PATH = 250;
-                    final int SWIPE_THRESHOLD_VELOCITY = 200;
-
-                    try {
-
-                        if (Math.abs(e1.getY() - e2.getY()) > SWIPE_MAX_OFF_PATH) {
-                            return false;
-                        }
-
-                        if (e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
-                            Log.d(TAG, "Right to Left");
-                            gestureListener.swipeLeft();
-
-                        } else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
-                            Log.d(TAG, "Left to Right");
-                            gestureListener.swipeRight();
-
-                        }
-
-                    } catch (Exception e) {
-                        // nothing
-                    }
-                    return super.onFling(e1, e2, velocityX, velocityY);
-                }
-            });
-
-    public void setGestureListener(Fragment fragment){
-        gestureListener = (GestureListener) fragment;
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -116,12 +50,15 @@ public class UpperPostFragment extends BaseFragment {
             }
         }
 
-        int userId = post.getUser().id;
-        Intent intent = new Intent(MainActivity.SET_HEADER_USER_INTENT);
-        intent.putExtra(MainActivity.USER_ID_EXTRA,userId);
-        getActivity().sendBroadcast(intent);
+        String imageUrl = "";
+        if (post != null) {
+            int userId = post.getUser().id;
+            Intent intent = new Intent(MainActivity.SET_HEADER_USER_INTENT);
+            intent.putExtra(MainActivity.USER_ID_EXTRA, userId);
+            getActivity().sendBroadcast(intent);
+            imageUrl = post.getImageUrl();
+        }
 
-        String imageUrl = post.getImageUrl();
 
         View view = inflater.inflate(R.layout.upper_post_fragment,container,false);
 
@@ -135,12 +72,6 @@ public class UpperPostFragment extends BaseFragment {
             else imageView.setImageBitmap(bitmap);
         }
 
-        imageView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return gesture.onTouchEvent(event);
-            }
-        });
 //        imageView.setY(100.0f);
 
         String stdUrl = post.getStdResUrl();
@@ -161,14 +92,6 @@ public class UpperPostFragment extends BaseFragment {
 //        imageView.setY(offset);
         getView().setLayoutParams(params);
 
-    }
-
-    public interface GestureListener {
-        public void onScroll(float dy);
-
-        public void swipeLeft();
-
-        public void swipeRight();
     }
 
 }

@@ -15,6 +15,7 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ListView;
+
 import com.theostanton.InstagramClient.adapters.PostsAdapter;
 import com.theostanton.InstagramClient.adapters.UsersAdapter;
 import com.theostanton.InstagramClient.data.Post;
@@ -47,7 +48,6 @@ public class UserFragment extends BaseFragment implements AdapterView.OnItemClic
     private ListView listView = null;
     private int translationY = 0;
     private int contractedHeaderheight;
-    private int footerSelection = 0;
     private BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -56,6 +56,7 @@ public class UserFragment extends BaseFragment implements AdapterView.OnItemClic
             if (listView != null) listView.setTranslationY(translationY);
         }
     };
+    private int footerSelection = 0;
 
     @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -100,6 +101,7 @@ public class UserFragment extends BaseFragment implements AdapterView.OnItemClic
 
         Intent intent = new Intent(HeaderFragment.USER_FRAG_INTENT);
         intent.putExtra(HeaderFragment.USER_ID_EXTRA,userId);
+        intent.putExtra(HeaderFragment.FOOTER_SELECTED_EXTRA, footerSelection);
         getActivity().sendBroadcast(intent);
 
         switch (footerSelection){

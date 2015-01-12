@@ -3,6 +3,7 @@ package com.theostanton.InstagramClient.helpers;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
@@ -13,7 +14,11 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -25,14 +30,14 @@ public class HTTPHandler {
 
     private static final String TAG = "HTTPHandler";
 
-    public static Bitmap downloadBitmap(String url){
+    public static Bitmap downloadBitmap(String url) {
         try {
             HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
             connection.connect();
 
             InputStream input = connection.getInputStream();
             Bitmap bitmap = BitmapFactory.decodeStream(input);
-            if(bitmap == null) Log.e(TAG,"bitmap == null");
+            if (bitmap == null) Log.e(TAG, "bitmap == null");
 
 
 //            Log.d(TAG, "Downloaded bitmap");
@@ -50,7 +55,7 @@ public class HTTPHandler {
         return null;
     }
 
-    public static JSONObject downloadObject(String url){
+    public static JSONObject downloadObject(String url) {
 
         JSONObject object = null;
         StringBuilder builder = new StringBuilder();
@@ -71,7 +76,7 @@ public class HTTPHandler {
                     builder.append(line);
                 }
             } else {
-                Log.e(TAG, "Failed to download file, statusCode = " + statusCode);
+                Log.e(TAG, "Failed to download file, statusCode = " + statusCode + " " + statusLine);
                 return null;
             }
 
@@ -86,7 +91,7 @@ public class HTTPHandler {
             e.printStackTrace();
         }
 
-        if(object==null) Log.e(TAG,"object==null. url = " + url);
+        if (object == null) Log.e(TAG, "object==null. url = " + url);
         return object;
     }
 

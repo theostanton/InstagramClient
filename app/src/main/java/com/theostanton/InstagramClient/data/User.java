@@ -1,8 +1,10 @@
 package com.theostanton.InstagramClient.data;
 
 import android.util.Log;
+
 import com.theostanton.InstagramClient.Theo;
 import com.theostanton.InstagramClient.instagram.InstaJSON;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -25,10 +27,11 @@ public class User {
     private boolean privateUser = false;
     private boolean complete = false;
 
-    public User(){}
+    public User() {
+    }
 
-    public User(JSONObject object){
-        if(object==null){
+    public User(JSONObject object) {
+        if (object == null) {
             privateUser = true;
             return;
         }
@@ -37,10 +40,10 @@ public class User {
             userName = object.getString(InstaJSON.USERNAME);
             fullName = object.getString(InstaJSON.FULL_NAME);
             profilePicture = object.getString(InstaJSON.PROFILE_PICTURE);
-            if(object.has(InstaJSON.BIO)) bio = object.getString(InstaJSON.BIO);
-            if(object.has(InstaJSON.WEBSITE)) webSite = object.getString(InstaJSON.WEBSITE);
+            if (object.has(InstaJSON.BIO)) bio = object.getString(InstaJSON.BIO);
+            if (object.has(InstaJSON.WEBSITE)) webSite = object.getString(InstaJSON.WEBSITE);
 
-            if (object.has(InstaJSON.COUNTS)){
+            if (object.has(InstaJSON.COUNTS)) {
                 JSONObject countsObject = object.getJSONObject(InstaJSON.COUNTS);
                 mediaCount = countsObject.getInt(InstaJSON.MEDIA);
                 followsCount = countsObject.getInt(InstaJSON.FOLLOWS);
@@ -49,7 +52,7 @@ public class User {
             }
 
         } catch (JSONException e) {
-            Log.e(TAG, "object = " + object.toString() );
+            Log.e(TAG, "object = " + object.toString());
             e.printStackTrace();
         }
     }
@@ -58,15 +61,20 @@ public class User {
         return complete;
     }
 
-    public String getMediaCount(){
+    public String getMediaCount() {
         return Theo.abreviate(mediaCount);
     }
 
-    public String getFollowsCount(){
+    public String getFollowsCount() {
         return Theo.abreviate(followsCount);
     }
 
-    public String getFollowedByCount(){
+    public String getFollowedByCount() {
         return Theo.abreviate(followedByCount);
+    }
+
+    @Override
+    public String toString() {
+        return userName + " " + id;
     }
 }

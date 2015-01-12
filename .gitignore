@@ -4,6 +4,9 @@
 *.apk
 *.ap_
 
+# Screencaps
+screencaps/
+
 # Files for the Dalvik VM
 *.dex
 

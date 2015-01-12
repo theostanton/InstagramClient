@@ -5,12 +5,15 @@
              android:layout_height="match_parent"
             android:orientation="vertical">
 
-    <Space android:layout_width="match_parent"
+    <Space
+        android:id="@+id/space_header_post"
+        android:layout_width="match_parent"
            android:layout_height="50dp"
-           android:id="@+id/space_header_post"/>
+        android:background="@color/main_colour" />
 
-    <ListView android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:id="@+id/users_list"/>
+    <ListView
+        android:id="@+id/users_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </LinearLayout>

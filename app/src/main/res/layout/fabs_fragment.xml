@@ -23,20 +23,20 @@
         fab:fab_base_colour="@color/fab_colour"
         fab:fab_pressed_colour="#111111" />
 
-    <com.theostanton.InstagramClient.views.Fab
-        android:id="@+id/favourite_button"
-        android:layout_width="@dimen/fab_diameter"
-        android:layout_height="@dimen/fab_diameter"
-        android:layout_gravity="bottom|right"
-        android:layout_marginBottom="@dimen/fab_margins"
-        android:layout_marginRight="@dimen/fab_2nd_margin"
-        android:layout_marginTop="@dimen/fab_margins"
-        android:background="#222222"
-        android:elevation="5dp"
-        android:padding="@dimen/fab_padding"
-        android:scaleType="centerInside"
-        android:src="@drawable/ic_action_favorite"
-        fab:fab_base_colour="@color/fab_colour"
-        fab:fab_pressed_colour="#111111" />
+    <!--<com.theostanton.InstagramClient.views.Fab-->
+    <!--android:id="@+id/favourite_button"-->
+    <!--android:layout_width="@dimen/fab_diameter"-->
+    <!--android:layout_height="@dimen/fab_diameter"-->
+    <!--android:layout_gravity="bottom|right"-->
+    <!--android:layout_marginBottom="@dimen/fab_margins"-->
+    <!--android:layout_marginRight="@dimen/fab_2nd_margin"-->
+    <!--android:layout_marginTop="@dimen/fab_margins"-->
+    <!--android:background="#222222"-->
+    <!--android:elevation="5dp"-->
+    <!--android:padding="@dimen/fab_padding"-->
+    <!--android:scaleType="centerInside"-->
+    <!--android:src="@drawable/ic_action_favorite"-->
+    <!--fab:fab_base_colour="@color/fab_colour"-->
+    <!--fab:fab_pressed_colour="#111111" />-->
 
 </com.theostanton.InstagramClient.views.FrameWithFractionLayout>

@@ -83,10 +83,10 @@ containing a value of this type.
         public static final int fabs_container=0x7f0c0022;
         public static final int fabs_layout=0x7f0c0004;
         public static final int footer_pointer=0x7f0c000b;
-        public static final int fullname_title=0x7f0c0032;
-        public static final int gridView=0x7f0c002a;
-        public static final int grid_item_image=0x7f0c002b;
-        public static final int gridview_user_fragment=0x7f0c002f;
+        public static final int fullname_title=0x7f0c0033;
+        public static final int gridView=0x7f0c002b;
+        public static final int grid_item_image=0x7f0c002c;
+        public static final int gridview_user_fragment=0x7f0c0030;
         public static final int header_container=0x7f0c0021;
         public static final int header_followedby_number=0x7f0c0011;
         public static final int header_followedby_text=0x7f0c0015;
@@ -96,31 +96,32 @@ containing a value of this type.
         public static final int header_likes_text=0x7f0c0013;
         public static final int header_posts_number=0x7f0c000e;
         public static final int header_posts_text=0x7f0c0012;
-        public static final int header_spacer_user_fragment=0x7f0c002e;
+        public static final int header_spacer_user_fragment=0x7f0c002f;
         public static final int imageview_postactivity=0x7f0c0024;
         public static final int left_drawer=0x7f0c0023;
         public static final int likes_textview_post_fragment=0x7f0c0003;
         public static final int lower_post_container=0x7f0c0028;
         public static final int main_container=0x7f0c0020;
-        public static final int mainimage_post_fragment=0x7f0c002d;
+        public static final int mainimage_post_fragment=0x7f0c002e;
         public static final int number_footers=0x7f0c000c;
         public static final int post_gesture_layout=0x7f0c0027;
         public static final int post_root_layout=0x7f0c0025;
-        public static final int posts_listview=0x7f0c002c;
+        public static final int posts_listview=0x7f0c002d;
         public static final int right_margin_header=0x7f0c000a;
         public static final int single_text_header=0x7f0c0017;
         public static final int space_header_post=0x7f0c0026;
         public static final int sub_text_header=0x7f0c0019;
+        public static final int swipe_refresh_layout=0x7f0c002a;
         public static final int text_comment=0x7f0c0001;
         public static final int text_footers=0x7f0c000d;
         public static final int title_text_header=0x7f0c0018;
         public static final int top_margin_header=0x7f0c0006;
         public static final int upper_post_container=0x7f0c0029;
-        public static final int user_image=0x7f0c0031;
+        public static final int user_image=0x7f0c0032;
         public static final int user_image_header=0x7f0c0009;
         public static final int username_comment=0x7f0c0000;
-        public static final int username_title=0x7f0c0033;
-        public static final int users_list=0x7f0c0030;
+        public static final int username_title=0x7f0c0034;
+        public static final int users_list=0x7f0c0031;
         public static final int vertical_mid_margin_header=0x7f0c0008;
         public static final int website_text_header=0x7f0c001c;
     }
@@ -148,12 +149,13 @@ containing a value of this type.
         public static final int users_list_item=0x7f030010;
     }
     public static final class string {
-        public static final int app_name=0x7f0a0000;
-        public static final int cache_json_to_memory=0x7f0a0001;
-        public static final int cache_to_disk=0x7f0a0002;
-        public static final int cache_to_memory=0x7f0a0003;
-        public static final int clear_cache_key=0x7f0a0004;
-        public static final int crop_borders_key=0x7f0a0005;
+        public static final int account_key=0x7f0a0000;
+        public static final int app_name=0x7f0a0001;
+        public static final int cache_json_to_memory=0x7f0a0002;
+        public static final int cache_to_disk=0x7f0a0003;
+        public static final int cache_to_memory=0x7f0a0004;
+        public static final int clear_cache_key=0x7f0a0005;
+        public static final int crop_borders_key=0x7f0a0006;
     }
     public static final class style {
         public static final int Apptheme=0x7f0b0000;

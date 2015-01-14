@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ListView;
+
 import com.theostanton.InstagramClient.adapters.PostsAdapter;
 import com.theostanton.InstagramClient.data.Post;
 import com.theostanton.InstagramClient.fragments.header.HeaderFragment;
@@ -24,7 +26,7 @@ import java.util.ArrayList;
 /**
  * Created by theo on 27/12/14.
  */
-public class PostsFragment extends BaseFragment implements AdapterView.OnItemClickListener, AbsListView.OnScrollListener {
+public class PostsFragment extends BaseFragment implements AdapterView.OnItemClickListener, AbsListView.OnScrollListener, SwipeRefreshLayout.OnRefreshListener {
 
     public static final String POSTS_LIST_ARG = "Posts list argument";
     public static final String POSTS_TYPE_ARG = "Posts type argument";
@@ -38,12 +40,21 @@ public class PostsFragment extends BaseFragment implements AdapterView.OnItemCli
     public static final int USER_FEED_LIST = 3;
     public static final int I_FOLLOW = 3;
     public static final int FOLLOWERS = 4;
-    public static final int SETTINGS = 5;
+    public static final int ACCOUNT = 5;
+    public static final int SETTINGS = 6;
     private static final String TAG = "PostsFragment";
+
+
     OnPostSelectedListener mCallback;
     private Context context;
     private View view;  // TODO: find a way to avoid variable
     private PostsAdapter postsAdapter;
+
+    private int postsType;
+    private int postsList;
+
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private GridView gridView;
 
     @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -91,8 +102,6 @@ public class PostsFragment extends BaseFragment implements AdapterView.OnItemCli
         context = inflater.getContext();
 
 
-        final int postsList;
-        final int postsType;
         if(getArguments()!=null) {
             postsList = getArguments().getInt(POSTS_LIST_ARG, -1);
             postsType = getArguments().getInt(POSTS_TYPE_ARG, -1);
@@ -108,6 +117,8 @@ public class PostsFragment extends BaseFragment implements AdapterView.OnItemCli
         switch (postsType){
             case GRID_TYPE:
                 view = inflater.inflate(R.layout.posts_grid_fragment, container,false);
+                gridView = (GridView) view.findViewById(R.id.gridView);
+                gridView.setOnItemClickListener(this);
                 break;
             case LIST_TYPE:
                 view = inflater.inflate(R.layout.posts_lists_fragment, container,false);
@@ -117,31 +128,42 @@ public class PostsFragment extends BaseFragment implements AdapterView.OnItemCli
                 break;
         }
 
+        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+
+        populate(false);
+
+        return view;
+    }
+
+    private void populate(final boolean fresh) {
+
         new Thread(new Runnable() {
             @Override
             public void run() {
                 final ArrayList<Post> posts;
                 switch (postsList){
                     case POPULAR_LIST:
-                        posts = Instagram.getPopular();
+                        posts = Instagram.getPopular(fresh);
                         break;
                     case MY_FEED_LIST:
-                        posts = Instagram.getMyFeed();
+                        posts = Instagram.getMyFeed(fresh);
                         Log.d(TAG,"got my feed " + posts.size() );
                         break;
                     case MY_LIKES_LIST:
-                        posts = Instagram.getMyLikes();
+                        posts = Instagram.getMyLikes(fresh);
                         break;
                     case USER_FEED_LIST:
                         int userId = getArguments().getInt(USERID_ARG,-3);
-                        posts = Instagram.getFeed(userId);
+                        posts = Instagram.getFeed(userId, fresh);
                         break;
                     default:
-                        posts = Instagram.getPopular();
+                        posts = Instagram.getPopular(fresh);
                 }
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        mSwipeRefreshLayout.setRefreshing(false);
                         switch (postsType){
                             case GRID_TYPE:
                                 populateGrid(posts);
@@ -157,20 +179,17 @@ public class PostsFragment extends BaseFragment implements AdapterView.OnItemCli
                 });
             }
         }).start();
-
-        return view;
     }
 
     private void populateGrid(ArrayList<Post> posts){
-        postsAdapter = new PostsAdapter(context,R.layout.posts_grid_item,posts);
-        GridView gridView = (GridView) view.findViewById(R.id.gridView);
-        gridView.setAdapter(postsAdapter);
-        gridView.setOnItemClickListener(this);
-//        gridView.setOnScrollListener(this);
-//        View space = new Space(view.getContext());
-//        int offset = (int)(50.0f* getResources().getDisplayMetrics().density);
-//        space.setMinimumHeight(offset);
-//        gridView.addHeaderView(space);
+
+        if (postsAdapter == null) {
+            postsAdapter = new PostsAdapter(context, R.layout.posts_grid_item, posts);
+            gridView.setAdapter(postsAdapter);
+        } else {
+            postsAdapter.ammendList(posts);
+        }
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 
     private void populateList(ArrayList<Post> posts){
@@ -186,5 +205,11 @@ public class PostsFragment extends BaseFragment implements AdapterView.OnItemCli
         intent.putExtra(HeaderFragment.TITLE_EXTRA,title);
         getActivity().sendBroadcast(intent);
         Log.d(TAG,"updateHeadersTitle()");
+    }
+
+    @Override
+    public void onRefresh() {
+        Log.d(TAG, "onRefresh()");
+        populate(true);
     }
 }

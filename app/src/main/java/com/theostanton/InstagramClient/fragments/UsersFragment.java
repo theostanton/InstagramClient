@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.transition.Fade;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,7 +26,7 @@ import java.util.ArrayList;
 /**
  * Created by theo on 02/01/15.
  */
-public class UsersFragment extends BaseFragment implements AdapterView.OnItemClickListener {
+public class UsersFragment extends BaseFragment implements AdapterView.OnItemClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     public static final String LIST_TYPE_ARG = "List type argument";
     public static final int FOLLOWS_LIST = 0;
@@ -35,6 +36,13 @@ public class UsersFragment extends BaseFragment implements AdapterView.OnItemCli
     OnUserSelectedListener onUserSelectedListener;
     private Context context;
     private View view;
+
+    private UsersAdapter usersAdapter;
+    private ListView listView;
+
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private int userId;
+    private int listType;
 
     @Override
     public void onAttach(Activity activity) {
@@ -51,13 +59,16 @@ public class UsersFragment extends BaseFragment implements AdapterView.OnItemCli
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.users_fragment, container, false);
+
+        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+
         context = inflater.getContext();
 
         setEnterTransition(new Fade());
         setExitTransition(new Fade());
 
-        final int userId;
-        final int listType;
+
         if (getArguments() == null) {
             userId = -1;
             listType = FOLLOWS_LIST;
@@ -73,13 +84,22 @@ public class UsersFragment extends BaseFragment implements AdapterView.OnItemCli
         else intent.putExtra(HeaderFragment.TITLE_EXTRA, "Followers");
         getActivity().sendBroadcast(intent);
 
+        listView = (ListView) view.findViewById(R.id.users_list);
+        listView.setOnItemClickListener(this);
 
+        populate(false);
+
+        return view;
+    }
+
+
+    private void populate(final boolean fresh) {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 final ArrayList<User> users;
-                if (listType == FOLLOWS_LIST) users = Instagram.getFollowsList(userId);
-                else users = Instagram.getFollowewdByList(userId);
+                if (listType == FOLLOWS_LIST) users = Instagram.getFollowsList(userId, fresh);
+                else users = Instagram.getFollowewdByList(userId, fresh);
 
                 if (getActivity() != null) {
                     getActivity().runOnUiThread(new Runnable() {
@@ -93,14 +113,18 @@ public class UsersFragment extends BaseFragment implements AdapterView.OnItemCli
 
             }
         }).start();
-        return view;
     }
 
     private void populateList(ArrayList<User> users) {
-        UsersAdapter adapter = new UsersAdapter(context, users);
-        ListView listView = (ListView) view.findViewById(R.id.users_list);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(this);
+
+        if (usersAdapter == null) {
+            usersAdapter = new UsersAdapter(context, users);
+            listView.setAdapter(usersAdapter);
+        } else {
+            usersAdapter.ammendList(users);
+            mSwipeRefreshLayout.setRefreshing(false);
+        }
+        mSwipeRefreshLayout.setRefreshing(false);
 
     }
 
@@ -111,7 +135,10 @@ public class UsersFragment extends BaseFragment implements AdapterView.OnItemCli
         onUserSelectedListener.onUserSelected(user.id);
     }
 
-    private void updateHeadersTitle() {
 
+    @Override
+    public void onRefresh() {
+        Log.d(TAG, "onRefresh()");
+        populate(true);
     }
 }

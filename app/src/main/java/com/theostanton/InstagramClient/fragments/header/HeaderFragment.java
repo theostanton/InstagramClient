@@ -231,7 +231,11 @@ public class HeaderFragment extends BaseFragment implements View.OnClickListener
     public void onClick(View v) {
         int id = v.getId();
 
-        Log.d(TAG, "onClick " + getResources().getResourceEntryName(id));
+        try {
+            Log.d(TAG, "onClick " + getResources().getResourceEntryName(id));
+        } catch (Exception e) {
+            Log.d(TAG, "hitting something unnamed");
+        }
 
         if (id == R.id.back_button) {
             Intent intent = new Intent(MainActivity.BACK_INTENT);

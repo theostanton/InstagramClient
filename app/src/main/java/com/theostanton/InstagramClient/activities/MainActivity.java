@@ -1,11 +1,13 @@
 package com.theostanton.InstagramClient.activities;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -17,6 +19,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.theostanton.InstagramClient.bitmap.BitmapHandler;
 import com.theostanton.InstagramClient.data.Post;
@@ -30,11 +33,13 @@ import com.theostanton.InstagramClient.fragments.header.HeaderFragment;
 import com.theostanton.InstagramClient.fragments.post.PostFragment;
 import com.theostanton.InstagramClient.helpers.ViewHelper;
 import com.theostanton.InstagramClient.instagram.Instagram;
+import com.theostanton.InstagramClient.instagram.br.com.dina.oauth.instagram.ApplicationData;
+import com.theostanton.InstagramClient.instagram.br.com.dina.oauth.instagram.InstagramApp;
 import com.theostanton.InstagramClient.listeners.OnPostSelectedListener;
 import com.theostanton.InstagramClient.listeners.OnUserSelectedListener;
 import com.theostanton.InstragramClient.R;
 
-public class MainActivity extends Activity implements HeaderFragment.OnFooterSelectedListener, OnPostSelectedListener, OnUserSelectedListener, AdapterView.OnItemClickListener, View.OnClickListener, BaseFragment.OnFragmentScrollListener{
+public class MainActivity extends Activity implements HeaderFragment.OnFooterSelectedListener, OnPostSelectedListener, OnUserSelectedListener, AdapterView.OnItemClickListener, View.OnClickListener, BaseFragment.OnFragmentScrollListener {
 
     public static final String BACK_INTENT = "Back intent";
     private BroadcastReceiver receiver = new BroadcastReceiver() {
@@ -58,7 +63,7 @@ public class MainActivity extends Activity implements HeaderFragment.OnFooterSel
     private static final String TAG = "MainActivity";
     // TODO arrange these better
     private static final String[] drawerTitles = {
-            "Popular", "My Feed", "My Likes", "I Follow", "Followers","Settings"
+            "Popular", "My Feed", "My Likes", "I Follow", "Followers", "Account", "Settings"
     };
     private SharedPreferences prefs;
     private BitmapHandler bitmapHandler;
@@ -67,13 +72,35 @@ public class MainActivity extends Activity implements HeaderFragment.OnFooterSel
     private HeaderFragment headerFragment;
     private FabFragment fabFragment;
 
+
+    // Oauth
+    private Instagram instagram;
+    InstagramApp.OAuthAuthenticationListener authListener = new InstagramApp.OAuthAuthenticationListener() {
+
+        @Override
+        public void onSuccess() {
+            Log.d(TAG, "Connected as " + mApp.getUserName());
+            instagram = Instagram.getInstance(mApp.getmAccessToken());
+        }
+
+        @Override
+        public void onFail(String error) {
+            Toast.makeText(MainActivity.this, error, Toast.LENGTH_SHORT).show();
+        }
+    };
+    private InstagramApp mApp;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        instagram = Instagram.getInstance();
+        mApp = new InstagramApp(this, ApplicationData.CLIENT_ID,
+                ApplicationData.CLIENT_SECRET, ApplicationData.CALLBACK_URL);
+        mApp.setListener(authListener);
+
         float density = getResources().getDisplayMetrics().density;
         ViewHelper.setDensity(density);
-
 
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -99,20 +126,20 @@ public class MainActivity extends Activity implements HeaderFragment.OnFooterSel
         PostsFragment postsFragment = new PostsFragment();
         transaction.add(R.id.main_container, postsFragment);
 
-        headerFragment =  new HeaderFragment();
+        headerFragment = new HeaderFragment();
         transaction.add(R.id.header_container, headerFragment);
 
         fabFragment = new FabFragment();
-        transaction.add(R.id.fabs_container,fabFragment);
+        transaction.add(R.id.fabs_container, fabFragment);
 
 
         transaction.commit();
 
     }
 
-    private void assignPreferences(){
+    private void assignPreferences() {
 
-        boolean cacheJsonMemory = prefs.getBoolean(getResources().getString(R.string.cache_json_to_memory),true);
+        boolean cacheJsonMemory = prefs.getBoolean(getResources().getString(R.string.cache_json_to_memory), true);
     }
 
     @Override
@@ -131,17 +158,15 @@ public class MainActivity extends Activity implements HeaderFragment.OnFooterSel
         unregisterReceiver(receiver);
     }
 
-
-    private void setHeaderFromPost(String postId){
+    private void setHeaderFromPost(String postId) {
         Intent intent = new Intent(HeaderFragment.POST_FRAG_INTENT);
-        intent.putExtra(HeaderFragment.POST_ID_EXTRA,postId);
+        intent.putExtra(HeaderFragment.POST_ID_EXTRA, postId);
         sendBroadcast(intent);
     }
 
-
     private void setHeaderFromUser(int userId, int footerSelected) {
         Intent intent = new Intent(HeaderFragment.USER_FRAG_INTENT);
-        intent.putExtra(HeaderFragment.USER_ID_EXTRA,userId);
+        intent.putExtra(HeaderFragment.USER_ID_EXTRA, userId);
         intent.putExtra(HeaderFragment.FOOTER_SELECTED_EXTRA, footerSelected);
         sendBroadcast(intent);
     }
@@ -153,7 +178,7 @@ public class MainActivity extends Activity implements HeaderFragment.OnFooterSel
 
         Fragment fragment;
         Bundle args = new Bundle();
-        args.putString(HeaderFragment.POST_ID_EXTRA,drawerTitles[position]);
+        args.putString(HeaderFragment.POST_ID_EXTRA, drawerTitles[position]);
 
 
         switch (position) {
@@ -193,8 +218,11 @@ public class MainActivity extends Activity implements HeaderFragment.OnFooterSel
                 args.putInt(UsersFragment.LIST_TYPE_ARG, UsersFragment.FOLLOWED_BY_LIST);
                 fragment.setArguments(args);
                 break;
+            case PostsFragment.ACCOUNT:
+                changeAccount();
+                return;
             case PostsFragment.SETTINGS:
-                Log.d(TAG,"select Settings from list");
+                Log.d(TAG, "select Settings from list");
                 fragment = new SettingsFragment();
                 break;
             default:
@@ -209,7 +237,7 @@ public class MainActivity extends Activity implements HeaderFragment.OnFooterSel
     private void setFragment(Fragment fragment) {
 
 
-        if(fragment instanceof PostFragment) fabFragment.show();
+        if (fragment instanceof PostFragment) fabFragment.show();
         else fabFragment.hide();
 
         FragmentManager fragmentManager = getFragmentManager();
@@ -238,13 +266,13 @@ public class MainActivity extends Activity implements HeaderFragment.OnFooterSel
         setFragment(postFragment);
     }
 
-    private void onUserSelected(int userId, int footerSelected){
+    private void onUserSelected(int userId, int footerSelected) {
         setHeaderFromUser(userId, footerSelected);
         UserFragment fragment = new UserFragment();
         Bundle args = new Bundle();
         args.putInt(UserFragment.USER_ID_ARG, userId);
         args.putInt(UserFragment.TRANSLATION_Y_ARG, headerFragment.getExpansion());
-        args.putInt(UserFragment.FOOTER_SELECTED_ARG,footerSelected);
+        args.putInt(UserFragment.FOOTER_SELECTED_ARG, footerSelected);
         fragment.setArguments(args);
         setFragment(fragment);
     }
@@ -275,37 +303,68 @@ public class MainActivity extends Activity implements HeaderFragment.OnFooterSel
     }
 
     @Override
-     public void onWindowFocusChanged(boolean hasFocus) {
+    public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-            if (hasFocus) {
-                Log.d(TAG,"hasFocus");
-                View decorView = getWindow().getDecorView();
-                decorView.setSystemUiVisibility(
-                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+        if (hasFocus) {
+            Log.d(TAG, "hasFocus");
+            View decorView = getWindow().getDecorView();
+            decorView.setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
 //                                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
 //                                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                                | View.SYSTEM_UI_FLAG_FULLSCREEN
-                                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
-            }
-        else{
-                Log.d(TAG,"!hasFocus");
-            }
+                            | View.SYSTEM_UI_FLAG_FULLSCREEN
+                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+        } else {
+            Log.d(TAG, "!hasFocus");
         }
+    }
 
     @Override
     public void onFragmentScroll(int pos) {
 
     }
 
+    // oauth
+
     @Override
     public void onFooterSelected(int userId, int footer) {
-        Log.d(TAG,"onFooterSelected ");
+        Log.d(TAG, "onFooterSelected ");
 //        if(footer==1) {
 //            Log.e(TAG,"footer==1, likes not possible");
 //            return;
 //        }
-        onUserSelected(userId,footer);
+        onUserSelected(userId, footer);
     }
+
+    private void changeAccount() {
+        if (mApp.hasAccessToken()) {
+            final AlertDialog.Builder builder = new AlertDialog.Builder(
+                    MainActivity.this);
+            builder.setMessage("Disconnect from Instagram?")
+                    .setCancelable(false)
+                    .setPositiveButton("Yes",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(
+                                        DialogInterface dialog, int id) {
+                                    mApp.resetAccessToken();
+                                    mApp.authorize();
+                                    Log.d(TAG, "reset accestoken");
+                                }
+                            })
+                    .setNegativeButton("No",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(
+                                        DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+                            });
+            final AlertDialog alert = builder.create();
+            alert.show();
+        } else {
+            mApp.authorize();
+        }
+    }
+
 
 }

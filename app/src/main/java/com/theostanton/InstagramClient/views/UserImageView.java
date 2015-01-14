@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.ImageView;
+
 import com.theostanton.InstagramClient.bitmap.BitmapHandler;
 import com.theostanton.InstagramClient.bitmap.BitmapHelper;
 import com.theostanton.InstagramClient.data.Post;
@@ -64,7 +65,7 @@ public class UserImageView extends ImageView {
 
     }
 
-    public void setAnimate(boolean animate){
+    public void setAnimate(boolean animate) {
         this.animate = animate;
     }
 
@@ -75,8 +76,8 @@ public class UserImageView extends ImageView {
         return userId;
     }
 
-    public void setUserId(int userId){
-        if(this.userId==userId){
+    public void setUserId(int userId) {
+        if (this.userId == userId) {
             Log.d(TAG, "this.userId==userId, return");
             return;
         }
@@ -84,32 +85,35 @@ public class UserImageView extends ImageView {
         loadBitmap();
     }
 
-    public void setPostId(String postId){
+    public void setPostId(String postId) {
         this.postId = postId;
         loadBitmap();
         new LoadBitmap().execute();
     }
 
-    public void useResource(){
+    public void useResource() {
         // TODO should pre crop
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), DEFAULT_RESOURCE);
-        setImageBitmap( BitmapHelper.getCroppedBitmap(bitmap) );
+        setImageBitmap(BitmapHelper.getCroppedBitmap(bitmap));
     }
 
-    private void loadBitmap(){
+    private void loadBitmap() {
         BitmapHandler bitmapHandler = BitmapHandler.getInstance();
         url = null;
-        if(postId != null){
+        if (postId != null) {
             Post post = Instagram.getPost(postId);
             User user = post.getUser();
             userId = user.id;
             url = user.profilePicture;
-        }
-        else if(userId > 0){
+        } else if (userId > 0) {
             User user = Instagram.getCachedUser(userId);
+            if (user == null) {
+                Log.d(TAG, "user of userId " + userId + " ==null");
+                user = Instagram.getUser(userId);
+            }
             url = user.profilePicture;
         }
-        if(url==null){
+        if (url == null) {
             try {
                 throw new Exception("url==null from user, would need to downlaod");
             } catch (Exception e) {
@@ -118,17 +122,16 @@ public class UserImageView extends ImageView {
             }
         }
         Bitmap bitmap = bitmapHandler.getFromCache(url);
-        if(bitmap==null){
+        if (bitmap == null) {
             setImageResource(R.drawable.user_place_holder);
             new LoadBitmap().execute();
-        }
-        else{
+        } else {
             // TODO cache user images
-            setImageBitmap( BitmapHelper.getCroppedBitmap(bitmap) );
+            setImageBitmap(BitmapHelper.getCroppedBitmap(bitmap));
         }
     }
 
-    private void revealSelf(){
+    private void revealSelf() {
         AnimationHelper.circularReveal(this);
     }
 
@@ -139,13 +142,12 @@ public class UserImageView extends ImageView {
         protected Bitmap doInBackground(Void... params) {
 
             BitmapHandler bitmapHandler = BitmapHandler.getInstance();
-            if(url==null){
-                Log.e(TAG,"url == null in doInBackgrond()");
+            if (url == null) {
+                Log.e(TAG, "url == null in doInBackgrond()");
                 return null;
-            }
-            else{
+            } else {
                 Bitmap bitmap = HTTPHandler.downloadBitmap(url);
-                bitmapHandler.putInCache(url,bitmap);
+                bitmapHandler.putInCache(url, bitmap);
                 return BitmapHelper.getCroppedBitmap(bitmap);
             }
 
@@ -156,7 +158,7 @@ public class UserImageView extends ImageView {
             super.onPostExecute(bitmap);
             setImageBitmap(bitmap);
             bitmapLoaded = true;
-            if(animate) revealSelf();
+            if (animate) revealSelf();
 //            Log.d("UserImageView LoadBitmap", "Finished");
         }
     }

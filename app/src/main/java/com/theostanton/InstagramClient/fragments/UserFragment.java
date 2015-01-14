@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,7 +32,7 @@ import java.util.ArrayList;
 /**
  * Created by theo on 27/12/14.
  */
-public class UserFragment extends BaseFragment implements AdapterView.OnItemClickListener, AbsListView.OnScrollListener {
+public class UserFragment extends BaseFragment implements AdapterView.OnItemClickListener, AbsListView.OnScrollListener, SwipeRefreshLayout.OnRefreshListener {
 
     public final static String FOOTER_SELECTED_ARG = "footer_selection_argument";
     public static final String TRANSLATION_Y_ARG = "translation_y_argument";
@@ -52,11 +53,14 @@ public class UserFragment extends BaseFragment implements AdapterView.OnItemClic
         @Override
         public void onReceive(Context context, Intent intent) {
             translationY = intent.getIntExtra(HeaderFragment.HEIGHT_EXTRA, 50) - contractedHeaderheight;
-            if (gridView != null) gridView.setTranslationY(translationY);
-            if (listView != null) listView.setTranslationY(translationY);
+            mSwipeRefreshLayout.setTranslationY(translationY);
         }
     };
     private int footerSelection = 0;
+
+
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private int userId;
 
     @Override
     public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -94,7 +98,7 @@ public class UserFragment extends BaseFragment implements AdapterView.OnItemClic
 
         Log.d(TAG,"onCreateView");
 
-        final int userId = getArguments().getInt(USER_ID_ARG,-1);
+        userId = getArguments().getInt(USER_ID_ARG, -1);
 
         footerSelection = getArguments().getInt(FOOTER_SELECTED_ARG,POSTS);
         translationY = getArguments().getInt(TRANSLATION_Y_ARG,0) - contractedHeaderheight;
@@ -117,9 +121,16 @@ public class UserFragment extends BaseFragment implements AdapterView.OnItemClic
             default:
                 return null;
         }
+        mSwipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_refresh_layout);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+
+        populate(false);
 
 
+        return view;
+    }
 
+    private void populate(final boolean fresh) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -127,16 +138,16 @@ public class UserFragment extends BaseFragment implements AdapterView.OnItemClic
                 ArrayList<Post> posts = null;
                 switch (footerSelection){
                     case POSTS:
-                        posts = Instagram.getFeed(userId);
+                        posts = Instagram.getFeed(userId, fresh);
                         break;
                     case LIKES:
-                        posts = Instagram.getLikes(userId);
+                        posts = Instagram.getLikes(userId, fresh);
                         break;
                     case FOLLOWED_BY:
-                        users = Instagram.getFollowewdByList(userId);
+                        users = Instagram.getFollowewdByList(userId, fresh);
                         break;
                     case FOLLOWS:
-                        users = Instagram.getFollowsList(userId);
+                        users = Instagram.getFollowsList(userId, fresh);
                         break;
                     default:
                         Log.e(TAG,"switch defaulteed footerselection  =" + footerSelection);
@@ -155,8 +166,6 @@ public class UserFragment extends BaseFragment implements AdapterView.OnItemClic
                 }
             }
         }).start();
-
-        return view;
     }
 
     @Override
@@ -194,7 +203,8 @@ public class UserFragment extends BaseFragment implements AdapterView.OnItemClic
                 UsersAdapter usersAdapter = new UsersAdapter(view.getContext(), users);
                 listView.setAdapter(usersAdapter);
                 listView.setOnItemClickListener((AdapterView.OnItemClickListener) fragment);
-                listView.setTranslationY(translationY);
+                mSwipeRefreshLayout.setTranslationY(translationY);
+                mSwipeRefreshLayout.setRefreshing(false);
             }
         });
     }
@@ -213,9 +223,16 @@ public class UserFragment extends BaseFragment implements AdapterView.OnItemClic
                 gridView.setAdapter(postsAdapter);
                 gridView.setOnItemClickListener((AdapterView.OnItemClickListener) fragment);
                 Log.d(TAG,"gridView populated, translationY = " + translationY);
-                gridView.setTranslationY(translationY);
+                mSwipeRefreshLayout.setTranslationY(translationY);
+                mSwipeRefreshLayout.setRefreshing(false);
             }
         });
 
+    }
+
+    @Override
+    public void onRefresh() {
+        Log.d(TAG, "onRefresh");
+        populate(true);
     }
 }

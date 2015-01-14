@@ -2,43 +2,53 @@
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <Preference
-        android:layout="@layout/preference_screen_space"/>
+    <Preference android:layout="@layout/preference_screen_space" />
 
     <PreferenceCategory
-            android:title="Images"
-            android:key="images_category">
-
-        <CheckBoxPreference
-            android:title="Borderless Images"
-            android:key="@string/crop_borders_key"
-            android:summary="Remove borders from non-square images"/>
+        android:key="account_category"
+        android:title="Account">
 
         <Preference
-            android:title="Clear Cache"
-            android:key="@string/clear_cache_key"
-            android:summary="Clear Image Cache"/>
-
-        <CheckBoxPreference
-            android:title="Cache Images to disk"
-            android:key="@string/cache_to_disk"
-            android:defaultValue="true"/>
-
-        <CheckBoxPreference
-            android:title="Cache Images to disk"
-            android:key="@string/cache_to_memory"
-            android:defaultValue="true"/>
+            android:key="@string/account_key"
+            android:summary="Click to change account"
+            android:title="notnatsoeht" />
 
     </PreferenceCategory>
 
     <PreferenceCategory
-            android:title="Internet"
-            android:key="internet_category">
+        android:key="images_category"
+        android:title="Images">
 
         <CheckBoxPreference
-                android:title="Cache JSONObjects to memory"
-                android:key="@string/cache_json_to_memory"
-                android:defaultValue="true"/>
+            android:key="@string/crop_borders_key"
+            android:summary="Remove borders from non-square images"
+            android:title="Borderless Images" />
+
+        <Preference
+            android:key="@string/clear_cache_key"
+            android:summary="Clear Image Cache"
+            android:title="Clear Cache" />
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/cache_to_disk"
+            android:title="Cache Images to disk" />
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/cache_to_memory"
+            android:title="Cache Images to disk" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="internet_category"
+        android:title="Internet">
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="@string/cache_json_to_memory"
+            android:title="Cache JSONObjects to memory" />
 
 
     </PreferenceCategory>

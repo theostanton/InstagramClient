@@ -51,6 +51,7 @@ public class Instagram {
         return instance;
     }
 
+
     private static void putUsers(ArrayList<User> users) {
         for (User user : users) {
             addUser(user);
@@ -89,21 +90,21 @@ public class Instagram {
         return posts.get(postId);
     }
 
-    public static ArrayList<Post> getPopular() {
-//        if(popularPosts!=null) return popularPosts;
-
-        String url = InstaURL.getPopular();
-        JSONObject object = getObject(url);
-        popularPosts = InstaJSON.getPostsArrayList(object);
-
+    public static ArrayList<Post> getPopular(boolean fresh) {
+        if (fresh || popularPosts == null) {
+            String url = InstaURL.getPopular();
+            JSONObject object = getObject(url, fresh);
+            popularPosts = InstaJSON.getPostsArrayList(object);
+        }
         cachePosts(popularPosts);
         return popularPosts;
     }
 
-    public static ArrayList<Post> getMyFeed() {
-        if (myFeed == null) {
+    public static ArrayList<Post> getMyFeed(boolean fresh) {
+        if (fresh || myFeed == null) {
+            Log.d(TAG, "fresh myFeed");
             String url = InstaURL.getMyFeed();
-            JSONObject object = getObject(url);
+            JSONObject object = getObject(url, fresh);
             myFeed = InstaJSON.getPostsArrayList(object);
         }
         cachePosts(myFeed);
@@ -111,28 +112,28 @@ public class Instagram {
 
     }
 
-    public static ArrayList<Post> getMyLikes() {
-        if (myLikes == null) {
+    public static ArrayList<Post> getMyLikes(boolean fresh) {
+        if (fresh || myLikes == null) {
             String url = InstaURL.getMyLikes();
-            JSONObject object = getObject(url);
+            JSONObject object = getObject(url, fresh);
             myLikes = InstaJSON.getPostsArrayList(object);
         }
         cachePosts(myLikes);
         return myLikes;
     }
 
-    public static ArrayList<Post> getLikes(int userId) {
+    public static ArrayList<Post> getLikes(int userId, boolean fresh) {
         String url = InstaURL.getLikes(userId);
-        JSONObject object = getObject(url);
+        JSONObject object = getObject(url, fresh);
         Log.d(TAG, "getLikes object " + object.toString());
         ArrayList<Post> posts = InstaJSON.getPostsArrayList(object);
         cachePosts(posts);
         return posts;
     }
 
-    public static ArrayList<Post> getFeed(int userId) {
+    public static ArrayList<Post> getFeed(int userId, boolean fresh) {
         String url = InstaURL.getFeed(userId);
-        JSONObject object = getObject(url);
+        JSONObject object = getObject(url, fresh);
         ArrayList<Post> feed = InstaJSON.getPostsArrayList(object);
         cachePosts(feed);
         return feed;
@@ -177,7 +178,7 @@ public class Instagram {
         }
 
         String url = InstaURL.getUser(userId);
-        JSONObject object = getObject(url);
+        JSONObject object = getObject(url, false);
         user = new User(InstaJSON.getDataObject(object));
         addUser(user);
 
@@ -195,20 +196,24 @@ public class Instagram {
         return user;
     }
 
-    public static ArrayList<User> getFollowsList(int userId) {
-        if (userId < 0 && iFollowList != null) return iFollowList;
+    public static ArrayList<User> getFollowsList(int userId, boolean fresh) {
+
+        if (!fresh && userId < 0 && iFollowList != null) return iFollowList;
+
         String url = InstaURL.getFollowsList(userId);
-        JSONObject object = getObject(url);
+        JSONObject object = getObject(url, fresh);
         ArrayList<User> followsList = InstaJSON.getUserArraylist(object);
+
         if (userId < 0) iFollowList = followsList;
+
         putUsers(followsList);
         return followsList;
     }
 
-    public static ArrayList<User> getFollowewdByList(int userId) {
-//        if(userId<0 && iFollowList!=null) return iFollowList;
+    public static ArrayList<User> getFollowewdByList(int userId, boolean fresh) {
+        if (!fresh && userId < 0 && iFollowList != null) return iFollowList;
         String url = InstaURL.getFollowedByList(userId);
-        JSONObject object = getObject(url);
+        JSONObject object = getObject(url, fresh);
         ArrayList<User> followedBy = InstaJSON.getUserArraylist(object);
         Log.d(TAG, "followedBy.size() " + followedBy.size());
 //        if(userId<0) iFollowList = followsList;
@@ -216,8 +221,8 @@ public class Instagram {
         return followedBy;
     }
 
-    private static JSONObject getObject(String url) {
-        if (objects.containsKey(url)) {
+    private static JSONObject getObject(String url, boolean fresh) {
+        if (!fresh && objects.containsKey(url)) {
             Log.d(TAG, "got url from cache");
             return objects.get(url);
         }

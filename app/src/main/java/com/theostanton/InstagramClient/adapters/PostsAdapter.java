@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+
 import com.theostanton.InstagramClient.bitmap.BitmapHandler;
 import com.theostanton.InstagramClient.bitmap.LoadBitmapToImageview;
 import com.theostanton.InstagramClient.data.Post;
@@ -62,5 +63,18 @@ public class PostsAdapter extends ArrayAdapter {
     }
 
 
-
+    public void ammendList(ArrayList<Post> newPosts) {
+        posts = newPosts;
+//        for(Post newPost: newPosts){
+//            for(Post currpost: posts){
+//                if(currpost.getId().equals(newPost.getId())){
+//                    Log.d(TAG, "contains " + currpost.getUser() + "s post");
+//                }
+//                else{
+//                    posts.add(0,newPost);
+//                }
+//            }
+//        }
+        notifyDataSetChanged();
+    }
 }

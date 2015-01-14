@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.util.Log;
+
 import com.theostanton.InstagramClient.bitmap.BitmapHandler;
 import com.theostanton.InstagramClient.fragments.header.HeaderFragment;
 import com.theostanton.InstragramClient.R;
@@ -18,6 +19,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
     private static final String TAG = "SettingsFragment";
 
     private BitmapHandler bitmapHandler;
+
 
     @Override
     public void onResume() {
@@ -38,8 +40,9 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         addPreferencesFromResource(R.xml.preferences);
         bitmapHandler = BitmapHandler.getInstance();
 
+
         Intent intent = new Intent(HeaderFragment.TITLE_INTENT);
-        intent.putExtra(HeaderFragment.TITLE_EXTRA,"Settings");
+        intent.putExtra(HeaderFragment.TITLE_EXTRA, "Settings");
         getActivity().sendBroadcast(intent);
 
         final Preference button = findPreference(getResources().getString(R.string.clear_cache_key));
@@ -55,7 +58,7 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         updateCacheSizeSummary();
     }
 
-    private void updateCacheSizeSummary(){
+    private void updateCacheSizeSummary() {
         final Preference button = findPreference(getResources().getString(R.string.clear_cache_key));
 
         new Thread(new Runnable() {
@@ -79,12 +82,18 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         }).start();
     }
 
+    private void changeAccount() {
+
+    }
+
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         Log.d(TAG, "onSharedPreferenceChanged " + key);
-        if(key.equals(getResources().getString(R.string.crop_borders_key))){
-            boolean cropBorders = sharedPreferences.getBoolean(key,true);
+        if (key.equals(getResources().getString(R.string.crop_borders_key))) {
+            boolean cropBorders = sharedPreferences.getBoolean(key, true);
             bitmapHandler.setCropBorderless(cropBorders);
+        } else if (key.equals(getResources().getString(R.string.account_key))) {
+            changeAccount();
         }
     }
 }

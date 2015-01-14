@@ -23,8 +23,8 @@ import com.theostanton.InstragramClient.R;
  */
 public class UserImageView extends ImageView {
 
+    public static final String GET_USER_IN_BG = "download_user_inbackground_method";
     private static final String TAG = "UserImageView";
-
     private boolean bitmapLoaded = false;
     private boolean animate = true;
     private String url = null;
@@ -98,6 +98,9 @@ public class UserImageView extends ImageView {
     }
 
     private void loadBitmap() {
+
+        // TODO tidy this mess
+
         BitmapHandler bitmapHandler = BitmapHandler.getInstance();
         url = null;
         if (postId != null) {
@@ -109,9 +112,10 @@ public class UserImageView extends ImageView {
             User user = Instagram.getCachedUser(userId);
             if (user == null) {
                 Log.d(TAG, "user of userId " + userId + " ==null");
-                user = Instagram.getUser(userId);
+                url = GET_USER_IN_BG;
+            } else {
+                url = user.profilePicture;
             }
-            url = user.profilePicture;
         }
         if (url == null) {
             try {
@@ -145,11 +149,15 @@ public class UserImageView extends ImageView {
             if (url == null) {
                 Log.e(TAG, "url == null in doInBackgrond()");
                 return null;
-            } else {
-                Bitmap bitmap = HTTPHandler.downloadBitmap(url);
-                bitmapHandler.putInCache(url, bitmap);
-                return BitmapHelper.getCroppedBitmap(bitmap);
             }
+
+            if (url.equals(GET_USER_IN_BG)) {
+                User user = Instagram.getUser(userId);
+                url = user.profilePicture;
+            }
+            Bitmap bitmap = HTTPHandler.downloadBitmap(url);
+            bitmapHandler.putInCache(url, bitmap);
+            return BitmapHelper.getCroppedBitmap(bitmap);
 
         }
 

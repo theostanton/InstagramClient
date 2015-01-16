@@ -17,7 +17,7 @@ import java.util.ArrayList;
 /**
  * Created by theo on 02/01/15.
  */
-public class UsersAdapter extends ArrayAdapter<User>{
+public class UsersAdapter extends ArrayAdapter<User> {
 
     public static final String TAG = "UsersAdapter";
 
@@ -51,7 +51,7 @@ public class UsersAdapter extends ArrayAdapter<User>{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
-        convertView = inflater.inflate(R.layout.users_list_item,null);
+        convertView = inflater.inflate(R.layout.users_list_item, null);
 
         User user = getItem(position);
 

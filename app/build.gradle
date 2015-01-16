@@ -19,6 +19,7 @@ android {
 }
 
 dependencies {
+    compile 'com.github.traex.rippleeffect:library:1.2.3'
     compile 'com.android.support:support-v4:+'
     compile 'joda-time:joda-time:2.3'
     compile files('libs/android-support-v7-cardview.jar')

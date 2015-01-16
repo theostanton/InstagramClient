@@ -1,13 +1,11 @@
 package com.theostanton.InstagramClient.activities;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -19,7 +17,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.theostanton.InstagramClient.bitmap.BitmapHandler;
 import com.theostanton.InstagramClient.data.Post;
@@ -33,8 +30,6 @@ import com.theostanton.InstagramClient.fragments.header.HeaderFragment;
 import com.theostanton.InstagramClient.fragments.post.PostFragment;
 import com.theostanton.InstagramClient.helpers.ViewHelper;
 import com.theostanton.InstagramClient.instagram.Instagram;
-import com.theostanton.InstagramClient.instagram.br.com.dina.oauth.instagram.ApplicationData;
-import com.theostanton.InstagramClient.instagram.br.com.dina.oauth.instagram.InstagramApp;
 import com.theostanton.InstagramClient.listeners.OnPostSelectedListener;
 import com.theostanton.InstagramClient.listeners.OnUserSelectedListener;
 import com.theostanton.InstragramClient.R;
@@ -63,7 +58,12 @@ public class MainActivity extends Activity implements HeaderFragment.OnFooterSel
     private static final String TAG = "MainActivity";
     // TODO arrange these better
     private static final String[] drawerTitles = {
-            "Popular", "My Feed", "My Likes", "I Follow", "Followers", "Account", "Settings"
+            "Popular",
+            "My Feed",
+            "My Likes",
+            "I Follow",
+            "Followers",
+            "Settings"
     };
     private SharedPreferences prefs;
     private BitmapHandler bitmapHandler;
@@ -72,32 +72,14 @@ public class MainActivity extends Activity implements HeaderFragment.OnFooterSel
     private HeaderFragment headerFragment;
     private FabFragment fabFragment;
 
-
-    // Oauth
     private Instagram instagram;
-    InstagramApp.OAuthAuthenticationListener authListener = new InstagramApp.OAuthAuthenticationListener() {
 
-        @Override
-        public void onSuccess() {
-            Log.d(TAG, "Connected as " + mApp.getUserName());
-            instagram = Instagram.getInstance(mApp.getmAccessToken());
-        }
-
-        @Override
-        public void onFail(String error) {
-            Toast.makeText(MainActivity.this, error, Toast.LENGTH_SHORT).show();
-        }
-    };
-    private InstagramApp mApp;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         instagram = Instagram.getInstance();
-        mApp = new InstagramApp(this, ApplicationData.CLIENT_ID,
-                ApplicationData.CLIENT_SECRET, ApplicationData.CALLBACK_URL);
-        mApp.setListener(authListener);
 
         float density = getResources().getDisplayMetrics().density;
         ViewHelper.setDensity(density);
@@ -218,9 +200,6 @@ public class MainActivity extends Activity implements HeaderFragment.OnFooterSel
                 args.putInt(UsersFragment.LIST_TYPE_ARG, UsersFragment.FOLLOWED_BY_LIST);
                 fragment.setArguments(args);
                 break;
-            case PostsFragment.ACCOUNT:
-                changeAccount();
-                return;
             case PostsFragment.SETTINGS:
                 Log.d(TAG, "select Settings from list");
                 fragment = new SettingsFragment();
@@ -325,45 +304,10 @@ public class MainActivity extends Activity implements HeaderFragment.OnFooterSel
 
     }
 
-    // oauth
-
     @Override
     public void onFooterSelected(int userId, int footer) {
         Log.d(TAG, "onFooterSelected ");
-//        if(footer==1) {
-//            Log.e(TAG,"footer==1, likes not possible");
-//            return;
-//        }
         onUserSelected(userId, footer);
-    }
-
-    private void changeAccount() {
-        if (mApp.hasAccessToken()) {
-            final AlertDialog.Builder builder = new AlertDialog.Builder(
-                    MainActivity.this);
-            builder.setMessage("Disconnect from Instagram?")
-                    .setCancelable(false)
-                    .setPositiveButton("Yes",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(
-                                        DialogInterface dialog, int id) {
-                                    mApp.resetAccessToken();
-                                    mApp.authorize();
-                                    Log.d(TAG, "reset accestoken");
-                                }
-                            })
-                    .setNegativeButton("No",
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(
-                                        DialogInterface dialog, int id) {
-                                    dialog.cancel();
-                                }
-                            });
-            final AlertDialog alert = builder.create();
-            alert.show();
-        } else {
-            mApp.authorize();
-        }
     }
 
 

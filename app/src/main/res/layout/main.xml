@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.v4.widget.DrawerLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <FrameLayout
-            android:id="@+id/main_container"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:translationZ="0dp"/>
+        android:id="@+id/main_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:translationZ="0dp" />
 
     <FrameLayout
-            android:id="@+id/header_container"
+        android:id="@+id/header_container"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-            android:background="#00ff00ff"
         android:elevation="3dp"
-            android:translationZ="20dp"/>
+        android:translationZ="20dp" />
 
     <FrameLayout
         android:id="@+id/fabs_container"
@@ -27,17 +25,16 @@
 
     <ListView
         android:id="@+id/left_drawer"
-        style="@android:style/TextAppearance.Material"
-              android:layout_width="240dp"
-              android:layout_height="match_parent"
-              android:layout_gravity="start"
-        android:background="#aaffffff"
-              android:choiceMode="singleChoice"
-              android:divider="@android:color/transparent"
-              android:dividerHeight="0dp"
-        android:elevation="20dp"
-        android:translationY="@dimen/header_contracted"
-        android:translationZ="20dp" />
+        style="@android:style/TextAppearance.Material.Inverse"
+        android:layout_width="240dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/main_colour"
+        android:choiceMode="singleChoice"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="1dp"
+        android:elevation="@dimen/header_elevation"
+        android:translationY="@dimen/header_contracted" />
 
 
 </android.support.v4.widget.DrawerLayout>

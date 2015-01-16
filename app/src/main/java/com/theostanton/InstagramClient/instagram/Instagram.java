@@ -25,14 +25,23 @@ public class Instagram {
     private static ArrayList<Post> popularPosts;
     private static ArrayList<Post> myLikes;
     private static ArrayList<User> iFollowList;
+    private static ArrayList<User> followedBy;
 
     private static ArrayList<Post> currPosts;
 
     private Instagram(String accToken) {
         InstaURL.setAccToken(accToken);
-        posts = new HashMap<String, Post>();
-        users = new HashMap<Integer, User>();
-        objects = new HashMap<String, JSONObject>(); //TODO lrucache instead
+        if (posts == null) {
+            posts = new HashMap<String, Post>();
+            users = new HashMap<Integer, User>();
+            objects = new HashMap<String, JSONObject>(); //TODO lrucache instead
+        }
+        myFeed = null;
+        popularPosts = null;
+        myLikes = null;
+        followedBy = null;
+        iFollowList = null;
+
     }
 
     public static Instagram getInstance(String accToken) {
@@ -211,19 +220,18 @@ public class Instagram {
     }
 
     public static ArrayList<User> getFollowewdByList(int userId, boolean fresh) {
-        if (!fresh && userId < 0 && iFollowList != null) return iFollowList;
+        if (!fresh && userId < 0 && followedBy != null) return followedBy;
         String url = InstaURL.getFollowedByList(userId);
         JSONObject object = getObject(url, fresh);
-        ArrayList<User> followedBy = InstaJSON.getUserArraylist(object);
-        Log.d(TAG, "followedBy.size() " + followedBy.size());
-//        if(userId<0) iFollowList = followsList;
-        putUsers(followedBy);
-        return followedBy;
+        ArrayList<User> newFollowedBy = InstaJSON.getUserArraylist(object);
+        if (userId < 0) followedBy = newFollowedBy;
+        putUsers(newFollowedBy);
+        return newFollowedBy;
     }
 
     private static JSONObject getObject(String url, boolean fresh) {
         if (!fresh && objects.containsKey(url)) {
-            Log.d(TAG, "got url from cache");
+            Log.d(TAG, "got objects(url) from cache");
             return objects.get(url);
         }
         JSONObject object = HTTPHandler.downloadObject(url);

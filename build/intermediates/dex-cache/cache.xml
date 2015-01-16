@@ -8,6 +8,18 @@
             dex="/GoogleDrive/Code/Android/InstragramClient/app/build/intermediates/pre-dexed/debug/classes-474c1aba55f5076507cfee8c4246906ae5d75599.jar" />
     </item>
     <item
+        jar="/GoogleDrive/Code/Android/InstragramClient/app/build/intermediates/exploded-aar/com.github.traex.rippleeffect/library/1.2.3/classes.jar"
+        jumboMode="false" revision="21.1.2" sha1="0a4207597233f779fc933633711517b53ae84d29">
+        <dex
+            dex="/GoogleDrive/Code/Android/InstragramClient/app/build/intermediates/pre-dexed/debug/classes-b239dd6472980bb55f9046d2b71df06cbe2a6c8d.jar" />
+    </item>
+    <item
+        jar="/GoogleDrive/Code/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/21.0.3/support-annotations-21.0.3.jar"
+        jumboMode="false" revision="21.1.2" sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
+        <dex
+            dex="/GoogleDrive/Code/Android/InstragramClient/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-e8ccf744a97c6fc2dccc9745f3428b6f9795ee39.jar" />
+    </item>
+    <item
         jar="/Users/theo/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.3/56498efd17752898cfcc3868c1b6211a07b12b8f/joda-time-2.3.jar"
         jumboMode="false" revision="21.1.2" sha1="56498efd17752898cfcc3868c1b6211a07b12b8f">
         <dex
@@ -29,12 +41,6 @@
         jumboMode="false" revision="21.1.2" sha1="ec4908880324a1b3fdf09c7429e60f73bac0a95a">
         <dex
             dex="/GoogleDrive/Code/Android/InstragramClient/app/build/intermediates/pre-dexed/debug/android-support-v7-cardview-ac7d911cc6cefd501cd643427031bf9c6e8e9184.jar" />
-    </item>
-    <item
-        jar="/GoogleDrive/Code/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/21.0.3/support-annotations-21.0.3.jar"
-        jumboMode="false" revision="21.1.2" sha1="4b74cefe1f0c1b819e7260c8627a14674e37fd35">
-        <dex
-            dex="/GoogleDrive/Code/Android/InstragramClient/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-e8ccf744a97c6fc2dccc9745f3428b6f9795ee39.jar" />
     </item>
 
 </items>

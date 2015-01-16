@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -14,8 +15,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.LinearLayout;
 import android.widget.Space;
 import android.widget.TextView;
 
@@ -26,6 +27,7 @@ import com.theostanton.InstagramClient.fragments.BaseFragment;
 import com.theostanton.InstagramClient.fragments.UserFragment;
 import com.theostanton.InstagramClient.helpers.ViewHelper;
 import com.theostanton.InstagramClient.instagram.Instagram;
+import com.theostanton.InstagramClient.views.ButtonHeaderBackground;
 import com.theostanton.InstagramClient.views.UserImageView;
 import com.theostanton.InstragramClient.R;
 
@@ -175,6 +177,7 @@ public class HeaderFragment extends BaseFragment implements View.OnClickListener
     private static int TOP_MARGIN_EXPANDED = 10;
     private Handler handler;
     private View view;
+    private ButtonHeaderBackground headerBackground;
     private ValueAnimator expansionAnimation = new ValueAnimator();
 
 
@@ -182,6 +185,10 @@ public class HeaderFragment extends BaseFragment implements View.OnClickListener
     private boolean hidden = false;
 
     // these are all reassigned dp equivs in createVIew
+
+    private LinearLayout textFooters;
+    private LinearLayout numberFooters;
+
     private int expandedHeight = 450;
     private int contractedHeight = 150;
     private int heightDiff = expandedHeight - contractedHeight;
@@ -209,6 +216,7 @@ public class HeaderFragment extends BaseFragment implements View.OnClickListener
     private TextView websiteTextView;
     private Space topMargin;
     private Space midVerticalMargin;
+    private ArrayList<View> footerViews;
     private ArrayList<View> viewsVisibleOnExpansion;
     private OnFooterSelectedListener onFooterSelected;
 
@@ -329,6 +337,8 @@ public class HeaderFragment extends BaseFragment implements View.OnClickListener
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.header_fragment, container, false);
 
+        headerBackground = (ButtonHeaderBackground) view.findViewById(R.id.header_background);
+
         view.findViewById(R.id.back_button).setOnClickListener(this);
         view.setOnClickListener(this);
 
@@ -353,6 +363,9 @@ public class HeaderFragment extends BaseFragment implements View.OnClickListener
         bioTextView = (TextView) view.findViewById(R.id.bio_text_header);
         websiteTextView = (TextView) view.findViewById(R.id.website_text_header);
 
+        textFooters = (LinearLayout) view.findViewById(R.id.text_footers);
+        numberFooters = (LinearLayout) view.findViewById(R.id.number_footers);
+
         postsTextView = (TextView) view.findViewById(R.id.header_posts_text);
         likesTextView = (TextView) view.findViewById(R.id.header_likes_text);
         followsTextView = (TextView) view.findViewById(R.id.header_follows_text);
@@ -364,9 +377,8 @@ public class HeaderFragment extends BaseFragment implements View.OnClickListener
         followedbyNumberView = (TextView) view.findViewById(R.id.header_followedby_number);
 
         viewsVisibleOnExpansion = new ArrayList<View>();
+        footerViews = new ArrayList<View>();
 
-        viewsVisibleOnExpansion.add(bioTextView);
-        viewsVisibleOnExpansion.add(websiteTextView);
 
         viewsVisibleOnExpansion.add(postsTextView);
         viewsVisibleOnExpansion.add(followsTextView);
@@ -378,12 +390,17 @@ public class HeaderFragment extends BaseFragment implements View.OnClickListener
         viewsVisibleOnExpansion.add(followsNumberView);
         viewsVisibleOnExpansion.add(followedbyNumberView);
 
+        footerViews.addAll(viewsVisibleOnExpansion);
+
+        viewsVisibleOnExpansion.add(bioTextView);
+        viewsVisibleOnExpansion.add(websiteTextView);
+
 
         footerPointerView = view.findViewById(R.id.footer_pointer);
 
         footerWidth = getResources().getDisplayMetrics().widthPixels / NUM_FOOTERS;
         footerPointerView.getLayoutParams().width = footerWidth;
-        viewsVisibleOnExpansion.add(footerPointerView);
+//        viewsVisibleOnExpansion.add(footerPointerView);
 
         for(View view:viewsVisibleOnExpansion){
             view.setOnClickListener(this);
@@ -582,7 +599,8 @@ public class HeaderFragment extends BaseFragment implements View.OnClickListener
 
     public void hide() {
         if (translationAnimation.isRunning() && hidden) return;
-        animateToTranslation(-getResources().getDimensionPixelSize(R.dimen.header_contracted));
+        float animateTo = -getResources().getDimensionPixelSize(R.dimen.header_contracted);
+        animateToTranslation(animateTo);
     }
 
     private void animateToTranslation(final float translationY) {
@@ -594,8 +612,8 @@ public class HeaderFragment extends BaseFragment implements View.OnClickListener
         }
 
         Log.d(TAG, "animate from " + currTranslation + " to " + translationY);
-        expansionAnimation = ValueAnimator.ofFloat(currTranslation, translationY);
-        expansionAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+        translationAnimation = ValueAnimator.ofFloat(currTranslation, translationY);
+        translationAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
                 float val = (Float) valueAnimator.getAnimatedValue();
@@ -614,14 +632,17 @@ public class HeaderFragment extends BaseFragment implements View.OnClickListener
         float duration = 300.0f; // * Math.abs( currTranslation - currExpandFraction );
 
 
-        expansionAnimation.setInterpolator(new DecelerateInterpolator());
-        expansionAnimation.setDuration((long) duration);
-        expansionAnimation.start();
+        translationAnimation.setInterpolator(new DecelerateInterpolator());
+        translationAnimation.setDuration((long) duration);
+        translationAnimation.start();
     }
 
     public void toggleExpansion(){
         if(expanded) contract();
-        else expand();
+        else {
+            headerBackground.setFooter(-1);
+            expand();
+        }
     }
 
     public void expand(){
@@ -748,9 +769,22 @@ public class HeaderFragment extends BaseFragment implements View.OnClickListener
 
     private void updateFooterAlpha(){
         float exp = currExpandFraction * currExpandFraction;
-        for(View view:viewsVisibleOnExpansion){
-            view.setAlpha(exp);
+
+
+        bioTextView.setAlpha(exp);
+        websiteTextView.setAlpha(exp);
+
+        if (exp > 0.5f) {
+            float alpha = exp * 2.0f - 1.0f;
+            for (View view : footerViews) {
+                view.setAlpha(alpha);
+            }
         }
+
+
+        textFooters.setTranslationY((1.0f - currExpandFraction) * heightDiff);
+        numberFooters.setTranslationY((1.0f - currExpandFraction) * heightDiff);
+
         v.detailTextView.setAlpha(1.0f - exp);
     }
 
@@ -760,6 +794,9 @@ public class HeaderFragment extends BaseFragment implements View.OnClickListener
 //        this.midVerticalMargin.getLayoutParams().width = space;
 
         int newHeight = (int)( contractedHeight + heightDiff * currExpandFraction );
+
+        Rect rect = new Rect(0, 0, 1080, newHeight);
+//        view.setOutlineProvider( headerBackground.getOutline() );
 
 //        Log.d(TAG,"newHeight " + newHeight);
 
@@ -855,26 +892,7 @@ public class HeaderFragment extends BaseFragment implements View.OnClickListener
     }
 
     private void animateFooterPointer(int newFooterPos){
-        Log.d(TAG, "animeatefooter to " + newFooterPos);
-
-        if(footerPointerAnimation.isRunning()) footerPointerAnimation.cancel();
-
-        float newTranslation = (float) newFooterPos * footerWidth;
-//        Log.d(TAG,"animate from " + currExpandFraction + " to " + newFraction);
-        footerPointerAnimation = ValueAnimator.ofFloat(footerCurrTranslation, newTranslation);
-        footerPointerAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                footerCurrTranslation = (Float) valueAnimator.getAnimatedValue();
-                footerPointerView.setTranslationX(footerCurrTranslation);
-            }
-        });
-//        float duration = 1000.0f * Math.abs( footerCurrTranslation - newTranslation );
-
-
-        footerPointerAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
-        footerPointerAnimation.setDuration(300L);
-        footerPointerAnimation.start();
+        headerBackground.setFooter(newFooterPos);
     }
 
     // Communication

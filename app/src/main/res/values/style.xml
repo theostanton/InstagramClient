@@ -32,6 +32,7 @@
         <item name="android:alpha">0</item>
     </style>
 
+
     <integer name="slide_duration">@android:integer/config_mediumAnimTime</integer>
     <integer name="slide_interpolator">@android:anim/accelerate_decelerate_interpolator</integer>
 
@@ -39,6 +40,7 @@
     <!--ffc107-->
     <!--ff5722-->
     <color name="main_colour">#3f51b5</color>
+    <color name="second_colour">#6889ff</color>
     <color name="fab_colour">#D32F2F</color>
 
 </resources>

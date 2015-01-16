@@ -1,6 +1,7 @@
 package com.theostanton.InstagramClient.helpers;
 
 import android.graphics.Outline;
+import android.graphics.Rect;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewOutlineProvider;
@@ -37,11 +38,20 @@ public class ViewHelper {
         };
     }
 
+    public static ViewOutlineProvider getRectOutline(final Rect rect) {
+        return new ViewOutlineProvider() {
+            @Override
+            public void getOutline(View view, Outline outline) {
+                outline.setRect(rect);
+            }
+        };
+    }
+
     public static ViewOutlineProvider getRectOutline(){
         return new ViewOutlineProvider() {
             @Override
             public void getOutline(View view, Outline outline) {
-                outline.setRect(0,0,view.getMeasuredWidth(),view.getMeasuredHeight());
+                outline.setRect(0, 0, view.getMeasuredWidth() / 2, view.getMeasuredHeight());
             }
         };
     }

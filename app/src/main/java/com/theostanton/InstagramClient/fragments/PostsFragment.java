@@ -40,8 +40,7 @@ public class PostsFragment extends BaseFragment implements AdapterView.OnItemCli
     public static final int USER_FEED_LIST = 3;
     public static final int I_FOLLOW = 3;
     public static final int FOLLOWERS = 4;
-    public static final int ACCOUNT = 5;
-    public static final int SETTINGS = 6;
+    public static final int SETTINGS = 5;
     private static final String TAG = "PostsFragment";
 
 
@@ -64,25 +63,23 @@ public class PostsFragment extends BaseFragment implements AdapterView.OnItemCli
     @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
 
-            View child = view.getChildAt(0);
-            if(child!=null && firstVisibleItem==0) {
+        View child = view.getChildAt(0);
+        if (child != null && firstVisibleItem == 0) {
 
-                int y = child.getTop();
+            int y = child.getTop();
 
-                announceScrollY(-y);
-            }
+            announceScrollY(-y);
+        }
 
     }
-
 
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        try{
+        try {
             mCallback = (OnPostSelectedListener) activity;
-        }
-        catch (ClassCastException e){
+        } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString() + " must implement OnPopularListItemSelceted");
         }
     }
@@ -97,34 +94,34 @@ public class PostsFragment extends BaseFragment implements AdapterView.OnItemCli
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 //        super.onCreateView(inflater, container, savedInstanceState);
 
-        if(savedInstanceState!=null) Log.d(TAG,"savedinstancestate = " + savedInstanceState.toString());
+        if (savedInstanceState != null)
+            Log.d(TAG, "savedinstancestate = " + savedInstanceState.toString());
 
         context = inflater.getContext();
 
 
-        if(getArguments()!=null) {
+        if (getArguments() != null) {
             postsList = getArguments().getInt(POSTS_LIST_ARG, -1);
             postsType = getArguments().getInt(POSTS_TYPE_ARG, -1);
-            String title = getArguments().getString(TITLE_ARG,"No title argument");
+            String title = getArguments().getString(TITLE_ARG, "No title argument");
             updateHeadersTitle(title);
 
-        }
-        else{
+        } else {
             postsList = MY_FEED_LIST;
             postsType = GRID_TYPE;
         }
 
-        switch (postsType){
+        switch (postsType) {
             case GRID_TYPE:
-                view = inflater.inflate(R.layout.posts_grid_fragment, container,false);
+                view = inflater.inflate(R.layout.posts_grid_fragment, container, false);
                 gridView = (GridView) view.findViewById(R.id.gridView);
                 gridView.setOnItemClickListener(this);
                 break;
             case LIST_TYPE:
-                view = inflater.inflate(R.layout.posts_lists_fragment, container,false);
+                view = inflater.inflate(R.layout.posts_lists_fragment, container, false);
                 break;
             default:
-                view = inflater.inflate(R.layout.posts_grid_fragment, container,false);
+                view = inflater.inflate(R.layout.posts_grid_fragment, container, false);
                 break;
         }
 
@@ -142,19 +139,19 @@ public class PostsFragment extends BaseFragment implements AdapterView.OnItemCli
             @Override
             public void run() {
                 final ArrayList<Post> posts;
-                switch (postsList){
+                switch (postsList) {
                     case POPULAR_LIST:
                         posts = Instagram.getPopular(fresh);
                         break;
                     case MY_FEED_LIST:
                         posts = Instagram.getMyFeed(fresh);
-                        Log.d(TAG,"got my feed " + posts.size() );
+                        Log.d(TAG, "got my feed " + posts.size());
                         break;
                     case MY_LIKES_LIST:
                         posts = Instagram.getMyLikes(fresh);
                         break;
                     case USER_FEED_LIST:
-                        int userId = getArguments().getInt(USERID_ARG,-3);
+                        int userId = getArguments().getInt(USERID_ARG, -3);
                         posts = Instagram.getFeed(userId, fresh);
                         break;
                     default:
@@ -164,7 +161,7 @@ public class PostsFragment extends BaseFragment implements AdapterView.OnItemCli
                     @Override
                     public void run() {
                         mSwipeRefreshLayout.setRefreshing(false);
-                        switch (postsType){
+                        switch (postsType) {
                             case GRID_TYPE:
                                 populateGrid(posts);
                                 break;
@@ -181,7 +178,7 @@ public class PostsFragment extends BaseFragment implements AdapterView.OnItemCli
         }).start();
     }
 
-    private void populateGrid(ArrayList<Post> posts){
+    private void populateGrid(ArrayList<Post> posts) {
 
         if (postsAdapter == null) {
             postsAdapter = new PostsAdapter(context, R.layout.posts_grid_item, posts);
@@ -192,19 +189,19 @@ public class PostsFragment extends BaseFragment implements AdapterView.OnItemCli
         mSwipeRefreshLayout.setRefreshing(false);
     }
 
-    private void populateList(ArrayList<Post> posts){
-        postsAdapter = new PostsAdapter(context,R.layout.posts_list_item,posts);
+    private void populateList(ArrayList<Post> posts) {
+        postsAdapter = new PostsAdapter(context, R.layout.posts_list_item, posts);
         ListView listView = (ListView) view.findViewById(R.id.posts_listview);
         listView.setAdapter(postsAdapter);
         listView.setOnItemClickListener(this);
     }
 
 
-    private void updateHeadersTitle(String title){
+    private void updateHeadersTitle(String title) {
         Intent intent = new Intent(HeaderFragment.POSTS_FRAG_INTENT);
-        intent.putExtra(HeaderFragment.TITLE_EXTRA,title);
+        intent.putExtra(HeaderFragment.TITLE_EXTRA, title);
         getActivity().sendBroadcast(intent);
-        Log.d(TAG,"updateHeadersTitle()");
+        Log.d(TAG, "updateHeadersTitle()");
     }
 
     @Override

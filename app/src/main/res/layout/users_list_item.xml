@@ -6,6 +6,7 @@
     android:background="#ffffff"
     android:padding="5dp">
 
+
     <com.theostanton.InstagramClient.views.UserImageView
         android:id="@+id/user_image"
         android:layout_width="40dp"

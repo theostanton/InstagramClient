@@ -26,7 +26,9 @@ import com.theostanton.InstagramClient.fragments.PostsFragment;
 import com.theostanton.InstagramClient.fragments.SettingsFragment;
 import com.theostanton.InstagramClient.fragments.UserFragment;
 import com.theostanton.InstagramClient.fragments.UsersFragment;
-import com.theostanton.InstagramClient.fragments.header.HeaderFragment;
+import com.theostanton.InstagramClient.fragments.header.HeaderFragmentOLD;
+import com.theostanton.InstagramClient.fragments.header.HeaderFragmentStates;
+import com.theostanton.InstagramClient.fragments.header.LowerHeaderFragment;
 import com.theostanton.InstagramClient.fragments.post.PostFragment;
 import com.theostanton.InstagramClient.helpers.ViewHelper;
 import com.theostanton.InstagramClient.instagram.Instagram;
@@ -34,7 +36,7 @@ import com.theostanton.InstagramClient.listeners.OnPostSelectedListener;
 import com.theostanton.InstagramClient.listeners.OnUserSelectedListener;
 import com.theostanton.InstragramClient.R;
 
-public class MainActivity extends Activity implements HeaderFragment.OnFooterSelectedListener, OnPostSelectedListener, OnUserSelectedListener, AdapterView.OnItemClickListener, View.OnClickListener, BaseFragment.OnFragmentScrollListener {
+public class MainActivity extends Activity implements LowerHeaderFragment.OnFooterSelectedListener, OnPostSelectedListener, OnUserSelectedListener, AdapterView.OnItemClickListener, View.OnClickListener, BaseFragment.OnFragmentScrollListener {
 
     public static final String BACK_INTENT = "Back intent";
     private BroadcastReceiver receiver = new BroadcastReceiver() {
@@ -45,9 +47,9 @@ public class MainActivity extends Activity implements HeaderFragment.OnFooterSel
                 onBackPressed();
                 return;
             }
-            if (action.equals(HeaderFragment.HEIGHT_CHANGE_INTENT)) {
-                int headerHeight = intent.getIntExtra(HeaderFragment.HEIGHT_EXTRA, getResources().getDimensionPixelSize(R.dimen.header_contracted));
-                drawerList.setTranslationY(headerHeight);
+            if (action.equals(HeaderFragmentStates.HEIGHT_CHANGE_INTENT)) {
+                int headerHeight = intent.getIntExtra(HeaderFragmentStates.HEIGHT_EXTRA, getResources().getDimensionPixelSize(R.dimen.header_contracted));
+//                drawerList.setTranslationY(headerHeight);
                 return;
             }
         }
@@ -69,7 +71,7 @@ public class MainActivity extends Activity implements HeaderFragment.OnFooterSel
     private BitmapHandler bitmapHandler;
     private DrawerLayout drawerLayout;
     private ListView drawerList;
-    private HeaderFragment headerFragment;
+    private HeaderFragmentStates headerFragment;
     private FabFragment fabFragment;
 
     private Instagram instagram;
@@ -108,7 +110,7 @@ public class MainActivity extends Activity implements HeaderFragment.OnFooterSel
         PostsFragment postsFragment = new PostsFragment();
         transaction.add(R.id.main_container, postsFragment);
 
-        headerFragment = new HeaderFragment();
+        headerFragment = new HeaderFragmentStates();
         transaction.add(R.id.header_container, headerFragment);
 
         fabFragment = new FabFragment();
@@ -117,7 +119,22 @@ public class MainActivity extends Activity implements HeaderFragment.OnFooterSel
 
         transaction.commit();
 
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(100);
+                    Intent intent = new Intent(HeaderFragmentStates.TITLE_ACTION);
+                    intent.putExtra(HeaderFragmentStates.TITLE_EXTRA, "Instagram");
+                    sendBroadcast(intent);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
     }
+
 
     private void assignPreferences() {
 
@@ -130,7 +147,7 @@ public class MainActivity extends Activity implements HeaderFragment.OnFooterSel
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(SET_HEADER_USER_INTENT);
         intentFilter.addAction(BACK_INTENT);
-        intentFilter.addAction(HeaderFragment.HEIGHT_CHANGE_INTENT);
+        intentFilter.addAction(HeaderFragmentStates.HEIGHT_CHANGE_INTENT);
         registerReceiver(receiver, intentFilter);
     }
 
@@ -141,15 +158,15 @@ public class MainActivity extends Activity implements HeaderFragment.OnFooterSel
     }
 
     private void setHeaderFromPost(String postId) {
-        Intent intent = new Intent(HeaderFragment.POST_FRAG_INTENT);
-        intent.putExtra(HeaderFragment.POST_ID_EXTRA, postId);
+        Intent intent = new Intent(HeaderFragmentOLD.POST_FRAG_INTENT);
+        intent.putExtra(HeaderFragmentOLD.POST_ID_EXTRA, postId);
         sendBroadcast(intent);
     }
 
     private void setHeaderFromUser(int userId, int footerSelected) {
-        Intent intent = new Intent(HeaderFragment.USER_FRAG_INTENT);
-        intent.putExtra(HeaderFragment.USER_ID_EXTRA, userId);
-        intent.putExtra(HeaderFragment.FOOTER_SELECTED_EXTRA, footerSelected);
+        Intent intent = new Intent(HeaderFragmentOLD.USER_FRAG_INTENT);
+        intent.putExtra(HeaderFragmentOLD.USER_ID_EXTRA, userId);
+        intent.putExtra(HeaderFragmentOLD.FOOTER_SELECTED_EXTRA, footerSelected);
         sendBroadcast(intent);
     }
 
@@ -160,7 +177,7 @@ public class MainActivity extends Activity implements HeaderFragment.OnFooterSel
 
         Fragment fragment;
         Bundle args = new Bundle();
-        args.putString(HeaderFragment.POST_ID_EXTRA, drawerTitles[position]);
+        args.putString(HeaderFragmentOLD.POST_ID_EXTRA, drawerTitles[position]);
 
 
         switch (position) {
@@ -284,19 +301,19 @@ public class MainActivity extends Activity implements HeaderFragment.OnFooterSel
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        if (hasFocus) {
-            Log.d(TAG, "hasFocus");
-            View decorView = getWindow().getDecorView();
-            decorView.setSystemUiVisibility(
-                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-//                                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-//                                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                            | View.SYSTEM_UI_FLAG_FULLSCREEN
-                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
-        } else {
-            Log.d(TAG, "!hasFocus");
-        }
+//        if (hasFocus) {
+//            Log.d(TAG, "hasFocus");
+//            View decorView = getWindow().getDecorView();
+//            decorView.setSystemUiVisibility(
+//                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+////                                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+//                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+////                                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+//                            | View.SYSTEM_UI_FLAG_FULLSCREEN
+//                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+//        } else {
+//            Log.d(TAG, "!hasFocus");
+//        }
     }
 
     @Override

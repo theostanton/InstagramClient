@@ -2,6 +2,7 @@ package com.theostanton.InstagramClient.fragments.header;
 
 import android.animation.ValueAnimator;
 import android.app.Activity;
+import android.app.Fragment;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -23,7 +24,6 @@ import android.widget.TextView;
 import com.theostanton.InstagramClient.activities.MainActivity;
 import com.theostanton.InstagramClient.data.Post;
 import com.theostanton.InstagramClient.data.User;
-import com.theostanton.InstagramClient.fragments.BaseFragment;
 import com.theostanton.InstagramClient.fragments.UserFragment;
 import com.theostanton.InstagramClient.helpers.ViewHelper;
 import com.theostanton.InstagramClient.instagram.Instagram;
@@ -36,7 +36,7 @@ import java.util.ArrayList;
 /**
  * Created by theo on 04/01/15.
  */
-public class HeaderFragment extends BaseFragment implements View.OnClickListener {
+public class HeaderFragmentOLD extends Fragment implements View.OnClickListener {
 
     //INCOMING
     public static final String TITLE_INTENT = "title_intent";
@@ -337,8 +337,8 @@ public class HeaderFragment extends BaseFragment implements View.OnClickListener
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.header_fragment, container, false);
 
-        headerBackground = (ButtonHeaderBackground) view.findViewById(R.id.header_background);
 
+        headerBackground = (ButtonHeaderBackground) view.findViewById(R.id.header_background);
         view.findViewById(R.id.back_button).setOnClickListener(this);
         view.setOnClickListener(this);
 

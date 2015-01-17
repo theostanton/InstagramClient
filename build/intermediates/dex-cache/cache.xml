@@ -20,12 +20,6 @@
             dex="/GoogleDrive/Code/Android/InstragramClient/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-e8ccf744a97c6fc2dccc9745f3428b6f9795ee39.jar" />
     </item>
     <item
-        jar="/Users/theo/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.3/56498efd17752898cfcc3868c1b6211a07b12b8f/joda-time-2.3.jar"
-        jumboMode="false" revision="21.1.2" sha1="56498efd17752898cfcc3868c1b6211a07b12b8f">
-        <dex
-            dex="/GoogleDrive/Code/Android/InstragramClient/app/build/intermediates/pre-dexed/debug/joda-time-2.3-add9b7b0e06301d36cf4e79b832239d89d3879bc.jar" />
-    </item>
-    <item
         jar="/GoogleDrive/Code/Android/InstragramClient/app/libs/android-support-v7-recyclerview.jar"
         jumboMode="false" revision="21.1.2" sha1="95c892d244f49414bbdf92c2235a32ea06bc68aa">
         <dex
@@ -41,6 +35,12 @@
         jumboMode="false" revision="21.1.2" sha1="ec4908880324a1b3fdf09c7429e60f73bac0a95a">
         <dex
             dex="/GoogleDrive/Code/Android/InstragramClient/app/build/intermediates/pre-dexed/debug/android-support-v7-cardview-ac7d911cc6cefd501cd643427031bf9c6e8e9184.jar" />
+    </item>
+    <item
+        jar="/Users/theo/.gradle/caches/modules-2/files-2.1/joda-time/joda-time/2.3/56498efd17752898cfcc3868c1b6211a07b12b8f/joda-time-2.3.jar"
+        jumboMode="false" revision="21.1.2" sha1="56498efd17752898cfcc3868c1b6211a07b12b8f">
+        <dex
+            dex="/GoogleDrive/Code/Android/InstragramClient/app/build/intermediates/pre-dexed/debug/joda-time-2.3-add9b7b0e06301d36cf4e79b832239d89d3879bc.jar" />
     </item>
 
 </items>

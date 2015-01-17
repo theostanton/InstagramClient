@@ -18,7 +18,8 @@ import android.widget.Toast;
 
 import com.theostanton.InstagramClient.activities.MainActivity;
 import com.theostanton.InstagramClient.fragments.BaseFragment;
-import com.theostanton.InstagramClient.fragments.header.HeaderFragment;
+import com.theostanton.InstagramClient.fragments.header.HeaderFragmentOLD;
+import com.theostanton.InstagramClient.fragments.header.HeaderFragmentStates;
 import com.theostanton.InstagramClient.instagram.Instagram;
 import com.theostanton.InstragramClient.R;
 
@@ -152,8 +153,11 @@ public class PostFragment extends BaseFragment {
     }
 
     private void updateHeadersPost(){
-        Intent intent = new Intent(HeaderFragment.POST_FRAG_INTENT);
-        intent.putExtra(HeaderFragment.POST_ID_EXTRA, postId);
+//        Intent intent = new Intent(HeaderFragment.POST_FRAG_INTENT);
+//        intent.putExtra(HeaderFragment.POST_ID_EXTRA, postId);
+//        getActivity().sendBroadcast(intent);
+        Intent intent = new Intent(HeaderFragmentStates.POST_ACTION);
+        intent.putExtra(HeaderFragmentStates.POST_ID_EXTRA, postId);
         getActivity().sendBroadcast(intent);
         Log.d(TAG, "updateHeadersPost()");
     }
@@ -281,14 +285,14 @@ public class PostFragment extends BaseFragment {
     }
 
     private void setHeader(boolean visibility) {
-        Intent headerOpacityIntent = new Intent(HeaderFragment.SET_VISIBLE_INTENT);
-        headerOpacityIntent.putExtra(HeaderFragment.VISIBILTY_EXTRA, visibility);
+        Intent headerOpacityIntent = new Intent(HeaderFragmentOLD.SET_VISIBLE_INTENT);
+        headerOpacityIntent.putExtra(HeaderFragmentOLD.VISIBILTY_EXTRA, visibility);
         getActivity().sendBroadcast(headerOpacityIntent);
     }
 
     private void updateHeader() {
-        Intent headerOpacityIntent = new Intent(HeaderFragment.TRANSLATEY_INTENT);
-        headerOpacityIntent.putExtra(HeaderFragment.TRANSLATEY_EXTRA, currPos - headerHeight);
+        Intent headerOpacityIntent = new Intent(HeaderFragmentStates.TRANSLATEY_INTENT);
+        headerOpacityIntent.putExtra(HeaderFragmentStates.TRANSLATEY_EXTRA, currPos - headerHeight);
         getActivity().sendBroadcast(headerOpacityIntent);
     }
 

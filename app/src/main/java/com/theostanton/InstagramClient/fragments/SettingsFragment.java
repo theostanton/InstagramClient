@@ -11,7 +11,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.theostanton.InstagramClient.bitmap.BitmapHandler;
-import com.theostanton.InstagramClient.fragments.header.HeaderFragment;
+import com.theostanton.InstagramClient.fragments.header.HeaderFragmentOLD;
 import com.theostanton.InstagramClient.instagram.Instagram;
 import com.theostanton.InstagramClient.instagram.br.com.dina.oauth.instagram.ApplicationData;
 import com.theostanton.InstagramClient.instagram.br.com.dina.oauth.instagram.InstagramApp;
@@ -66,8 +66,8 @@ public class SettingsFragment extends PreferenceFragment implements SharedPrefer
         mApp.setListener(authListener);
 
 
-        Intent intent = new Intent(HeaderFragment.TITLE_INTENT);
-        intent.putExtra(HeaderFragment.TITLE_EXTRA, "Settings");
+        Intent intent = new Intent(HeaderFragmentOLD.TITLE_INTENT);
+        intent.putExtra(HeaderFragmentOLD.TITLE_EXTRA, "Settings");
         getActivity().sendBroadcast(intent);
 
         findPreference(getResources().getString(R.string.clear_cache_key)).setOnPreferenceClickListener(this);

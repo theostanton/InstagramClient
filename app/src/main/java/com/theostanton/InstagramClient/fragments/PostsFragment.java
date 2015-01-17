@@ -16,7 +16,7 @@ import android.widget.ListView;
 
 import com.theostanton.InstagramClient.adapters.PostsAdapter;
 import com.theostanton.InstagramClient.data.Post;
-import com.theostanton.InstagramClient.fragments.header.HeaderFragment;
+import com.theostanton.InstagramClient.fragments.header.HeaderFragmentStates;
 import com.theostanton.InstagramClient.instagram.Instagram;
 import com.theostanton.InstagramClient.listeners.OnPostSelectedListener;
 import com.theostanton.InstragramClient.R;
@@ -198,8 +198,11 @@ public class PostsFragment extends BaseFragment implements AdapterView.OnItemCli
 
 
     private void updateHeadersTitle(String title) {
-        Intent intent = new Intent(HeaderFragment.POSTS_FRAG_INTENT);
-        intent.putExtra(HeaderFragment.TITLE_EXTRA, title);
+//        Intent intent = new Intent(HeaderFragment.POSTS_FRAG_INTENT);
+//        intent.putExtra(HeaderFragment.TITLE_EXTRA, title);
+//        getActivity().sendBroadcast(intent);
+        Intent intent = new Intent(HeaderFragmentStates.TITLE_ACTION);
+        intent.putExtra(HeaderFragmentStates.TITLE_EXTRA, title);
         getActivity().sendBroadcast(intent);
         Log.d(TAG, "updateHeadersTitle()");
     }

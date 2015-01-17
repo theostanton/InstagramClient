@@ -23,7 +23,8 @@ import com.theostanton.InstragramClient.R;
  */
 public class UserImageView extends ImageView {
 
-    public static final String GET_USER_IN_BG = "download_user_inbackground_method";
+    protected static final String GET_USER_IN_BG = "download_user_inbackground_method";
+
     private static final String TAG = "UserImageView";
     private boolean bitmapLoaded = false;
     private boolean animate = true;

@@ -20,7 +20,7 @@
         android:padding="@dimen/fab_padding"
         android:scaleType="centerInside"
         android:src="@drawable/ic_action_edit"
-        fab:fab_base_colour="@color/fab_colour"
+        fab:fab_base_colour="@color/accent"
         fab:fab_pressed_colour="#111111" />
 
     <!--<com.theostanton.InstagramClient.views.Fab-->

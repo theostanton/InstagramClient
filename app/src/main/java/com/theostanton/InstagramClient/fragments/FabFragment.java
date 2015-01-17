@@ -30,6 +30,7 @@ public class FabFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 //        super.onCreateView(inflater, container, savedInstanceState);
+
         View view = inflater.inflate(R.layout.fabs_fragment, container, false);
         layout = (FrameWithFractionLayout) view.findViewById(R.id.fabs_layout);
         setTranslation(HIDE);

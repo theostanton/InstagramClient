@@ -96,6 +96,8 @@ public class ButtonHeaderBackground extends RelativeLayout implements ValueAnima
 
         }
 
+        setFooter(0);
+
 
     }
 
@@ -130,7 +132,7 @@ public class ButtonHeaderBackground extends RelativeLayout implements ValueAnima
         float val = animation.getAnimatedFraction();
 
         for (int i = 0; i < NUM_FOOTERS; i++) {
-            float newAlpha = startAlphas[i] - val * (nextFooter == i ? 1 : -1);
+            float newAlpha = startAlphas[i] - val * (nextFooter == i ? -1 : 1);
 //            Log.d(TAG,i + " newAlph " + newAlpha);
             if (newAlpha >= 0.0f && newAlpha <= 1.0f) {
                 footers.get(i).setAlpha(newAlpha);

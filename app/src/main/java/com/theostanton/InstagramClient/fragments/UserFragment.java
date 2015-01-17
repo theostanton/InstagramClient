@@ -21,7 +21,7 @@ import com.theostanton.InstagramClient.adapters.PostsAdapter;
 import com.theostanton.InstagramClient.adapters.UsersAdapter;
 import com.theostanton.InstagramClient.data.Post;
 import com.theostanton.InstagramClient.data.User;
-import com.theostanton.InstagramClient.fragments.header.HeaderFragment;
+import com.theostanton.InstagramClient.fragments.header.HeaderFragmentStates;
 import com.theostanton.InstagramClient.instagram.Instagram;
 import com.theostanton.InstagramClient.listeners.OnPostSelectedListener;
 import com.theostanton.InstagramClient.listeners.OnUserSelectedListener;
@@ -55,7 +55,7 @@ public class UserFragment extends BaseFragment implements AdapterView.OnItemClic
         public void onReceive(Context context, Intent intent) {
             // TODO expand height of layout as it is cutting the bottom
             if (contractedListHeight == 0) contractedListHeight = mSwipeRefreshLayout.getHeight();
-            translationY = intent.getIntExtra(HeaderFragment.HEIGHT_EXTRA, 50) - contractedHeaderheight;
+            translationY = intent.getIntExtra(HeaderFragmentStates.HEIGHT_EXTRA, 50) - contractedHeaderheight;
 
             int height = contractedListHeight + translationY;
             if (listView != null) {
@@ -123,9 +123,13 @@ public class UserFragment extends BaseFragment implements AdapterView.OnItemClic
         footerSelection = getArguments().getInt(FOOTER_SELECTED_ARG, POSTS);
         translationY = getArguments().getInt(TRANSLATION_Y_ARG, 0) - contractedHeaderheight;
 
-        Intent intent = new Intent(HeaderFragment.USER_FRAG_INTENT);
-        intent.putExtra(HeaderFragment.USER_ID_EXTRA, userId);
-        intent.putExtra(HeaderFragment.FOOTER_SELECTED_EXTRA, footerSelection);
+//        Intent intent = new Intent(HeaderFragment.USER_FRAG_INTENT);
+//        intent.putExtra(HeaderFragment.USER_ID_EXTRA, userId);
+//        intent.putExtra(HeaderFragment.FOOTER_SELECTED_EXTRA, footerSelection);
+//        getActivity().sendBroadcast(intent);
+        Intent intent = new Intent(HeaderFragmentStates.USER_ACTION);
+        intent.putExtra(HeaderFragmentStates.USER_ID_EXTRA, userId);
+        intent.putExtra(HeaderFragmentStates.EXPAND_EXTRA, true);
         getActivity().sendBroadcast(intent);
 
         switch (footerSelection) {
@@ -190,7 +194,7 @@ public class UserFragment extends BaseFragment implements AdapterView.OnItemClic
     @Override
     public void onResume() {
         super.onResume();
-        IntentFilter filter = new IntentFilter(HeaderFragment.HEIGHT_CHANGE_INTENT);
+        IntentFilter filter = new IntentFilter(HeaderFragmentStates.HEIGHT_CHANGE_INTENT);
         getActivity().registerReceiver(receiver, filter);
     }
 

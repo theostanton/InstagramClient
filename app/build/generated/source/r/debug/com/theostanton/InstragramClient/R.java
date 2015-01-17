@@ -126,11 +126,20 @@ containing a value of this type.
         public static final int rv_zoomScale=0x7f01000b;
     }
     public static final class color {
-        public static final int fab_colour=0x7f070000;
-        public static final int footer_pointer=0x7f070001;
-        public static final int main_colour=0x7f070002;
-        public static final int rippelColor=0x7f070003;
-        public static final int second_colour=0x7f070004;
+        public static final int accent=0x7f070000;
+        public static final int divider=0x7f070001;
+        public static final int footer_button_bg=0x7f070002;
+        public static final int footer_numbers=0x7f070003;
+        public static final int footer_pointer=0x7f070004;
+        public static final int footer_text=0x7f070005;
+        public static final int icons=0x7f070006;
+        public static final int primary=0x7f070007;
+        public static final int primary_dark=0x7f070008;
+        public static final int primary_light=0x7f070009;
+        public static final int primary_lighter=0x7f07000a;
+        public static final int primary_text=0x7f07000b;
+        public static final int rippelColor=0x7f07000c;
+        public static final int secondary_text=0x7f07000d;
     }
     public static final class dimen {
         public static final int fab_2nd_margin=0x7f080000;
@@ -169,24 +178,24 @@ containing a value of this type.
         public static final int back_button=0x7f0c001f;
         public static final int bio_text_header=0x7f0c0024;
         public static final int bottom_margin_header=0x7f0c000a;
-        public static final int comments_layout_post_fragment=0x7f0c0027;
-        public static final int comments_scrollview=0x7f0c0026;
+        public static final int comments_layout_post_fragment=0x7f0c0029;
+        public static final int comments_scrollview=0x7f0c0028;
         public static final int detail_text_header=0x7f0c0023;
         public static final int doubleRipple=0x7f0c0000;
-        public static final int drawer_layout=0x7f0c0028;
-        public static final int fabs_container=0x7f0c002b;
+        public static final int drawer_layout=0x7f0c002a;
+        public static final int fabs_container=0x7f0c002d;
         public static final int fabs_layout=0x7f0c0007;
         public static final int footer_four=0x7f0c0012;
         public static final int footer_one=0x7f0c000f;
         public static final int footer_pointer=0x7f0c0014;
         public static final int footer_three=0x7f0c0011;
         public static final int footer_two=0x7f0c0010;
-        public static final int fullname_title=0x7f0c003c;
-        public static final int gridView=0x7f0c0034;
-        public static final int grid_item_image=0x7f0c0035;
-        public static final int gridview_user_fragment=0x7f0c0039;
+        public static final int fullname_title=0x7f0c003e;
+        public static final int gridView=0x7f0c0036;
+        public static final int grid_item_image=0x7f0c0037;
+        public static final int gridview_user_fragment=0x7f0c003b;
         public static final int header_background=0x7f0c000e;
-        public static final int header_container=0x7f0c002a;
+        public static final int header_container=0x7f0c002c;
         public static final int header_followedby_number=0x7f0c001a;
         public static final int header_followedby_text=0x7f0c001e;
         public static final int header_follows_number=0x7f0c0019;
@@ -195,35 +204,37 @@ containing a value of this type.
         public static final int header_likes_text=0x7f0c001c;
         public static final int header_posts_number=0x7f0c0017;
         public static final int header_posts_text=0x7f0c001b;
-        public static final int header_spacer_user_fragment=0x7f0c0038;
-        public static final int imageview_postactivity=0x7f0c002d;
-        public static final int left_drawer=0x7f0c002c;
+        public static final int header_spacer_user_fragment=0x7f0c003a;
+        public static final int imageview_postactivity=0x7f0c002f;
+        public static final int left_drawer=0x7f0c002e;
         public static final int likes_textview_post_fragment=0x7f0c0006;
-        public static final int lower_post_container=0x7f0c0031;
-        public static final int main_container=0x7f0c0029;
-        public static final int mainimage_post_fragment=0x7f0c0037;
+        public static final int lower_header_fragment=0x7f0c0026;
+        public static final int lower_post_container=0x7f0c0033;
+        public static final int main_container=0x7f0c002b;
+        public static final int mainimage_post_fragment=0x7f0c0039;
         public static final int number_footers=0x7f0c0015;
-        public static final int post_gesture_layout=0x7f0c0030;
-        public static final int post_root_layout=0x7f0c002e;
-        public static final int posts_listview=0x7f0c0036;
+        public static final int post_gesture_layout=0x7f0c0032;
+        public static final int post_root_layout=0x7f0c0030;
+        public static final int posts_listview=0x7f0c0038;
         public static final int rectangle=0x7f0c0001;
         public static final int right_margin_header=0x7f0c000d;
         public static final int simpleRipple=0x7f0c0002;
         public static final int single_text_header=0x7f0c0020;
-        public static final int space_header_post=0x7f0c002f;
+        public static final int space_header_post=0x7f0c0031;
         public static final int sub_text_header=0x7f0c0022;
-        public static final int swipe_refresh_layout=0x7f0c0033;
+        public static final int swipe_refresh_layout=0x7f0c0035;
         public static final int text_comment=0x7f0c0004;
         public static final int text_footers=0x7f0c0016;
         public static final int title_text_header=0x7f0c0021;
         public static final int top=0x7f0c0013;
         public static final int top_margin_header=0x7f0c0009;
-        public static final int upper_post_container=0x7f0c0032;
-        public static final int user_image=0x7f0c003b;
+        public static final int upper_header_fragment=0x7f0c0027;
+        public static final int upper_post_container=0x7f0c0034;
+        public static final int user_image=0x7f0c003d;
         public static final int user_image_header=0x7f0c000c;
         public static final int username_comment=0x7f0c0003;
-        public static final int username_title=0x7f0c003d;
-        public static final int users_list=0x7f0c003a;
+        public static final int username_title=0x7f0c003f;
+        public static final int users_list=0x7f0c003c;
         public static final int vertical_mid_margin_header=0x7f0c000b;
         public static final int website_text_header=0x7f0c0025;
     }
@@ -236,19 +247,22 @@ containing a value of this type.
         public static final int comments_header=0x7f030001;
         public static final int fabs_fragment=0x7f030002;
         public static final int header_fragment=0x7f030003;
-        public static final int lower_post_fragment=0x7f030004;
-        public static final int main=0x7f030005;
-        public static final int post_activity=0x7f030006;
-        public static final int post_fragment=0x7f030007;
-        public static final int posts_grid_fragment=0x7f030008;
-        public static final int posts_grid_item=0x7f030009;
-        public static final int posts_list_item=0x7f03000a;
-        public static final int posts_lists_fragment=0x7f03000b;
-        public static final int preference_screen_space=0x7f03000c;
-        public static final int upper_post_fragment=0x7f03000d;
-        public static final int user_fragment=0x7f03000e;
-        public static final int users_fragment=0x7f03000f;
-        public static final int users_list_item=0x7f030010;
+        public static final int header_fragment_states=0x7f030004;
+        public static final int lower_header_fragment=0x7f030005;
+        public static final int lower_post_fragment=0x7f030006;
+        public static final int main=0x7f030007;
+        public static final int post_activity=0x7f030008;
+        public static final int post_fragment=0x7f030009;
+        public static final int posts_grid_fragment=0x7f03000a;
+        public static final int posts_grid_item=0x7f03000b;
+        public static final int posts_list_item=0x7f03000c;
+        public static final int posts_lists_fragment=0x7f03000d;
+        public static final int preference_screen_space=0x7f03000e;
+        public static final int upper_header_fragment=0x7f03000f;
+        public static final int upper_post_fragment=0x7f030010;
+        public static final int user_fragment=0x7f030011;
+        public static final int users_fragment=0x7f030012;
+        public static final int users_list_item=0x7f030013;
     }
     public static final class string {
         public static final int account_key=0x7f0a0000;
@@ -264,7 +278,11 @@ containing a value of this type.
          */
         public static final int AppTheme=0x7f0b0000;
         public static final int Apptheme=0x7f0b0001;
+        /** <item name="android:alpha">0</item>
+         */
         public static final int HeaderFooterNumberViews=0x7f0b0002;
+        /** <item name="android:alpha">0</item>
+         */
         public static final int HeaderFooterTextViews=0x7f0b0003;
     }
     public static final class transition {

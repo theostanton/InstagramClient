@@ -3,7 +3,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/header_contracted"
-    android:background="@color/second_colour"
+    android:background="@color/primary"
     android:elevation="@dimen/header_elevation">
 
     <Space
@@ -47,7 +47,7 @@
             android:layout_height="@dimen/footer_height"
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
-            android:background="@color/main_colour"
+            android:background="@color/primary_dark"
             android:elevation="@dimen/footer_elevation" />
 
         <View
@@ -56,7 +56,7 @@
             android:layout_height="@dimen/footer_height"
             android:layout_alignParentBottom="true"
             android:layout_toEndOf="@+id/footer_one"
-            android:background="@color/main_colour"
+            android:background="@color/primary_dark"
             android:elevation="@dimen/footer_elevation" />
 
         <View
@@ -65,7 +65,7 @@
             android:layout_height="@dimen/footer_height"
             android:layout_alignParentBottom="true"
             android:layout_toEndOf="@+id/footer_two"
-            android:background="@color/main_colour"
+            android:background="@color/primary_dark"
             android:elevation="@dimen/footer_elevation" />
 
         <View
@@ -74,7 +74,7 @@
             android:layout_height="@dimen/footer_height"
             android:layout_alignParentBottom="true"
             android:layout_toEndOf="@+id/footer_three"
-            android:background="@color/main_colour"
+            android:background="@color/primary_dark"
             android:elevation="@dimen/footer_elevation" />
 
         <View
@@ -82,55 +82,12 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/footer_height"
             android:layout_alignParentTop="true"
-            android:background="@color/main_colour"
+            android:background="@color/primary_dark"
             android:elevation="@dimen/footer_elevation" />
 
 
     </com.theostanton.InstagramClient.views.ButtonHeaderBackground>
 
-
-    <!--<View-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="@dimen/header_contracted"-->
-    <!--android:layout_alignParentTop="true"-->
-    <!--android:background="@color/main_colour"-->
-    <!--android:id="@+id/top" />-->
-
-    <!--<com.theostanton.InstagramClient.views.HeaderBackground-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:id="@+id/header_background">-->
-
-    <!--<View-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:id="@+id/header_left"-->
-    <!--android:layout_alignParentLeft="true"-->
-    <!--android:layout_alignParentBottom="true"-->
-    <!--android:elevation="@dimen/footer_elevation"-->
-    <!--android:background="@color/main_colour"/>-->
-
-    <!--<View-->
-    <!--android:layout_width="0dp"-->
-    <!--android:layout_height="match_parent"-->
-    <!--android:id="@+id/header_right"-->
-    <!--android:layout_alignParentRight="true"-->
-    <!--android:layout_alignParentBottom="true"-->
-    <!--android:elevation="@dimen/footer_elevation"-->
-    <!--android:background="@color/main_colour"/>-->
-
-    <!--<View-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="@dimen/header_contracted"-->
-    <!--android:id="@+id/header_top"-->
-    <!--android:layout_alignParentLeft="true"-->
-    <!--android:layout_alignParentRight="true"-->
-    <!--android:layout_alignParentTop="true"-->
-    <!--android:elevation="@dimen/footer_elevation"-->
-    <!--android:background="@color/main_colour"/>-->
-
-
-    <!--</com.theostanton.InstagramClient.views.HeaderBackground>-->
 
     <!--footer pointer-->
 
@@ -201,9 +158,8 @@
     </LinearLayout>
 
 
-    <view
+    <com.theostanton.InstagramClient.views.UserImageView
         android:id="@+id/user_image_header"
-        class="com.theostanton.InstagramClient.views.UserImageView"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:layout_alignParentBottom="false"

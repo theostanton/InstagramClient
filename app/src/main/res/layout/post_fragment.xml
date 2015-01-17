@@ -2,9 +2,9 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/post_root_layout"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-    android:background="@color/main_colour"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_dark"
     android:orientation="vertical">
 
     <Space
@@ -22,16 +22,16 @@
     <FrameLayout
         android:id="@+id/lower_post_container"
         android:layout_width="match_parent"
-                 android:layout_height="match_parent"
-                 android:layout_below="@+id/upper_post_container"/>
+        android:layout_height="match_parent"
+        android:layout_below="@+id/upper_post_container" />
 
     <FrameLayout
         android:id="@+id/upper_post_container"
         android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:layout_below="@+id/space_header_post"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/space_header_post"
         android:background="#0000ff"
-                 android:elevation="5dp"
+        android:elevation="5dp"
         android:translationZ="10dp" />
 
 

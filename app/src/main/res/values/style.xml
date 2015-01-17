@@ -6,6 +6,17 @@
     <!--</style>-->
 
     <style name="Apptheme" parent="android:Theme.Material.Light.NoActionBar">
+        <!-- Main theme colors -->
+        <!--   your app branding color for the app bar -->
+        <item name="android:colorPrimary">@color/primary_dark</item>
+        <!--   darker variant for the status bar and contextual app bars -->
+        <item name="android:colorPrimaryDark">@color/primary_dark</item>
+        <!--   theme UI controls like checkboxes and text fields -->
+        <item name="android:colorAccent">@color/accent</item>
+        <item name="android:textColorPrimary">@color/primary_text</item>
+        <item name="android:textColorSecondary">@color/secondary_text</item>
+
+
         <item name="android:windowContentTransitions">true</item>
         <item name="android:windowSharedElementEnterTransition">
             @transition/change_image_transform
@@ -20,7 +31,8 @@
         <item name="android:layout_height">@dimen/footer_text_height</item>
         <item name="android:gravity">top|center_horizontal</item>
         <item name="android:layout_weight">1</item>
-        <item name="android:alpha">0</item>
+        <item name="android:textColor">@color/footer_text</item>
+        <!--<item name="android:alpha">0</item>-->
     </style>
 
     <style name="HeaderFooterNumberViews" parent="@android:style/TextAppearance.Medium">
@@ -29,18 +41,13 @@
         <item name="android:layout_weight">1</item>
         <item name="android:layout_height">@dimen/footer_number_height</item>
         <item name="android:gravity">bottom|center_horizontal</item>
-        <item name="android:alpha">0</item>
+        <item name="android:textColor">@color/footer_numbers</item>
+        <!--<item name="android:alpha">0</item>-->
     </style>
 
 
     <integer name="slide_duration">@android:integer/config_mediumAnimTime</integer>
     <integer name="slide_interpolator">@android:anim/accelerate_decelerate_interpolator</integer>
 
-    <!--2196F3-->
-    <!--ffc107-->
-    <!--ff5722-->
-    <color name="main_colour">#3f51b5</color>
-    <color name="second_colour">#6889ff</color>
-    <color name="fab_colour">#D32F2F</color>
 
 </resources>

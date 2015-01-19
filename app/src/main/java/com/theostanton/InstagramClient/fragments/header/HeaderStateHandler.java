@@ -13,7 +13,7 @@ public class HeaderStateHandler {
 
     private static final String TAG = "HeaderStateHandler";
 
-    protected HeaderFragmentStates header;
+    protected HeaderFragment header;
     protected UpperHeaderFragment upper;
     protected LowerHeaderFragment lower;
 
@@ -25,7 +25,7 @@ public class HeaderStateHandler {
     private Post post = null;
     private User user = null;
 
-    public HeaderStateHandler(HeaderFragmentStates header, UpperHeaderFragment upper, LowerHeaderFragment lower) {
+    public HeaderStateHandler(HeaderFragment header, UpperHeaderFragment upper, LowerHeaderFragment lower) {
         this.header = header;
         this.upper = upper;
         this.lower = lower;

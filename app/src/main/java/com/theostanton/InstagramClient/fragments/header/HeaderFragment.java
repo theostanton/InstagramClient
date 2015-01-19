@@ -19,7 +19,7 @@ import com.theostanton.InstragramClient.R;
 /**
  * Created by theo on 16/01/15.
  */
-public class HeaderFragmentStates extends BaseFragment implements View.OnClickListener, ValueAnimator.AnimatorUpdateListener {
+public class HeaderFragment extends BaseFragment implements View.OnClickListener, ValueAnimator.AnimatorUpdateListener {
 
     public static final String TAG = "HeaderFragmentStates";
     public static final String COLLAPSE_INTENT = "collapse_intent";

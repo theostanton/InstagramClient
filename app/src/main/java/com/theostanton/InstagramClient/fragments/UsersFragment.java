@@ -16,7 +16,7 @@ import android.widget.ListView;
 
 import com.theostanton.InstagramClient.adapters.UsersAdapter;
 import com.theostanton.InstagramClient.data.User;
-import com.theostanton.InstagramClient.fragments.header.HeaderFragmentStates;
+import com.theostanton.InstagramClient.fragments.header.HeaderFragment;
 import com.theostanton.InstagramClient.instagram.Instagram;
 import com.theostanton.InstagramClient.listeners.OnUserSelectedListener;
 import com.theostanton.InstragramClient.R;
@@ -79,9 +79,9 @@ public class UsersFragment extends BaseFragment implements AdapterView.OnItemCli
 
         Log.d(TAG, "onCreateView userId = " + userId + " listType= " + listType);
 
-        Intent intent = new Intent(HeaderFragmentStates.TITLE_ACTION);
-        if (listType == FOLLOWS_LIST) intent.putExtra(HeaderFragmentStates.TITLE_EXTRA, "I Follow");
-        else intent.putExtra(HeaderFragmentStates.TITLE_EXTRA, "Followers");
+        Intent intent = new Intent(HeaderFragment.TITLE_ACTION);
+        if (listType == FOLLOWS_LIST) intent.putExtra(HeaderFragment.TITLE_EXTRA, "I Follow");
+        else intent.putExtra(HeaderFragment.TITLE_EXTRA, "Followers");
         getActivity().sendBroadcast(intent);
 
         listView = (ListView) view.findViewById(R.id.users_list);

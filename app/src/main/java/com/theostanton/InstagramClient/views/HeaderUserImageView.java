@@ -3,8 +3,6 @@ package com.theostanton.InstagramClient.views;
 import android.content.Context;
 import android.util.AttributeSet;
 
-import com.theostanton.InstagramClient.helpers.ViewHelper;
-
 /**
  * Created by theo on 17/01/15.
  */
@@ -43,6 +41,5 @@ public class HeaderUserImageView extends UserImageView {
 ////        Log.d(TAG,"onMeasure width=" +width + " onMeasure height " + height);
 //        setMeasuredDimension(width, height);
 
-        setOutlineProvider(ViewHelper.getCicularOutline());
     }
 }

@@ -6,7 +6,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
 /**
@@ -34,26 +39,25 @@ public class BitmapCache {
         File folder = new File(context.getFilesDir() + PNG_FOLDER);
         if (!folder.exists()) {
             if (folder.mkdir()) {
-                if(LOG) Log.d(TAG, "BitmapCache(), Made dir " + folder.getAbsolutePath());
+                if (LOG) Log.d(TAG, "BitmapCache(), Made dir " + folder.getAbsolutePath());
             } else {
                 Log.e(TAG, "BitmapCache(), Couldn't make dir " + folder.getAbsolutePath());
             }
         } else {
-            if(LOG) Log.d(TAG, "BitmapCache(), PNG folder exists");
+            if (LOG) Log.d(TAG, "BitmapCache(), PNG folder exists");
         }
     }
 
     public static BitmapCache getInstance(Context context) {
 
         if (instance == null) {
-            if( context == null ){
-                Log.e(TAG,"getInstance with null context");
+            if (context == null) {
+                Log.e(TAG, "getInstance with null context");
             }
             instance = new BitmapCache(context);
         }
         return instance;
     }
-
 
 
     public String getFileName(String url) {
@@ -90,10 +94,10 @@ public class BitmapCache {
         return false;
     }
 
-    public Bitmap get(String url){
+    public Bitmap get(String url) {
         String fileName = getFileName(url);
         File file = new File(fileName);
-        if(file.exists()){
+        if (file.exists()) {
 //            Log.d(TAG,"get from url = " + url);
             return BitmapFactory.decodeFile(fileName);
         }
@@ -120,23 +124,22 @@ public class BitmapCache {
             String[] children = dir.list();
             fileCount = children.length;
             for (String child : children) {
-                try{
+                try {
                     File file = new File(dir, child);
                     long length = file.length();
-                    length = length/1024;
+                    length = length / 1024;
 //                    Log.d(TAG,file.getName() + " " + length + "KB");
                     size += length;
-                }catch(Exception e){
+                } catch (Exception e) {
                     System.out.println("File not found : " + e.getMessage() + e);
                 }
             }
-        }
-        else {
+        } else {
             return -1;
         }
 
-        Log.d(TAG,fileCount + " files " + size + "KB avg size= " + (fileCount > 0 ? size/fileCount : 0 ) + "KB");
-        return (int)size;
+        Log.d(TAG, fileCount + " files " + size + "KB avg size= " + (fileCount > 0 ? size / fileCount : 0) + "KB");
+        return (int) size;
     }
 
     public int getFileCount() {

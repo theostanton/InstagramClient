@@ -1,26 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="horizontal"
-              android:layout_width="match_parent"
-              android:layout_height="40dp"
-              android:layout_margin="10dp" android:textAlignment="gravity">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textAlignment="gravity">
 
     <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginLeft="10dp"
-            android:id="@+id/backButton"
-            android:src="@drawable/ic_action_favorite_dark"
-            android:layout_gravity="center_vertical"/>
+        android:id="@+id/backButton"
+        android:layout_width="@dimen/one_inrement"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/eight_dp"
+        android:src="@drawable/ic_action_favorite_dark" />
 
     <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Likes Names"
-            android:id="@+id/likes_textview_post_fragment"
-            android:gravity="center_vertical" android:layout_gravity="center_vertical"/>
+        android:id="@+id/likes_textview_post_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@id/backButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@id/backButton"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/one_inrement"
+        android:gravity="center_vertical"
+        android:text="Likes Names"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
-</LinearLayout>
+</RelativeLayout>

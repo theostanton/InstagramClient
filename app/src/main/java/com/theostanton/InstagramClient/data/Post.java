@@ -1,9 +1,11 @@
 package com.theostanton.InstagramClient.data;
 
 import android.util.Log;
+
 import com.theostanton.InstagramClient.Theo;
 import com.theostanton.InstagramClient.helpers.TimeHelper;
 import com.theostanton.InstagramClient.instagram.InstaJSON;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,16 +26,17 @@ public class Post {
     private long createdTime;
     private JSONObject object;
 
-    public Post(){}
+    public Post() {
+    }
 
-    public Post(JSONObject object){
+    public Post(JSONObject object) {
 
         this.object = object;
 
         try {
             id = object.getString(InstaJSON.ID);
             stdUrl = object.getJSONObject(InstaJSON.IMAGES).getJSONObject(InstaJSON.THUMB).getString(InstaJSON.URL);
-            user = new User( object.getJSONObject(InstaJSON.USER) );
+            user = new User(object.getJSONObject(InstaJSON.USER));
             createdTime = object.getLong(InstaJSON.CREATED_TIME);
 //            Log.d(TAG,"stdUrl " + stdUrl);
         } catch (JSONException e) {
@@ -41,15 +44,15 @@ public class Post {
         }
     }
 
-    public String getTimeAgo(){
+    public String getTimeAgo() {
         return TimeHelper.getTimeAgo(createdTime);
     }
 
-    public String getImageUrl(){
+    public String getImageUrl() {
         return stdUrl;
     }
 
-    public String getStdResUrl(){
+    public String getStdResUrl() {
         try {
             return object.getJSONObject(InstaJSON.IMAGES).getJSONObject(InstaJSON.STD_RES).getString(InstaJSON.URL);
         } catch (JSONException e) {
@@ -81,12 +84,12 @@ public class Post {
         return "Error";
     }
 
-    public ArrayList<Comment> getComments(){
+    public ArrayList<Comment> getComments() {
         JSONArray array;
         try {
             array = object.getJSONObject(InstaJSON.COMMENTS).getJSONArray(InstaJSON.DATA);
         } catch (JSONException e) {
-            Log.e(TAG,object.toString());
+            Log.e(TAG, object.toString());
             e.printStackTrace();
             return null;
         }
@@ -96,9 +99,9 @@ public class Post {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        for(int i=0; i<array.length(); i++){
+        for (int i = 0; i < array.length(); i++) {
             try {
-                comments.add( new Comment(array.getJSONObject(i)) );
+                comments.add(new Comment(array.getJSONObject(i)));
             } catch (JSONException e) {
                 e.printStackTrace();
             }

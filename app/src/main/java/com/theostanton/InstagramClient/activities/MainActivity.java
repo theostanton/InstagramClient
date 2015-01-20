@@ -26,8 +26,7 @@ import com.theostanton.InstagramClient.fragments.PostsFragment;
 import com.theostanton.InstagramClient.fragments.SettingsFragment;
 import com.theostanton.InstagramClient.fragments.UserFragment;
 import com.theostanton.InstagramClient.fragments.UsersFragment;
-import com.theostanton.InstagramClient.fragments.header.HeaderFragmentOLD;
-import com.theostanton.InstagramClient.fragments.header.HeaderFragmentStates;
+import com.theostanton.InstagramClient.fragments.header.HeaderFragment;
 import com.theostanton.InstagramClient.fragments.header.LowerHeaderFragment;
 import com.theostanton.InstagramClient.fragments.post.PostFragment;
 import com.theostanton.InstagramClient.helpers.ViewHelper;
@@ -47,8 +46,8 @@ public class MainActivity extends Activity implements LowerHeaderFragment.OnFoot
                 onBackPressed();
                 return;
             }
-            if (action.equals(HeaderFragmentStates.HEIGHT_CHANGE_INTENT)) {
-                int headerHeight = intent.getIntExtra(HeaderFragmentStates.HEIGHT_EXTRA, getResources().getDimensionPixelSize(R.dimen.header_contracted));
+            if (action.equals(HeaderFragment.HEIGHT_CHANGE_INTENT)) {
+                int headerHeight = intent.getIntExtra(HeaderFragment.HEIGHT_EXTRA, getResources().getDimensionPixelSize(R.dimen.header_contracted));
 //                drawerList.setTranslationY(headerHeight);
                 return;
             }
@@ -71,7 +70,7 @@ public class MainActivity extends Activity implements LowerHeaderFragment.OnFoot
     private BitmapHandler bitmapHandler;
     private DrawerLayout drawerLayout;
     private ListView drawerList;
-    private HeaderFragmentStates headerFragment;
+    private HeaderFragment headerFragment;
     private FabFragment fabFragment;
 
     private Instagram instagram;
@@ -110,7 +109,7 @@ public class MainActivity extends Activity implements LowerHeaderFragment.OnFoot
         PostsFragment postsFragment = new PostsFragment();
         transaction.add(R.id.main_container, postsFragment);
 
-        headerFragment = new HeaderFragmentStates();
+        headerFragment = new HeaderFragment();
         transaction.add(R.id.header_container, headerFragment);
 
         fabFragment = new FabFragment();
@@ -124,8 +123,8 @@ public class MainActivity extends Activity implements LowerHeaderFragment.OnFoot
             public void run() {
                 try {
                     Thread.sleep(100);
-                    Intent intent = new Intent(HeaderFragmentStates.TITLE_ACTION);
-                    intent.putExtra(HeaderFragmentStates.TITLE_EXTRA, "Instagram");
+                    Intent intent = new Intent(HeaderFragment.TITLE_ACTION);
+                    intent.putExtra(HeaderFragment.TITLE_EXTRA, "Instagram");
                     sendBroadcast(intent);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -147,7 +146,7 @@ public class MainActivity extends Activity implements LowerHeaderFragment.OnFoot
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(SET_HEADER_USER_INTENT);
         intentFilter.addAction(BACK_INTENT);
-        intentFilter.addAction(HeaderFragmentStates.HEIGHT_CHANGE_INTENT);
+        intentFilter.addAction(HeaderFragment.HEIGHT_CHANGE_INTENT);
         registerReceiver(receiver, intentFilter);
     }
 
@@ -157,18 +156,18 @@ public class MainActivity extends Activity implements LowerHeaderFragment.OnFoot
         unregisterReceiver(receiver);
     }
 
-    private void setHeaderFromPost(String postId) {
-        Intent intent = new Intent(HeaderFragmentOLD.POST_FRAG_INTENT);
-        intent.putExtra(HeaderFragmentOLD.POST_ID_EXTRA, postId);
-        sendBroadcast(intent);
-    }
+//    private void setHeaderFromPost(String postId) {
+//        Intent intent = new Intent(HeaderFragmentOLD.POST_FRAG_INTENT);
+//        intent.putExtra(HeaderFragmentOLD.POST_ID_EXTRA, postId);
+//        sendBroadcast(intent);
+//    }
 
-    private void setHeaderFromUser(int userId, int footerSelected) {
-        Intent intent = new Intent(HeaderFragmentOLD.USER_FRAG_INTENT);
-        intent.putExtra(HeaderFragmentOLD.USER_ID_EXTRA, userId);
-        intent.putExtra(HeaderFragmentOLD.FOOTER_SELECTED_EXTRA, footerSelected);
-        sendBroadcast(intent);
-    }
+//    private void setHeaderFromUser(int userId, int footerSelected) {
+//        Intent intent = new Intent(HeaderFragmentOLD.USER_FRAG_INTENT);
+//        intent.putExtra(HeaderFragmentOLD.USER_ID_EXTRA, userId);
+//        intent.putExtra(HeaderFragmentOLD.FOOTER_SELECTED_EXTRA, footerSelected);
+//        sendBroadcast(intent);
+//    }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -177,7 +176,7 @@ public class MainActivity extends Activity implements LowerHeaderFragment.OnFoot
 
         Fragment fragment;
         Bundle args = new Bundle();
-        args.putString(HeaderFragmentOLD.POST_ID_EXTRA, drawerTitles[position]);
+//        args.putString(HeaderFragment.POST_ID_EXTRA, drawerTitles[position]);
 
 
         switch (position) {
@@ -250,7 +249,7 @@ public class MainActivity extends Activity implements LowerHeaderFragment.OnFoot
 
         String postId = post.getId();
 
-        setHeaderFromPost(postId);
+//        setHeaderFromPost(postId);
 
         PostFragment postFragment = new PostFragment();
 
@@ -263,7 +262,7 @@ public class MainActivity extends Activity implements LowerHeaderFragment.OnFoot
     }
 
     private void onUserSelected(int userId, int footerSelected) {
-        setHeaderFromUser(userId, footerSelected);
+//        setHeaderFromUser(userId, footerSelected);
         UserFragment fragment = new UserFragment();
         Bundle args = new Bundle();
         args.putInt(UserFragment.USER_ID_ARG, userId);

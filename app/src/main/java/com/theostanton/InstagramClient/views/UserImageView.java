@@ -56,13 +56,13 @@ public class UserImageView extends ImageView {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
 
-        int width = getMeasuredWidth() - getPaddingLeft() - getPaddingRight();
-        int height = getMeasuredHeight() - getPaddingTop() - getPaddingBottom();
+        int width = getMeasuredWidth();// - getPaddingLeft() - getPaddingRight();
+        int height = getMeasuredHeight();// - getPaddingTop() - getPaddingBottom();
 //        int size = width < height ? width : height;
 //        size = Math.min(ViewHelper.getDp(150),size);
 //        Log.d(TAG,"onMeasure width=" +width + " onMeasure height " + height);
         setMeasuredDimension(width, height);
-        setOutlineProvider(ViewHelper.getCicularOutline());
+        setOutlineProvider(ViewHelper.getCicularOutline(width, height));
 
     }
 

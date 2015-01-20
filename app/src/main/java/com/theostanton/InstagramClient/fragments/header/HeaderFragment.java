@@ -9,17 +9,19 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
+import com.theostanton.InstagramClient.activities.MainActivity;
 import com.theostanton.InstagramClient.fragments.BaseFragment;
 import com.theostanton.InstragramClient.R;
 
 /**
  * Created by theo on 16/01/15.
  */
-public class HeaderFragment extends BaseFragment implements View.OnClickListener, ValueAnimator.AnimatorUpdateListener {
+public class HeaderFragment extends BaseFragment implements View.OnClickListener, ValueAnimator.AnimatorUpdateListener, View.OnTouchListener {
 
     public static final String TAG = "HeaderFragmentStates";
     public static final String COLLAPSE_INTENT = "collapse_intent";
@@ -95,6 +97,7 @@ public class HeaderFragment extends BaseFragment implements View.OnClickListener
     private ValueAnimator heightAnimator = new ValueAnimator();
     private float currExpansionFraction = 0.0f;
     private float startTranslation = 0.0f; // if translationY will animate if this is nonzero when expanding/contracting
+    private int footerPosition;
 
     @Override
     public void onResume() {
@@ -131,10 +134,14 @@ public class HeaderFragment extends BaseFragment implements View.OnClickListener
         view = inflater.inflate(R.layout.header_fragment_states, container, false);
         view.setOnClickListener(this);
 
+        view.findViewById(R.id.back_button).setOnClickListener(this);
+
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
         upper = new UpperHeaderFragment();
+        upper.setHeaderFragment(this);
         lower = new LowerHeaderFragment();
+        lower.setHeaderFragment(this);
 //
         transaction.replace(R.id.upper_header_fragment, upper);
         transaction.replace(R.id.lower_header_fragment, lower);
@@ -149,13 +156,35 @@ public class HeaderFragment extends BaseFragment implements View.OnClickListener
     @Override
     public void onClick(View v) {
 
-
         if (v.getId() != -1) Log.d(TAG, "onClick id=" + getResources().getResourceName(v.getId()));
         else Log.d(TAG, "onClick -1");
+
+        if (v.getId() == R.id.back_button) {
+            Intent intent = new Intent(MainActivity.BACK_INTENT);
+            getActivity().sendBroadcast(intent);
+            return;
+        }
 
         toggle();
 
 
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+
+        if (v.getId() != -1) Log.d(TAG, "onClick id=" + getResources().getResourceName(v.getId()));
+        else Log.d(TAG, "onClick -1");
+
+        if (v.getId() == R.id.back_button) {
+            Intent intent = new Intent(MainActivity.BACK_INTENT);
+            getActivity().sendBroadcast(intent);
+            return true;
+        }
+
+        toggle();
+
+        return false;
     }
 
 
@@ -204,6 +233,7 @@ public class HeaderFragment extends BaseFragment implements View.OnClickListener
 
     public void expand() {
         if (expanded) return;
+        lower.setClickEnabled(true);
         animateToHeight(1.0f);
         expanded = true;
         view.setTranslationY(0.0f);
@@ -211,6 +241,7 @@ public class HeaderFragment extends BaseFragment implements View.OnClickListener
 
     public void contract() {
         if (!expanded) return;
+        lower.setClickEnabled(false);
         animateToHeight(0.0f);
         expanded = false;
         view.setTranslationY(0.0f);
@@ -253,5 +284,16 @@ public class HeaderFragment extends BaseFragment implements View.OnClickListener
 
 //        if(animation==heightAnimator){
 //        }
+    }
+
+    public boolean click() {
+        toggle();
+        return expanded;
+//        if(expanded) return false;
+//        return true;
+    }
+
+    public void setFooterPosition(int footerPosition) {
+        lower.setOnFooterSelected(footerPosition);
     }
 }

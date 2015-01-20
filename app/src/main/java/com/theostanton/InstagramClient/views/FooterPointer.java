@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.View;
+
 import com.theostanton.InstragramClient.R;
 
 /**
@@ -36,7 +37,7 @@ public class FooterPointer extends View {
         init();
     }
 
-    private void init(){
+    private void init() {
         int colour = getResources().getColor(R.color.footer_pointer);
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setColor(colour);
@@ -51,9 +52,9 @@ public class FooterPointer extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        int radius = Math.min(canvas.getWidth(),canvas.getHeight()) / 2;
+        int radius = Math.min(canvas.getWidth(), canvas.getHeight()) / 2;
 
 //        canvas.drawColor(0, android.graphics.PorterDuff.Mode.CLEAR);
-        canvas.drawCircle(canvas.getWidth()/2,canvas.getHeight()/2,radius,paint);
+        canvas.drawCircle(canvas.getWidth() / 2, canvas.getHeight() / 2, radius, paint);
     }
 }

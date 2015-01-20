@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/post_root_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -23,7 +24,8 @@
         android:id="@+id/lower_post_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/upper_post_container" />
+        android:layout_below="@+id/upper_post_container"
+        tools:layout="@layout/lower_post_fragment" />
 
     <FrameLayout
         android:id="@+id/upper_post_container"
@@ -32,7 +34,8 @@
         android:layout_below="@+id/space_header_post"
         android:background="#0000ff"
         android:elevation="5dp"
-        android:translationZ="10dp" />
+        android:translationZ="10dp"
+        tools:layout="@layout/upper_post_fragment" />
 
 
 </RelativeLayout>

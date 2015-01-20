@@ -3,6 +3,7 @@ package com.theostanton.InstagramClient.fragments.header;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,7 @@ import com.theostanton.InstragramClient.R;
 /**
  * Created by theo on 16/01/15.
  */
-public class UpperHeaderFragment extends Fragment {
+public class UpperHeaderFragment extends Fragment implements View.OnClickListener {
 
     public static final String TAG = "UpperHeaderFragment";
 
@@ -31,11 +32,14 @@ public class UpperHeaderFragment extends Fragment {
     private UserImageView userImageView;
 
     private int contractedHeight;
+    private HeaderFragment header;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.upper_header_fragment, container, false);
+
+        view.setOnClickListener(this);
 
         mainTextView = (TextView) view.findViewById(R.id.title_text_header);
         singleTextView = (TextView) view.findViewById(R.id.single_text_header);
@@ -121,4 +125,17 @@ public class UpperHeaderFragment extends Fragment {
         bioTextView.setText("");
         websiteTextView.setText("");
     }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() != -1) Log.d(TAG, "onClick id=" + getResources().getResourceName(v.getId()));
+        else Log.d(TAG, "onClick -1");
+        if (!header.click()) header.setFooterPosition(-1);
+    }
+
+    public void setHeaderFragment(HeaderFragment header) {
+        this.header = header;
+    }
+
+//
 }

@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.ImageView;
+
 import com.theostanton.InstagramClient.helpers.ViewHelper;
 
 /**
@@ -41,9 +42,9 @@ public class SquareImageView extends ImageView {
 
         Drawable drawable = getDrawable();
 
-        if(drawable==null){
+        if (drawable == null) {
             Log.e(TAG, "onMeasure drawable==null");
-            setMeasuredDimension((int)displayWidth,(int)displayWidth);
+            setMeasuredDimension((int) displayWidth, (int) displayWidth);
             return;
         }
 //        Rect bounds = drawable.getBounds();
@@ -54,12 +55,12 @@ public class SquareImageView extends ImageView {
         float ratio = width / height;
 
 
-        int newHeight = (int)( displayWidth / ratio );
+        int newHeight = (int) (displayWidth / ratio);
 
 //        Log.d(TAG,"ratio " + ratio + " displayWidth " + displayWidth + " newHeight " + newHeight);
 
 
-        setMeasuredDimension((int)displayWidth, newHeight);
+        setMeasuredDimension((int) displayWidth, newHeight);
 
 
         setOutlineProvider(ViewHelper.getRectOutline());

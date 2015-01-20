@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="one_inrement">56dp</dimen>
+    <dimen name="space">16dp</dimen>
+    <dimen name="screen_edge_space">16dp</dimen>
+    <dimen name="second_screen_edge_space">72dp</dimen>
+    <dimen name="four_dp">4dp</dimen>
+    <dimen name="six_dp">6dp</dimen>
+    <dimen name="eight_dp">8dp</dimen>
+    <dimen name="user_image_fourty_dp">40dp</dimen>
+
+</resources>

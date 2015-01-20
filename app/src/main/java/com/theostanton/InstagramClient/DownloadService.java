@@ -3,8 +3,10 @@ package com.theostanton.InstagramClient;
 import android.app.IntentService;
 import android.content.Intent;
 import android.util.Log;
+
 import com.theostanton.InstagramClient.data.Post;
 import com.theostanton.InstagramClient.instagram.InstaURL;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
@@ -46,15 +48,15 @@ public class DownloadService extends IntentService {
         JSONObject object = downloadObject(url);
         try {
             JSONArray dataArray = object.getJSONArray("data");
-            for(int i=0; i<dataArray.length(); i++){
-                posts.add( new Post(dataArray.getJSONObject(i)) );
+            for (int i = 0; i < dataArray.length(); i++) {
+                posts.add(new Post(dataArray.getJSONObject(i)));
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    private JSONObject downloadObject(String url){
+    private JSONObject downloadObject(String url) {
 
         JSONObject object = null;
         StringBuilder builder = new StringBuilder();

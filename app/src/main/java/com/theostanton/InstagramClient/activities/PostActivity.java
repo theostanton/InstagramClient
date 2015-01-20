@@ -3,6 +3,7 @@ package com.theostanton.InstagramClient.activities;
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.ImageView;
+
 import com.theostanton.InstagramClient.bitmap.LoadBitmapToImageview;
 import com.theostanton.InstragramClient.R;
 

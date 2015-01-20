@@ -1,6 +1,11 @@
 package com.theostanton.InstagramClient.bitmap;
 
-import android.graphics.*;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
 import android.util.Log;
 
 /**
@@ -34,37 +39,37 @@ public class BitmapHelper {
         return output;
     }
 
-    public static Bitmap getBorderless(Bitmap bitmap){
+    public static Bitmap getBorderless(Bitmap bitmap) {
 
         final int MAX_DIFF = 10;
 
         int w = bitmap.getWidth();
         int h = bitmap.getHeight();
 
-        int colour = bitmap.getPixel(0,0);
+        int colour = bitmap.getPixel(0, 0);
 
         boolean end = false;
         int left = -1;
-        for(int x=0; x<w/2; x++){
-            for(int y=0; y<h; y++){
-                int pixel = bitmap.getPixel(x,y);
-                if(pixel!=colour){
+        for (int x = 0; x < w / 2; x++) {
+            for (int y = 0; y < h; y++) {
+                int pixel = bitmap.getPixel(x, y);
+                if (pixel != colour) {
                     end = true;
                 }
             }
-            if(end) break;
-            left = x+1;
+            if (end) break;
+            left = x + 1;
         }
 
         int top = -1;
 
-        if(left<0) {
+        if (left < 0) {
             end = false;
             for (int y = 0; y < h / 2; y++) {
                 for (int x = 0; x < w; x++) {
                     int pixel = bitmap.getPixel(x, y);
                     if (pixel != colour) {
-                        if(Math.abs(pixel-colour) > MAX_DIFF) end = true;
+                        if (Math.abs(pixel - colour) > MAX_DIFF) end = true;
                     }
                 }
                 if (end) break;
@@ -74,15 +79,15 @@ public class BitmapHelper {
 
         Log.d(TAG, "left = " + left + " top " + top);
 
-        if(left<0 && top < 0) return bitmap;
-        if(left>0 && top > 0) return bitmap;
+        if (left < 0 && top < 0) return bitmap;
+        if (left > 0 && top > 0) return bitmap;
 
 
         left = left > 0 ? left : 0;
         top = top > 0 ? top + 5 : 0;
         // TODO always a little border vertically
 
-        return Bitmap.createBitmap(bitmap,left,top,w-2*left,h-2*top);
+        return Bitmap.createBitmap(bitmap, left, top, w - 2 * left, h - 2 * top);
     }
 
 

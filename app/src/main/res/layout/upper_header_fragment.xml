@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:clipToPadding="false">
 
     <com.theostanton.InstagramClient.views.HeaderUserImageView
         android:id="@+id/user_image_header"
         android:layout_width="@dimen/header_contracted"
         android:layout_height="match_parent"
 
-        android:layout_margin="5dp"
+        android:layout_marginBottom="@dimen/six_dp"
+        android:layout_marginTop="@dimen/six_dp"
         android:clipToPadding="false"
         android:elevation="@dimen/user_image_elevation"
+        android:gravity="center"
         android:scaleType="fitCenter"
         android:src="@drawable/user_place_holder" />
 
@@ -18,6 +21,7 @@
         android:id="@+id/single_text_header"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/header_contracted"
+        android:layout_marginLeft="@dimen/six_dp"
 
         android:layout_toRightOf="@+id/user_image_header"
         android:gravity="center_vertical"
@@ -29,8 +33,9 @@
         android:id="@+id/title_text_header"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/half_header_contracted"
-
         android:layout_alignParentEnd="true"
+
+        android:layout_marginLeft="@dimen/six_dp"
         android:layout_toRightOf="@+id/user_image_header"
 
         android:gravity="bottom"
@@ -43,9 +48,10 @@
         android:id="@+id/sub_text_header"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/half_header_contracted"
-
         android:layout_alignParentEnd="true"
+
         android:layout_below="@+id/title_text_header"
+        android:layout_marginLeft="@dimen/six_dp"
         android:layout_toRightOf="@+id/user_image_header"
 
         android:gravity="top"
@@ -59,8 +65,7 @@
         android:layout_width="wrap_content"
         android:layout_height="@dimen/header_contracted"
         android:layout_alignParentEnd="true"
-
-        android:layout_margin="5dp"
+        android:layout_marginRight="@dimen/space"
 
         android:gravity="center_vertical|right"
         android:text="Detail Text"
@@ -73,6 +78,8 @@
         android:layout_alignParentEnd="true"
 
         android:layout_below="@+id/sub_text_header"
+
+        android:layout_marginLeft="@dimen/six_dp"
         android:layout_marginRight="10dp"
         android:layout_toRightOf="@+id/user_image_header"
 
@@ -87,6 +94,7 @@
         android:layout_alignParentEnd="true"
 
         android:layout_below="@+id/bio_text_header"
+        android:layout_marginLeft="@dimen/six_dp"
         android:layout_marginRight="10dp"
         android:layout_toRightOf="@+id/user_image_header"
 

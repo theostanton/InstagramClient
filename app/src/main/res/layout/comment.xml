@@ -4,25 +4,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clickable="true"
-              android:orientation="vertical"
-              android:padding="5dp">
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/username_comment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-            android:text="Medium Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/screen_edge_space"
+        android:layout_marginRight="@dimen/screen_edge_space"
+        android:layout_marginTop="@dimen/eight_dp"
+        android:text="Medium Text"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/text_comment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/eight_dp"
+        android:layout_marginLeft="@dimen/screen_edge_space"
+        android:layout_marginRight="@dimen/screen_edge_space"
         android:text="Small Text"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 

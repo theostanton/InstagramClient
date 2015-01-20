@@ -1,8 +1,10 @@
 package com.theostanton.InstagramClient.instagram;
 
 import android.util.Log;
+
 import com.theostanton.InstagramClient.data.Post;
 import com.theostanton.InstagramClient.data.User;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -10,8 +12,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 /**
-* Created by theo on 27/12/14.
-        */
+ * Created by theo on 27/12/14.
+ */
 public class InstaJSON {
 
     public static final String DATA = "data";
@@ -58,40 +60,40 @@ public class InstaJSON {
     private static final String TAG = "InstaJSON";
     // also userid and created time
 
-    public static JSONArray getDataArray(JSONObject object){
-        if(object==null) return null;
+    public static JSONArray getDataArray(JSONObject object) {
+        if (object == null) return null;
         try {
             return object.getJSONArray(DATA);
         } catch (JSONException e) {
-            Log.e(TAG,"getDataArray object = " + object.toString());
+            Log.e(TAG, "getDataArray object = " + object.toString());
             e.printStackTrace();
         }
         return null;
     }
 
-    public static JSONObject getDataObject(JSONObject object){
-        if(object==null) return null;
+    public static JSONObject getDataObject(JSONObject object) {
+        if (object == null) return null;
         try {
             return object.getJSONObject(DATA);
         } catch (JSONException e) {
-            Log.e(TAG,"getDataObject object = " + object.toString());
+            Log.e(TAG, "getDataObject object = " + object.toString());
             e.printStackTrace();
         }
         return null;
     }
 
 
-    public static ArrayList<Post> getPostsArrayList(JSONObject object){
+    public static ArrayList<Post> getPostsArrayList(JSONObject object) {
         JSONArray array = getDataArray(object);
-        if(array==null) return new ArrayList<Post>();
+        if (array == null) return new ArrayList<Post>();
         Log.d(TAG, "getPostsArralist array length = " + array.length() + " object = " + object.toString());
         ArrayList<Post> posts = new ArrayList<Post>(array.length());
         try {
-            for(int i=0; i<array.length(); i++){
-                posts.add( new Post(array.getJSONObject(i)) );
+            for (int i = 0; i < array.length(); i++) {
+                posts.add(new Post(array.getJSONObject(i)));
             }
         } catch (JSONException e) {
-            Log.e(TAG,"getPostsArrayList object  = " + object.toString());
+            Log.e(TAG, "getPostsArrayList object  = " + object.toString());
             e.printStackTrace();
         }
         return posts;
@@ -99,13 +101,13 @@ public class InstaJSON {
 
     public static ArrayList<User> getUserArraylist(JSONObject object) {
         JSONArray array = getDataArray(object);
-        if(array==null) return new ArrayList<User>();
+        if (array == null) return new ArrayList<User>();
 
         Log.d(TAG, "getUsersArraylist array length = " + array.length() + " object = " + object.toString());
 
         ArrayList<User> users = new ArrayList<User>(array.length());
-        try{
-            for(int i=0; i<array.length(); i++){
+        try {
+            for (int i = 0; i < array.length(); i++) {
                 users.add(new User(array.getJSONObject(i)));
             }
         } catch (JSONException e) {

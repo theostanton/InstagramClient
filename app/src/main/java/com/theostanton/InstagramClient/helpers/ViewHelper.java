@@ -18,22 +18,35 @@ public class ViewHelper {
 
     private static float density = 3.0f;
 
-    public static void setDensity(float newDensity){
-        Log.d(TAG,"density set to " + newDensity);
+    public static void setDensity(float newDensity) {
+        Log.d(TAG, "density set to " + newDensity);
         density = newDensity;
     }
 
-    public static ViewOutlineProvider getCicularOutline(){
+    public static ViewOutlineProvider getCicularOutline(final int width, final int height) {
         return new ViewOutlineProvider() {
             @Override
             public void getOutline(View view, Outline outline) {
-                int width = view.getMeasuredWidth();
-                int height = view.getMeasuredHeight();
-                int size = Math.min(width,height);
-                int xOff = ( width - size ) / 2;
-                int yOff = ( height - size ) / 2;
+                int size = Math.min(width, height);
+                int xOff = (width - size) / 2;
+                int yOff = (height - size) / 2;
 //                Log.d(TAG,"w " + width + " h " + height + " x " + xOff + " y " + yOff);
-                outline.setOval(xOff,yOff,size,size);
+                outline.setOval(xOff, yOff, size, size);
+            }
+        };
+    }
+
+    public static ViewOutlineProvider getCicularOutline() {
+        return new ViewOutlineProvider() {
+            @Override
+            public void getOutline(View view, Outline outline) {
+                int width = view.getWidth();
+                int height = view.getHeight();
+                int size = Math.min(width, height);
+                int xOff = (width - size) / 2;
+                int yOff = (height - size) / 2;
+//                Log.d(TAG,"w " + width + " h " + height + " x " + xOff + " y " + yOff);
+                outline.setOval(xOff, yOff, size, size);
             }
         };
     }
@@ -47,7 +60,7 @@ public class ViewHelper {
         };
     }
 
-    public static ViewOutlineProvider getRectOutline(){
+    public static ViewOutlineProvider getRectOutline() {
         return new ViewOutlineProvider() {
             @Override
             public void getOutline(View view, Outline outline) {
@@ -75,18 +88,18 @@ public class ViewHelper {
         return totalHeight + (listView.getDividerHeight() * (mAdapter.getCount() - 1));
     }
 
-    public static int getDp(float px){
-        return (int)(density*px);
+    public static int getDp(float px) {
+        return (int) (density * px);
     }
 
-    public static int getDp(int px){
-        return (int)(density*px);
+    public static int getDp(int px) {
+        return (int) (density * px);
     }
 
-    public static int calculateTextViewHeight(TextView textView){
+    public static int calculateTextViewHeight(TextView textView) {
 //        if(textView.getVisibility()==View.GONE) return 0;
         int height = textView.getMeasuredHeight();
-        if(textView.getText()==null || textView.getText().length() == 0) {
+        if (textView.getText() == null || textView.getText().length() == 0) {
             height = 0;
         }
         Log.d("calculateTextViewHeight", "text=*" + textView.getText() + "* return " + height);

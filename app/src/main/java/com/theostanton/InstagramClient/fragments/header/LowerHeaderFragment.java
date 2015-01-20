@@ -23,10 +23,16 @@ public class LowerHeaderFragment extends Fragment implements View.OnClickListene
     public static final String TAG = "LowerHeaderFragment";
 
     private View view;
+    private HeaderFragment header;
+
     private TextView postsNumberView;
     private TextView likesNumberView;
     private TextView followsNumberView;
     private TextView followedbyNumberView;
+    private TextView postsTextView;
+    private TextView likesTextView;
+    private TextView followsTextView;
+    private TextView followedbyTextView;
 
     private int expandedHeight = 0;
 
@@ -47,16 +53,13 @@ public class LowerHeaderFragment extends Fragment implements View.OnClickListene
         followsNumberView = (TextView) view.findViewById(R.id.header_follows_number);
         followedbyNumberView = (TextView) view.findViewById(R.id.header_followedby_number);
 
-        postsNumberView.setOnClickListener(this);
-        likesNumberView.setOnClickListener(this);
-        followsNumberView.setOnClickListener(this);
-        followedbyNumberView.setOnClickListener(this);
 
-        view.findViewById(R.id.header_posts_text).setOnClickListener(this);
-        view.findViewById(R.id.header_likes_text).setOnClickListener(this);
-        view.findViewById(R.id.header_follows_text).setOnClickListener(this);
-        view.findViewById(R.id.header_followedby_text).setOnClickListener(this);
+        postsTextView = (TextView) view.findViewById(R.id.header_posts_text);
+        likesTextView = (TextView) view.findViewById(R.id.header_likes_text);
+        followsTextView = (TextView) view.findViewById(R.id.header_follows_text);
+        followedbyTextView = (TextView) view.findViewById(R.id.header_followedby_text);
 
+        view.setOnClickListener(this);
 
         view.setAlpha(0.0f);
 
@@ -77,6 +80,10 @@ public class LowerHeaderFragment extends Fragment implements View.OnClickListene
         } catch (ClassCastException e) {
             e.printStackTrace();
         }
+    }
+
+    public void setHeaderFragment(HeaderFragment header) {
+        this.header = header;
     }
 
     public void setValues(User user) {
@@ -126,9 +133,10 @@ public class LowerHeaderFragment extends Fragment implements View.OnClickListene
 
     @Override
     public void onClick(View v) {
-//        if(v.getId()!=-1) Log.d(TAG,"onClick " + getResources().getResourceName(v.getId()));
-//        else Log.d(TAG,"onClick -1");
+        if (v.getId() != -1) Log.d(TAG, "onClick " + getResources().getResourceName(v.getId()));
+        else Log.d(TAG, "onClick -1");
 
+        if (header.click()) return;
 
         switch (v.getId()) {
             case R.id.header_follows_number:
@@ -158,6 +166,35 @@ public class LowerHeaderFragment extends Fragment implements View.OnClickListene
             default:
                 Log.d(TAG, "onClick switch defaulted");
         }
+    }
+
+    public void setClickEnabled(boolean touchEnabled) {
+
+        if (touchEnabled) {
+            postsNumberView.setOnClickListener(this);
+            likesNumberView.setOnClickListener(this);
+            followsNumberView.setOnClickListener(this);
+            followedbyNumberView.setOnClickListener(this);
+
+            postsTextView.setOnClickListener(this);
+            likesTextView.setOnClickListener(this);
+            followsTextView.setOnClickListener(this);
+            followedbyTextView.setOnClickListener(this);
+        } else {
+            postsNumberView.setOnClickListener(null);
+            likesNumberView.setOnClickListener(null);
+            followsNumberView.setOnClickListener(null);
+            followedbyNumberView.setOnClickListener(null);
+
+            postsTextView.setOnClickListener(null);
+            likesTextView.setOnClickListener(null);
+            followsTextView.setOnClickListener(null);
+            followedbyTextView.setOnClickListener(null);
+        }
+    }
+
+    public void setOnFooterSelected(int newPosition) {
+        headerBackground.setFooter(newPosition);
     }
 
     public interface OnFooterSelectedListener {

@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.util.LruCache;
+
 import com.theostanton.InstragramClient.R;
 
 /**
@@ -40,16 +41,16 @@ public class BitmapHandler {
     private BitmapCache diskCache;
     private LruCache<String, Bitmap> memoryCache;
 
-    private BitmapHandler(Context context){
+    private BitmapHandler(Context context) {
 
 
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        cacheImagesDisk = prefs.getBoolean(context.getResources().getString(R.string.cache_to_memory),true);
-        cacheImagesMemory = prefs.getBoolean(context.getResources().getString(R.string.cache_to_memory),true);
-        cropBorderless = prefs.getBoolean(context.getResources().getString(R.string.crop_borders_key),true);
+        cacheImagesDisk = prefs.getBoolean(context.getResources().getString(R.string.cache_to_memory), true);
+        cacheImagesMemory = prefs.getBoolean(context.getResources().getString(R.string.cache_to_memory), true);
+        cropBorderless = prefs.getBoolean(context.getResources().getString(R.string.crop_borders_key), true);
 
 
-        if(cacheImagesMemory) {
+        if (cacheImagesMemory) {
             final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
             final int cacheSize = maxMemory / 8;
             memoryCache = new LruCache<String, Bitmap>(cacheSize) {
@@ -91,42 +92,42 @@ public class BitmapHandler {
         return instance;
     }
 
-    public void putInCache(String url, Bitmap bitmap){
-        if(cacheImagesMemory && memoryCache.get(url)==null){
-            memoryCache.put(url,bitmap);
+    public void putInCache(String url, Bitmap bitmap) {
+        if (cacheImagesMemory && memoryCache.get(url) == null) {
+            memoryCache.put(url, bitmap);
         }
-        if(cacheImagesDisk) diskCache.save(bitmap,url);
+        if (cacheImagesDisk) diskCache.save(bitmap, url);
     }
 
-    public Bitmap getFromCache(String url){
+    public Bitmap getFromCache(String url) {
 
         Bitmap bitmap = null;
 
-        if(cacheImagesMemory) {
+        if (cacheImagesMemory) {
             bitmap = memoryCache.get(url);
-            if (bitmap!=null){
+            if (bitmap != null) {
                 return bitmap;
             }
         }
 
 
-        if(cacheImagesDisk) bitmap = diskCache.get(url);
+        if (cacheImagesDisk) bitmap = diskCache.get(url);
         return bitmap;
     }
 
     public void clearAll() {
         diskCache.clearAll();
-        if(cacheImagesMemory) memoryCache.evictAll();
-        Log.d(TAG,"Image cache cleared");
+        if (cacheImagesMemory) memoryCache.evictAll();
+        Log.d(TAG, "Image cache cleared");
     }
 
     public String getDiskCacheSize() {
         int size = diskCache.getSize();
-        if(size<1024){
+        if (size < 1024) {
             return size + "KB";
         }
         size /= 1024;
-        if(size<1024){
+        if (size < 1024) {
             return size + "MB";
         }
         size /= 1024;
@@ -138,8 +139,8 @@ public class BitmapHandler {
         return diskCache.getFileCount();
     }
 
-    public void setCropBorderless(boolean state){
-        Log.d(TAG,"setCropBorders= " + state);
+    public void setCropBorderless(boolean state) {
+        Log.d(TAG, "setCropBorders= " + state);
         cropBorderless = state;
     }
 

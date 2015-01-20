@@ -3,6 +3,7 @@ package com.theostanton.InstagramClient.fragments;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -87,32 +88,14 @@ public class UsersFragment extends BaseFragment implements AdapterView.OnItemCli
         listView = (ListView) view.findViewById(R.id.users_list);
         listView.setOnItemClickListener(this);
 
-        populate(false);
+        populate(true);
 
         return view;
     }
 
 
     private void populate(final boolean fresh) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                final ArrayList<User> users;
-                if (listType == FOLLOWS_LIST) users = Instagram.getFollowsList(userId, fresh);
-                else users = Instagram.getFollowewdByList(userId, fresh);
-
-                if (getActivity() != null) {
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            populateList(users);
-
-                        }
-                    });
-                }
-
-            }
-        }).start();
+        new PopulateTask().execute(fresh);
     }
 
     private void populateList(ArrayList<User> users) {
@@ -120,6 +103,7 @@ public class UsersFragment extends BaseFragment implements AdapterView.OnItemCli
         if (usersAdapter == null) {
             usersAdapter = new UsersAdapter(context, users);
             listView.setAdapter(usersAdapter);
+            usersAdapter.notifyDataSetChanged();
         } else {
             usersAdapter.ammendList(users);
             mSwipeRefreshLayout.setRefreshing(false);
@@ -135,10 +119,23 @@ public class UsersFragment extends BaseFragment implements AdapterView.OnItemCli
         onUserSelectedListener.onUserSelected(user.id);
     }
 
-
     @Override
     public void onRefresh() {
         Log.d(TAG, "onRefresh()");
         populate(true);
+    }
+
+    class PopulateTask extends AsyncTask<Boolean, Void, ArrayList<User>> {
+
+        @Override
+        protected ArrayList<User> doInBackground(Boolean... params) {
+            if (listType == FOLLOWS_LIST) return Instagram.getFollowsList(userId, params[0]);
+            else return Instagram.getFollowewdByList(userId, params[0]);
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<User> users) {
+            populateList(users);
+        }
     }
 }

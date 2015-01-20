@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="grid_spacing">1px</dimen>
-    <dimen name="header_contracted">55dp</dimen>
-    <dimen name="half_header_contracted">27dp</dimen>
+    <dimen name="header_contracted">@dimen/one_inrement</dimen>
+    <dimen name="half_header_contracted">28dp</dimen>
     <dimen name="header_expanded">120dp</dimen>
     <dimen name="footer_number_height">35dp</dimen>
     <dimen name="footer_text_height">30dp</dimen>
-    <dimen name="footer_height">60dp</dimen>
+    <dimen name="footer_height">@dimen/one_inrement</dimen>
 
     <dimen name="header_elevation">10dp</dimen>
     <dimen name="footer_elevation">5dp</dimen>

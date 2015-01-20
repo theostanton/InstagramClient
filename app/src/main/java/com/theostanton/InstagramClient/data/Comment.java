@@ -1,7 +1,9 @@
 package com.theostanton.InstagramClient.data;
 
 import android.util.Log;
+
 import com.theostanton.InstagramClient.instagram.InstaJSON;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -17,7 +19,7 @@ public class Comment {
     public User user;
     public long createdTime;
 
-    public Comment(JSONObject object){
+    public Comment(JSONObject object) {
         try {
             createdTime = object.getLong(InstaJSON.CREATED_TIME);
             id = object.getLong(InstaJSON.ID);
@@ -28,11 +30,11 @@ public class Comment {
         }
     }
 
-    public String getUserName(){
+    public String getUserName() {
         return user.userName;
     }
 
-    public int getUserId(){
+    public int getUserId() {
         Log.d(TAG, "getUserId " + user.id + " " + user.userName);
         return user.id;
     }

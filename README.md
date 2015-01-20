@@ -9,4 +9,4 @@ minSDK = 21 for now
 
 Latest demo on Nexus 5 http://youtu.be/mOjTVZHB6ko
 
-![Alt text](http://i.imgur.com/IU4yV2F.jpg?raw=true "Screenshots")
+![Alt text](http://i.imgur.com/tjBlL7A.png?raw=true "Screenshots")
